@@ -37,65 +37,85 @@ This tutorial also assumes that the pipeline files are contained in a directory
 
 ## Preliminaries
 
-### Install Docker
-MetaPro operates in a containerized environment, controlled by Docker.  The pipeline and its dependent programs exist within the Docker container image.  Please install Docker to continue.
+### Download and launch the MetaPro pipeline
+MetaPro operates in a containerized environment running Ubuntu Linux 18.04.  The pipeline and its dependent programs exist within a Docker container image, and may be accessed using the Docker or Singularity tools.
 
-```
-https://www.docker.com/products/docker-desktop
-```
-If you are running the tutorial on a computing cluster environment, your admin may already have Singularity installed.  For the purposes of this tutorial, Docker is equivalent to Singularity.
-Next, pull the MetaPro docker image
-```
-docker pull parkinsonlab/metapro:develop
-```
-OR
-```
-singularity pull docker://parkinsonlab/metapro:develop
-```
+For the purposes of this tutorial, Docker and Singlarity have both already been installed, and the MetaPro pipeline has been downloaded to your environment.
+
 
 Docker and Singularity maintain different access modes to use their containers.  
 1) Scripted-mode: where the user calls software within the container and run. 
 2) Interactive-mode: where the user can enter into the container use it like an operating systems
 
-For the purposes of the tutorial, we will be using Docker in interactive mode.
-To use Docker in interactive mode:
 
+<br/><br/>In this tutorial, we will be using Singularity to run MetaPro commands in interactive mode.
+
+
+Download and create the MetaPro image _(this has already been done for you)_:
+```
+singularity pull docker://parkinsonlab/metapro:develop
+```
+
+Launch MetaPro using Singularity in interactive mode:
+```
+singularity shell -B <directories to bind-mount> <path to the singularity image.sif>
+```
+An example would be:
+```
+singularity shell -B /home/Ubuntu/workspace/MIC_2021/[username]/Module6/ /home/Ubuntu/workspace/MIC_2021/[username]/Module6/Tools/metapro_develop.sif
+```
+
+
+<br/><br/>The instructions (not required for the current tutorial) to access MetaPro using Docker are included below:
+
+Install Docker:
+```
+https://www.docker.com/products/docker-desktop
+```
+
+Next, pull the MetaPro docker image:
+```
+docker pull parkinsonlab/metapro:develop
+```
+
+Launch MetaPro within the Docker interactive mode:
 ```
 docker run -it -v <a folder in your directory>:<an equivalent folder to mount to in the container instance> <the docker image>
 ```
-
-an example would be:
+An example would be:
 ```
 docker run -it -v C:\Users\Billy\Documents\MetaPro_tutorial:/MetaPro_docker_tutorial parkinsonlab/metapro:develop
 ```
 
-an equivalent singularity command would be:
-```
-singularity shell -B <directories to bind-mount> <path to the singularity image.sif>
-```
 
-The MetaPro Docker container runs Ubuntu Linux 18.04
 
-### Precomputed Files
-MetaPro's tools may take a long time to run if the user does not have the necessary computing resources.  Therefore, we will provide pre-computed files so that the user is not forced to run the software. 
+### Input Files
 
+Our data set consists of 150 bp single-end Illumina reads generated from mouse colon contents. Download the data and precomputed files _(see below)_.
 ```
 wget https://github.com/ParkinsonLab/MetaPro_tutorial/releases/download/1.0/tutorial_files.tar.gz
-tar -xzvf tutorial_files.tar.gz
+tar -xzvf tutorial_files.tar.gz 
 ```
- 
-### Input files
 
-Our data set consists of 150 bp single-end Illumina reads generated from mouse colon contents. To inspect its contents:
-
+To inspect the sequences:
 ```
-tar -xvf tutorial_files.tar.gz 
 less mouse1.fastq
 ```
 
 **Notes**:
-
 -   Type `q` to exit `less`.
+
+
+
+### Precomputed Files
+MetaPro's tools may take a long time to run if the user does not have the necessary computing resources.  Therefore, we will provide pre-computed files so that the user is not forced to run the software during the tutorial. 
+
+Change the permissions of the results folder, in order to view its contents through a browser:
+```
+chmod -R 777 mouse1_run
+```
+
+
 
 ### Databases, and licenses:
 This tutorial relies on a few external databases and libraries to perform the filtering tasks associated with MetaPro.  
