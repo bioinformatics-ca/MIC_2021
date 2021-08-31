@@ -52,4 +52,14 @@ Comming soon
 
 [Metagenomics2_03_Metabolic_and_Ecological_Analyses](https://drive.google.com/file/d/1vwMGdRPVerSd1RBWNG9f9VlIjhPXcJDK/view?usp=sharing)
 
+### Day 3 : To be seen before Fri Sept 3, 11 am EDT
+
+**Module 5**
+
+[MetatranscriptomicsI](https://drive.google.com/file/d/1Ll7F1bZMC3W17-_KqWJYOm-7Ja4r6IOx/view?usp=sharing)
+
+[MetatranscriptomicsII_Intermission](https://drive.google.com/file/d/1iSDfl6xc1Ta6ILHiT5E80Xe6_3hMvpbO/view?usp=sharing)
+
+[MetatranscriptomicsIII](https://drive.google.com/file/d/1TrVmtZflLp-PIix4kV_tGPja2bv0ErTy/view?usp=sharing)
+
 Please note that these instructions may change prior to the workshop.
