@@ -40,13 +40,16 @@ Comming soon
 
 **Module 4**
 
-[Module 4 Taxa]
-[Module 4 Function]
+[Module 4 Taxa](https://drive.google.com/file/d/1PikMJTKbMOgvO3oypNHGw1wz-qE4oqsc/view?usp=sharing)
+
+[Module 4 Function](https://drive.google.com/file/d/19cq2r0gx16JWluqKQIGFHFKv50tLB0it/view?usp=sharing)
 
 **Module 5**
 
-[Metagenomics2_01_Intro_and_Assembly]
-[Metagenomics2_02_Binning]
-[Metagenomics2_03_Metabolic_and_Ecological_Analyses]
+[Metagenomics2_01_Intro_and_Assembly](https://drive.google.com/file/d/1aFv1L-3mQg3npwv-odckosDB6MmMumtH/view?usp=sharing)
+
+[Metagenomics2_02_Binning](https://drive.google.com/file/d/11LpKPb_qIwXGYQp4q9icz7LIN-GPpgBH/view?usp=sharing)
+
+[Metagenomics2_03_Metabolic_and_Ecological_Analyses](https://drive.google.com/file/d/1vwMGdRPVerSd1RBWNG9f9VlIjhPXcJDK/view?usp=sharing)
 
 Please note that these instructions may change prior to the workshop.
