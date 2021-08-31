@@ -465,7 +465,7 @@ MetaPro subdivides the input data, coordinates the concurrent processes, and col
 
 
 MetaPro will perform the following:
-- subdivide the input data in user-defined chunksizes.
+- subdivide the input data into user-defined chunk sizes (e.g. 1000 reads).
 - Each chunk is then run independently:
 - - run each chunk through Barrnap
 - - using the results of Barrnap, filter the data chunk into mRNA, and leftover data for further scanning.
@@ -493,12 +493,12 @@ output=/media/cbwdata/workspace/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial rRNA
 ```
 
-instead, we have provided you with the results.
+Instead, we have provided you with the results.
 ``` 
 mouse1_run/rRNA_filter/final_results
 ```
 
-Here, we only remove a few thousand reads than map to rRNA, but in some datasets rRNA may represent up to 80% of the sequenced reads.
+Here, we only remove a few thousand reads that map to rRNA, but in some datasets rRNA may represent up to 80% of the sequenced reads.
 
 <!-- ***Question 6: How many rRNA sequences were identified? How many reads are now remaining?*** -->
 
@@ -522,11 +522,12 @@ output=/media/cbwdata/workspace/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial repop
 ```
 
-Now that we have filtered vectors, adapters, linkers, primers, host sequences, and rRNA, check read quality with FastQC:
+Now that we have filtered vectors, adapters, linkers, primers, host sequences, and rRNA, check read quality of putative mRNA reads with FastQC:
 
 ```
-fastqc mouse1_mRNA.fastq
-firefox mouse1_mRNA_fastqc.html
+cd /mouse1_run/rRNA_filter/final_results/mRNA/
+fastqc singletons.fastq
+firefox singletons_fastqc.html
 ```
 
 <!-- ***Question 8: How many total contaminant, host, and rRNA reads were filtered out?*** -->
