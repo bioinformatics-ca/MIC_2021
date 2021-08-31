@@ -495,7 +495,7 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial rRNA
 
 instead, we have provided you with the results.
 ``` 
-tutorial_files/mouse1_run/rRNA_filter/final_results.
+mouse1_run/rRNA_filter/final_results
 ```
 
 Here, we only remove a few thousand reads than map to rRNA, but in some datasets rRNA may represent up to 80% of the sequenced reads.
@@ -736,10 +736,10 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --
 
 The command would look like:
 ```
-read1=/home/billy/mpro_tutorial/mouse1_run/assemble_contigs/final_results/singletons.fastq
-contig=/home/billy/mpro_tutorial/mouse1_run/assemble_contigs/final_results/contigs.fasta
-config=/home/billy/mpro_tutorial/config_mouse.ini
-output=/home/billy/mpro_tutorial/mouse1_run
+read1=/media/cbwdata/workspace/mouse1_run/assemble_contigs/final_results/singletons.fastq
+contig=/media/cbwdata/workspace/mouse1_run/assemble_contigs/final_results/contigs.fasta
+config=/media/cbwdata/workspace/config_mouse_tutorial.ini
+output=/media/cbwdata/workspace/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial EC
 ```
 
