@@ -331,7 +331,7 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial vector
 The commands would look like:
 ```
 read1=/media/cbwdata/workspace/mouse1_run/quality_filter/final_results/singletons.fastq
-config=/media/cbwdata/workspace/config_mouse.ini
+config=/media/cbwdata/workspace/config_mouse_tutorial.ini
 output=/media/cbwdata/workspace/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial vector
 ```
