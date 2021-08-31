@@ -61,9 +61,9 @@ Launch MetaPro using Singularity in interactive mode:
 ```
 singularity shell -B <directories to bind-mount> <path to the singularity image.sif>
 ```
-An example would be:
+For this tutorial, MetaPro may be launched as follows (without bind-mounting a directory):
 ```
-singularity shell -B /home/Ubuntu/workspace/MIC_2021/[username]/Module6/ /home/Ubuntu/workspace/MIC_2021/[username]/Module6/Tools/metapro_develop.sif
+singularity shell /media/cbwdata/MIC_data/Module6/Tools/metapro_develop.sif
 ```
 
 
@@ -225,9 +225,9 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial quality
 ```
 The commands would look like:
 ```
-read1=/home/billy/mpro_tutorial/mouse1.fastq
-config=/home/billy/mpro_tutorial/config_mouse.ini
-output=/home/billy/mpro_tutorial/mouse1_run
+read1=/media/cbwdata/workspace/mouse1.fastq
+config=/media/cbwdata/workspace/config_mouse_tutorial.ini
+output=/media/cbwdata/workspace/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial quality
 ```
 
@@ -330,9 +330,9 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial vector
 ```
 The commands would look like:
 ```
-read1=/home/billy/mpro_tutorial/mouse1_run/quality_filter/final_results/singletons.fastq
-config=/home/billy/mpro_tutorial/config_mouse.ini
-output=/home/billy/mpro_tutorial/mouse1_run
+read1=/media/cbwdata/workspace/mouse1_run/quality_filter/final_results/singletons.fastq
+config=/media/cbwdata/workspace/config_mouse.ini
+output=/media/cbwdata/workspace/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial vector
 ```
 
@@ -425,9 +425,9 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial host
 
 The commands would look like:
 ```
-read1=/home/billy/mpro_tutorial/mouse1_run/vector_read_filter/final_results/singletons.fastq
-config=/home/billy/mpro_tutorial/config_mouse.ini
-output=/home/billy/mpro_tutorial/mouse1_run
+read1=/media/cbwdata/workspace/mouse1_run/vector_read_filter/final_results/singletons.fastq
+config=/media/cbwdata/workspace/config_mouse_tutorial.ini
+output=/media/cbwdata/workspace/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial host
 ```
 
@@ -487,9 +487,9 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial rRNA
 
 The command would look like:
 ```
-read1=/home/billy/mpro_tutorial/mouse1_run/host_read_filter/final_results/singletons.fastq
-config=/home/billy/mpro_tutorial/config_mouse.ini
-output=/home/billy/mpro_tutorial/mouse1_run
+read1=/media/cbwdata/workspace/mouse1_run/host_read_filter/final_results/singletons.fastq
+config=/media/cbwdata/workspace/config_mouse_tutorial.ini
+output=/media/cbwdata/workspace/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial rRNA
 ```
 
@@ -516,9 +516,9 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial repop
 
 The command would look like:
 ```
-read1=/home/billy/mpro_tutorial/mouse1_run/rRNA_filter/final_results/mRNA/singletons.fastq
-config=/home/billy/mpro_tutorial/config_mouse.ini
-output=/home/billy/mpro_tutorial/mouse1_run
+read1=/media/cbwdata/workspace/mouse1_run/rRNA_filter/final_results/mRNA/singletons.fastq
+config=/media/cbwdata/workspace/config_mouse_tutorial.ini
+output=/media/cbwdata/workspace/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial repop
 ```
 
@@ -547,15 +547,15 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial contigs
 ```
 The command would look like:
 ```
-read1=/home/billy/mpro_tutorial/mouse1_run/duplicate_repopulation/final_results/singletons.fastq
-config=/home/billy/mpro_tutorial/config_mouse.ini
-output=/home/billy/mpro_tutorial/mouse1_run
+read1=/media/cbwdata/workspace/mouse1_run/duplicate_repopulation/final_results/singletons.fastq
+config=/media/cbwdata/workspace/config_mouse_tutorial.ini
+output=/media/cbwdata/workspace/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial contigs
 ```
 
 The expected output will be in:
 ```
-tutorial_files/mouse1_run/assemble_contigs/final_results
+mouse1_run/assemble_contigs/final_results
 ```
 
 
@@ -618,16 +618,16 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --
 
 The command would look like:
 ```
-read1=/home/billy/mpro_tutorial/mouse1_run/assemble_contigs/final_results/singletons.fastq
-contig=/home/billy/mpro_tutorial/mouse1_run/assemble_contigs/final_results/contigs.fasta
-config=/home/billy/mpro_tutorial/config_mouse.ini
-output=/home/billy/mpro_tutorial/mouse1_run
+read1=/media/cbwdata/workspace/mouse1_run/assemble_contigs/final_results/singletons.fastq
+contig=/media/cbwdata/workspace/mouse1_run/assemble_contigs/final_results/contigs.fasta
+config=/media/cbwdata/workspace/config_mouse_tutorial.ini
+output=/media/cbwdata/workspace/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial GA
 ```
 
 The outputs are located in:
 ```
-tutorial_files/GA_FINAL_MERGE/final_results
+mouse1_run/GA_FINAL_MERGE/final_results
 ```
 
 
