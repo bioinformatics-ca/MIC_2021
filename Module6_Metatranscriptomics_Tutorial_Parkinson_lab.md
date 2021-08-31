@@ -111,7 +111,7 @@ less mouse1.fastq
 ### Precomputed Files
 MetaPro's tools may take a long time to run if the user does not have the necessary computing resources.  Therefore, we provide pre-computed output files (within the mouse1_run folder of tutorial_files.tar.gz) so that the user is not forced to run computationally intensive steps during the tutorial. 
 
-Change the permissions of the results folder in order to view its contents through a browser (via your IP address, http://<public ipv4> ):
+Change the permissions of the results folder in order to view its contents through a browser (via your IP address, http://[public ipv4] ):
 ```
 chmod -R 777 mouse1_run
 ```
