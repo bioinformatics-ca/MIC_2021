@@ -8,9 +8,9 @@ image: /site_images/CBW_Metagenome_icon.jpg
 home: https://bioinformaticsdotca.github.io/MIC_2021
 ---
 
-## Pre-workshop Videos
+## Videos
 
-It is in your best interest to complete these before the workshop. 
+It is in your best interest to complete these before the workshop.
 
 ### Day 1 : To be seen before Wed Sept 1, 11 am EDT
 
