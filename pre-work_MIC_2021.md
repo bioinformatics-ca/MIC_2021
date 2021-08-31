@@ -54,7 +54,7 @@ Comming soon
 
 ### Day 3 : To be seen before Fri Sept 3, 11 am EDT
 
-**Module 5**
+**Module 6**
 
 [MetatranscriptomicsI](https://drive.google.com/file/d/1Ll7F1bZMC3W17-_KqWJYOm-7Ja4r6IOx/view?usp=sharing)
 

@@ -1,3 +1,14 @@
+---
+layout: tutorial_page
+permalink: /MIC_2021_Module2_lab
+title: MIC 2021 Module 2 Lab
+header1: Workshop Pages for Students
+header2: Microbiome Analysis 2021
+image: /site_images/CBW_Metagenome_icon.jpg
+home: https://bioinformaticsdotca.github.io/MIC_2021
+description: MIC 2021 Module 2 Lab
+---
+
 This lab is based on the [16S rRNA gene analysis](https://link.springer.com/protocol/10.1007%2F978-1-4939-8728-3_8) method originally developed by Michael Hall and Robert Beiko, and was updated and modified by Diana Haider for the 2021 Microbiome workshop.
 
 ## Introduction

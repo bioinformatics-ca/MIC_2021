@@ -1,3 +1,15 @@
+---
+layout: tutorial_page
+permalink: /MIC_2021_Module6_lab
+title: MIC 2021 Module 6 Lab
+header1: Workshop Pages for Students
+header2: Microbiome Analysis 2021
+image: /site_images/CBW_Metagenome_icon.jpg
+home: https://bioinformaticsdotca.github.io/MIC_2021
+description: MIC 2021 Module 6 Lab
+---
+
+
 # MetaPro Metatranscriptomics Practical Lab
 
 **This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/). This means that you are able to copy, share and modify the work, as long as the result is distributed under the same license.**
