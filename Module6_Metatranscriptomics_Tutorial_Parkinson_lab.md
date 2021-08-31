@@ -49,7 +49,7 @@ Docker and Singularity maintain different access modes to use their containers.
 2) Interactive-mode: where the user can enter into the container use it like an operating systems
 
 
-<br/><br/>In this tutorial, we will be using Singularity to run MetaPro commands in interactive mode.
+<br/><br/>In this tutorial, we will be using Singularity in interactive mode to run MetaPro commands.
 
 
 Download and create the MetaPro image: _(this has already been done for you)_
