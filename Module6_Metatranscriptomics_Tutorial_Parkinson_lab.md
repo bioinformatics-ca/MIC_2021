@@ -253,7 +253,6 @@ Checking read quality with FastQC:
 ```
 cd <output_directory>/quality_filter/data/4_quality_filter/
 /pipeline_tools/FastQC/fastqc singletons_hq.fastq
-unzip singletons_hq_fastqc.zip
 ```
 
 Compare with the previous report to see changes in the following sections:
@@ -285,8 +284,8 @@ vsearch --fastq_filter mouse1_trim.fastq --fastq_maxee 2.0 --fastqout mouse1_qua
 Checking read quality with FastQC:
 
 ```
-fastqc mouse1_qual.fastq
-firefox mouse1_qual_fastqc.html
+cd quality_filter/final_results/
+/pipeline_tools/FastQC/fastqc singletons_hq.fastq
 ```
 
 Compare with the previous reports to see changes in the following sections:
