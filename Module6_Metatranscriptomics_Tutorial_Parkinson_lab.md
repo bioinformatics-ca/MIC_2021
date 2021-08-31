@@ -678,10 +678,10 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --
 ```
 The command would look like:
 ```
-read1=/home/billy/mpro_tutorial/mouse1_run/assemble_contigs/final_results/singletons.fastq
-contig=/home/billy/mpro_tutorial/mouse1_run/assemble_contigs/final_results/contigs.fasta
-config=/home/billy/mpro_tutorial/config_mouse.ini
-output=/home/billy/mpro_tutorial/mouse1_run
+read1=/media/cbwdata/workspace/mouse1_run/assemble_contigs/final_results/singletons.fastq
+contig=/media/cbwdata/workspace/mouse1_run/assemble_contigs/final_results/contigs.fasta
+config=/media/cbwdata/workspace/config_mouse_tutorial.ini
+output=/media/cbwdata/workspace/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial TA
 ```
 
@@ -689,16 +689,16 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --
 
 Instead, we have provided the results here:
 ```
-tutorial_files/mouse1_run/taxonomic_annotation/final_results
+mouse1_run/taxonomic_annotation/final_results
 ```
 
 We can use [Krona] (https://github.com/marbl/Krona/wiki) to generate a hierarchical multi-layered pie chart summary of the taxonomic composition of our dataset.
 
-To use Krona, the export of MetaPro's taxonomic annotations need to be appended
+To use Krona, the export of MetaPro's taxonomic annotations need to be slightly modified
 
 ```
-python3 /pipeline/Scripts/alter_taxa_for_krona.py tutorial_files/taxonomic_classifications.tsv tutorial_files/mouse1_classification.tsv
-/pipeline_tools/kaiju/kaiju2krona -t nodes.dmp -n names.dmp -i mouse1_classification.tsv -o mouse1_classification_Krona.txt
+python3 /pipeline/Scripts/alter_taxa_for_krona.py mouse1_run/taxonomic_annotation/final_results/taxonomic_classifications.tsv mouse1_classification.tsv
+/pipeline_tools/kaiju/kaiju2krona -t databases/nodes.dmp -n databases/names.dmp -i mouse1_classification.tsv -o mouse1_classification_Krona.txt
 /pipeline_tools/KronaTools/scripts/ImportText.pl -o mouse1_classification.html mouse1_classification_Krona.txt
 ```
 
@@ -745,7 +745,7 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --
 
 The results are provided in:
 ```
-tutorial_files/enzyme_annotation/final_results
+mouse1_run/enzyme_annotation/final_results
 ```
 
 **Notes**:
