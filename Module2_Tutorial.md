@@ -9,9 +9,8 @@ Commonly used marker genes for microbiome analysis include the 16S ribosomal RNA
 
 
 After this lab you will be able to:
-* 
-*
-* 
+* Conduct an end-to-end microbiome analysis using QIIME2 
+* Know of many tools available to conduct statistical and diversity analyses
 
 ## Getting started
 QIIME2 is recommended to be run in an independent conda environment to ensure consistency between different versions of the packages it uses. [Here](https://docs.qiime2.org/2021.4/install/) are the instructions for installation. For this instance, a qiime2 environment was already installed, it just needs to be activated.
@@ -33,6 +32,9 @@ The sequencing data will be in multiple FASTQ files. Each FASTQ file contains th
 The structure of your folders should look like this 
 ```
 <ROOT>
+|-- README.md                # Read me file
+|-- download_Willis_et_al_data.sh # Bash script to retrieve reads from EBI
+|-- qiime_commands.sh        # Bash script to run all qiime commands at once
 |-- sequence data/           # Folder with collected data
     `-- raw reads/           # Folder with the raw reads in FASTQ format
         `-- manifest.txt     # Manifest file
