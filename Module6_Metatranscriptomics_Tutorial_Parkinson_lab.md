@@ -4,9 +4,10 @@
 
 **This tutorial was produced by Billy Taj (billy.taj@sickkids.ca), Mobolaji Adeolu (adeolum@mcmaster.ca), John Parkinson (john.parkinson@utoronto.ca) & Xuejian Xiong (xuejian@sickkids.ca)**
 
+
 ## Overview
 
-This tutorial will take you through the MetaPro pipeline for processing metatranscriptomic data. The pipeline, developed by the Parkinson lab, consists of various steps which are as follows:
+This tutorial will take you through the MetaPro pipeline for processing metatranscriptomic data (https://doi.org/10.1101/2021.02.23.432558). The pipeline, developed by the Parkinson lab, consists of the following steps:
 
 1.  Remove low-quality reads that MetaPro has low confidence in processing.
 2.  Remove adapter sequences, which are added during library preparation and sequencing steps, and trim low quality bases and sequencing reads.
