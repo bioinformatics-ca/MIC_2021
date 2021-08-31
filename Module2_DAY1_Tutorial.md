@@ -73,6 +73,8 @@ Since we won't run the import step ourselves to save time, we can just download 
 
 ```
 cd sequence_data/
+```
+```
 wget http://quoc.ca/static/CBW_Willis_reads.qza
 ```
 
