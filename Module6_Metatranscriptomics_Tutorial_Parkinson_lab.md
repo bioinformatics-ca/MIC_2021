@@ -51,7 +51,7 @@ Docker and Singularity maintain different access modes to use their containers.
 <br/><br/>In this tutorial, we will be using Singularity to run MetaPro commands in interactive mode.
 
 
-Download and create the MetaPro image _(this has already been done for you)_:
+Download and create the MetaPro image: _(this has already been done for you)_
 ```
 singularity pull docker://parkinsonlab/metapro:develop
 ```
@@ -66,7 +66,7 @@ singularity shell -B /home/Ubuntu/workspace/MIC_2021/[username]/Module6/ /home/U
 ```
 
 
-<br/><br/>The instructions (not required for the current tutorial) to access MetaPro using Docker are included below:
+<br/><br/>The instructions _(not required for the current tutorial)_ to access MetaPro using Docker are included below:
 
 Install Docker:
 ```
