@@ -18,7 +18,7 @@ Microbiologists often studies the ecology of oral microbes in the Human Microbio
 
 *Shaiber. A et al.*  sequenced amplicons (**16S marker gene**), **shotgun metagenomics data and long read genomes.** We will be using 8 samples from 16S rRNA dataset and shotgun metagenomes in this assignment. Table below gives an insight into selected samples.
 
-[Samples and files for Assignment ](https://www.notion.so/327e5e3fb1d149419655d1ed08936f4e)
+[Samples and files for Assignment ](assets/SamplesForAssignment.csv)
 
 For shotgun metagenomics data, we have provided only 1 replicate from each sample in your instance due to limited computing and storage resources. However, if you would like to analyze complete dataset in your own computing resource, you can download all samples using the accession IDs provided in blue.
 
