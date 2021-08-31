@@ -525,9 +525,8 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial repop
 Now that we have filtered vectors, adapters, linkers, primers, host sequences, and rRNA, check read quality of putative mRNA reads with FastQC:
 
 ```
-cd /mouse1_run/rRNA_filter/final_results/mRNA/
-fastqc singletons.fastq
-firefox singletons_fastqc.html
+cd mouse1_run/duplicate_repopulation/final_results/
+/pipeline_tools/FastQC/fastqc singletons.fastq
 ```
 
 <!-- ***Question 8: How many total contaminant, host, and rRNA reads were filtered out?*** -->
