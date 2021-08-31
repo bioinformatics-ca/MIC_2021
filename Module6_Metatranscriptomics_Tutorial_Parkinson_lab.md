@@ -231,19 +231,17 @@ output=/media/cbwdata/workspace/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial quality
 ```
 
-Paths to the config file and output directory need not be defined again in subsequent steps. To verify the paths are correct:
-```
-echo $config
-echo $output
-```
-
 
 **Notes**:
 All MetaPro steps share the same file directory scheme:
 - data: where the interim files are placed for each run.  This includes intermediate steps.
 - final results: where the end-phase deliverables are placed, assuming the pipeline will continue running.
 - All of MetaPro's commands are generated in separate shellscripts in each folder.
-
+- Paths to the config file and output directory need not be defined again in subsequent steps. To verify the paths are correct:
+```
+echo $config
+echo $output
+```
 
 In this Quality-filtering stage, MetaPro will do several actions:
 -filter reads below a quality score of 75
