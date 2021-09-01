@@ -83,7 +83,7 @@ qiime tools import \
 Since we won't run the import step ourselves to save time, we can just download the CBW_Willis_reads.qza file using wget in the sequence_data folder:
 
 ```
-cd sequence_data/
+cd qiime_artifacts/
 ```
 ```
 wget http://quoc.ca/static/CBW_Willis_reads.qza
