@@ -32,8 +32,7 @@ source activate qiime2-2021.4
 
 You can visualize all available plugins by typing ```qiime```. If it prints out all commands, you're good to go.
 
-<img src="https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/blob/main/qiime_solutions/images/qiime_terminal.png" width="300">
-
+<img src="https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/blob/main/qiime_solutions/images/qiime_terminal.png?raw=true" alt="image 1" width="750" />
 To start your analysis, two files are required: 
 * Sequencing data
 * Metadata
@@ -162,7 +161,7 @@ qiime dada2 denoise-paired \
 * representative_sequences.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/representative_sequences.qza)
 * denoise_stats.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/denoise_stats.qza)
 
-<img src="https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/blob/main/qiime_solutions/images/DADA2_output.png" width="600">
+<img src="https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/blob/main/qiime_solutions/images/DADA2_output.png?raw=true" alt="image 1" width="750" />
 
 
 Denoising can take ~30mins, so we will use the outputs above that we cooked in advance! The outputs are the foundation for the rest of this analysis. 
@@ -262,7 +261,7 @@ qiime phylogeny midpoint-root \
 
 Here's the rooted tree visualized on iTol:
 
-<img src="https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/blob/main/qiime_solutions/images/rooted-tree.png" width="300">
+<img src="https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/blob/main/qiime_solutions/images/rooted-tree.png?raw=true" alt="image 1" width="750" />
 
 ### Diversity analyses (Barplots and heatmaps)
 
