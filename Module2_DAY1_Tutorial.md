@@ -162,6 +162,9 @@ qiime dada2 denoise-paired \
 * representative_sequences.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/representative_sequences.qza)
 * denoise_stats.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/denoise_stats.qza)
 
+<img src="https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/blob/main/qiime_solutions/images/DADA2_output.png" width="600">
+
+
 Denoising can take ~30mins, so we will use the outputs above that we cooked in advance! The outputs are the foundation for the rest of this analysis. 
 
 ## From the [feature table](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/unfiltered_table.qza)
