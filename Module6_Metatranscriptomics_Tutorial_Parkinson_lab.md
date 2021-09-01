@@ -62,12 +62,16 @@ In this tutorial, we will be using Singularity in interactive mode to run MetaPr
 singularity pull docker://parkinsonlab/metapro:develop   **[DO NOT RUN]**  
 
 
-<br/><br/>Navigate to your workspace folder (we will be using the absolute path):
+<br/><br/>Navigate to your workspace and create new tutorial folder (we will be using the absolute path):
 ```
-cd /media/cbwdata/workspace
+cd /media/cbwdata/workspace  
+
+mkdir metapro_tutorial/
+
+cd metapro_tutorial
 ```
 
-Launch MetaPro using Singularity in interactive mode (using the command: singularity shell &lt;path to pipline file&gt;):  
+Launch MetaPro using Singularity in interactive mode (using the command: singularity shell &lt;path to pipline metapro.sif&gt;):  
 ```
 singularity shell /media/cbwdata/MIC_data/Module6/Tools/metapro_develop.sif
 ```
@@ -86,19 +90,32 @@ Launch MetaPro within the Docker interactive mode:
 
 &ensp;&ensp;&ensp;An example would be:  
 &ensp;&ensp;&ensp;docker run -it -v /home/ubuntu/MetaPro_tutorial:/MetaPro_docker_tutorial parkinsonlab/metapro:develop  
+  
+  
+  
+  ### Download data
 
-
-
-<br/><br/>
-### Input Files
-
-Our data set consists of 150 bp single-end Illumina reads generated from mouse colon contents. Download the data and precomputed files _(see below)_.
+Our data set consists of 150 bp single-end Illumina reads generated from mouse colon contents. Download the data and precomputed files:  
 ```
 wget https://github.com/ParkinsonLab/MetaPro_tutorial/releases/download/1.0/tutorial_files.tar.gz
-tar -xzvf tutorial_files.tar.gz 
 ```
 
-To inspect the sequences:
+Unzip the data folder, and view contents:  
+```
+tar -xzvf tutorial_files.tar.gz 
+ls
+```
+
+The downloaded contents include:
+- the input sequence file `mouse1.fastq`
+- a folder containing databases required for the tutorial `databases\`
+- the output directory containing some precomputed files `mouse1_run\`
+- an example Cytoscape file which may be generated with MetaPro to view microbial metabolic pathway activity `Example.cys`  
+
+MetaPro's tools may take a long time to run if the user does not have the necessary computing resources.  Therefore, we provide pre-computed output files (within the `mouse1_run/` folder) so that the user is not forced to run computationally intensive steps during the tutorial. 
+
+
+Inspect the sequences:
 ```
 less mouse1.fastq
 ```
@@ -106,12 +123,7 @@ less mouse1.fastq
 **Notes**:
 -   Type `q` to exit `less`.
 
-
-
-### Precomputed Files
-MetaPro's tools may take a long time to run if the user does not have the necessary computing resources.  Therefore, we provide pre-computed output files (within the mouse1_run folder of tutorial_files.tar.gz) so that the user is not forced to run computationally intensive steps during the tutorial. 
-
-Change the permissions of the results folder in order to view its contents through a browser (via your IP address, http://[public ipv4] ):
+Change the permissions of the `mouse1_run/` folder in order to view its contents through a browser ( via your IP address, http://[public ipv4] ):
 ```
 chmod -R 777 mouse1_run
 ```
