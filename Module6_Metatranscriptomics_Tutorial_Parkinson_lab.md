@@ -228,10 +228,10 @@ DNA_DB_Split: %(database_path)s/ChocoPhlAn/ChocoPhlAn_split/ #(The split databas
 /pipeline_tools/FastQC/fastqc mouse1.fastq
 ```
 
-The FastQC report is generated as an HTML file `mouse1_fastqc.html`. A zip file is also generated which includes data files used to generate the HTML report.  
+The FastQC report is generated as an HTML file `mouse1_fastqc.html`. A zip file is also generated which includes data files used to generate the report.  
 
 
-Access your workspace in a web browser (http://[ insert your IPv4 ]) to view the FastQC report:  
+Access your workspace in a web browser to view the FastQC report:  
 
 ```
 http://[ insert your IPv4 ]
@@ -253,19 +253,77 @@ In the first step, MetaPro removes adaptor sequences, trims low-quality reads, a
 
 The format of the command is:  
 
-read1='<path to input sequence>'
-config='<path to config file>'
-output='<path to output folder>'
-python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial quality
-
+read1='&lt;path to input sequence&gt;'  
+config='&lt;path to config file&gt;'  
+output='&lt;path to output folder&gt;'  
+python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial quality  
   
-The command should look as follows:
+
+Run the command as follows:  
+
 ```
 read1=/media/cbwdata/workspace/metapro_tutorial/mouse1.fastq
 config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
 output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial quality
 ```
+
+
+In this Quality-filtering stage, MetaPro will perform several actions:
+-filter reads below a quality score of 75
+-filter reads below a minimum length of 30 bp
+-remove adapters
+-remove duplicate reads within the dataset
+
+
+<!-- ***Question 1: How many low quality sequences have been removed?*** -->
+
+Use FastQC to check the quality of the reads filtered for low quality bases and short length:  
+
+```
+cd mouse1_run/quality_filter/data/4_quality_filter/
+/pipeline_tools/FastQC/fastqc singletons_hq.fastq
+cd ../../../../
+```
+
+Navigate to the ~/4_quality_filter/ directory in your browser to view the HTML report.  
+
+Compare with the previous report to see changes in the following sections:
+
+-   Basic Statistics
+-   Per base sequence quality
+
+
+<!-- ***Question 2: How has the per read sequence quality curve changed in the final filtered output?*** -->
+
+Use FastQC to check the quality of the final filtered output:  
+
+```
+cd mouse1_run/quality_filter/final_results/
+/pipeline_tools/FastQC/fastqc singletons_hq.fastq
+cd ../../..
+```
+
+Compare with the previous reports to see changes in the following sections:
+
+-   Basic Statistics
+-   Per base sequence quality
+-   Per sequence quality
+
+
+
+**Notes on read quality filtering**
+
+AdapterRemoval, which was used to remove the adapters and trim low quality bases in the reads, uses a sliding window method to remove contigous regions of low quality bases in reads. However, it is worthwhile to impose an overall read quality threshold to ensure that all reads being used in our analyses are of sufficiently error-free. For this we use the tool VSEARCH which can be found at this [website](https://github.com/torognes/vsearch) (when processing paired-end data, this step should come **after** the read merging step):
+
+_Example command only_ **[DO NOT RUN]**. MetaPro already automatically perfoms this task.  
+vsearch --fastq_filter mouse1_trim.fastq --fastq_maxee 2.0 --fastqout mouse1_qual.fastq  
+
+The command line parameters are:
+    -   `--fastq_filter ` Instructs VSEARCH to use the quality filtering algorithm to remove low quality reads
+    -   `--fastq_maxee 2.0` The expected error threshold. Set at 1. Any reads with quality scores that suggest that the average expected number of errors in the read are greater than 1 will be filtered.
+    -   `--fastqout` Indicates the output file contain the quality filtered reads
+
 
 
 **Notes**:
@@ -279,95 +337,43 @@ echo $config
 echo $output
 ```
 
-In this Quality-filtering stage, MetaPro will do several actions:
--filter reads below a quality score of 75
--filter reads below a minimum length of 30 bp
--remove adapters
--remove duplicate reads within the dataset
-
-
-<!-- ***Question 1: How many low quality sequences have been removed?*** -->
-
-Checking read quality with FastQC:
-
-```
-cd <output_directory>/quality_filter/data/4_quality_filter/
-/pipeline_tools/FastQC/fastqc singletons_hq.fastq
-```
-
-Compare with the previous report to see changes in the following sections:
-
--   Basic Statistics
--   Per base sequence quality
-
-
-
-
-**Read quality filtering**
-
-AdapterRemoval, which was used to remove the adapters and trim low quality bases in the reads, uses a sliding window method to remove contigous regions of low quality bases in reads. However, it is worthwhile to impose an overall read quality threshold to ensure that all reads being used in our analyses are of sufficiently error-free. For this we use the tool VSEARCH which can be found at this [website](https://github.com/torognes/vsearch) (when processing paired-end data, this step should come **after** the read merging step):
-
-```
-Example command only, MetaPro already automatically perfoms this task
-vsearch --fastq_filter mouse1_trim.fastq --fastq_maxee 2.0 --fastqout mouse1_qual.fastq
-```
-
-
-
-**Notes**:
-
--   The command line parameters are:
-    -   `--fastq_filter ` Instructs VSEARCH to use the quality filtering algorithm to remove low quality reads
-    -   `--fastq_maxee 2.0` The expected error threshold. Set at 1. Any reads with quality scores that suggest that the average expected number of errors in the read are greater than 1 will be filtered.
-    -   `--fastqout` Indicates the output file contain the quality filtered reads
-
-Checking read quality with FastQC:
-
-```
-cd quality_filter/final_results/
-/pipeline_tools/FastQC/fastqc singletons_hq.fastq
-```
-
-Compare with the previous reports to see changes in the following sections:
-
--   Basic Statistics
--   Per base sequence quality
--   Per sequence quality
-
-<!-- ***Question 2: How has the per read sequence quality curve changed?*** -->
 
 ### Step 2. Remove duplicate reads
 
 To significantly reduce the amount of computating time required for identification and filtering of rRNA reads, we perform a dereplication step to remove duplicated reads using the software tool CD-HIT which can be obtained from this [website](https://github.com/weizhongli/cdhit).
 
-```
-Example command only.  MetaPro already calls this command as part of the Quality-filtering step
+_Example command only_ **[DO NOT RUN]**. MetaPro already calls this command as part of the Quality-filtering step
 /usr/local/prg/cd-hit-v4.6.7-2017-0501/cd-hit-auxtools/cd-hit-dup -i mouse1_qual.fastq -o mouse1_unique.fastq
-```
+
 
 **Notes**:
 
--   The command line parameters are:
+The command line parameters are:
     -   `-i`: The input fasta or fastq file.
     -   `-o`: The output file containing dereplicated sequences, where a unique representative sequence is used to represent each set of sequences with multiple replicates.
--   A second output file `mouse1_unique.fastq.clstr` is created which shows exactly which replicated sequences are represented by each unique sequence in the dereplicated file and a third, empty, output file, `mouse1_unique.fastq2.clstr` is also created which is only used for paired-end reads.
+A second output file `mouse1_unique.fastq.clstr` is created which shows exactly which replicated sequences are represented by each unique sequence in the dereplicated file and a third, empty, output file, `mouse1_unique.fastq2.clstr` is also created which is only used for paired-end reads.
+
 
 <!-- ***Question 3: Can you find how many unique reads there are?*** -->
 
-While the number of replicated reads in this small dataset is relatively low, with larger datasets, this step can reduce file size by as much as 50-80%
+While the number of replicated reads in this small dataset is relatively low, with larger datasets, this step can reduce file size by as much as 50-80%  
+
+
 
 ### Step 3. Remove vector contamination
 
 To identify and filter reads from sources of vector, adapter, linker, and primer contamination we use the Burrows Wheeler aligner (BWA) and the BLAST-like alignment tool (BLAT) to search against a database of cow sequences. As a reference database for identifying contaminating vector and adapter sequences we rely on the UniVec\_Core dataset which is a fasta file of known vectors and common sequencing adapters, linkers, and PCR Primers derived from the NCBI Univec Database. 
 
-Now we call MetaPro to perform the vector filtering
-```
-read1='<path to your quality filter final results mouse.fastq>'
-config='<path to config file>'
-output='<path to output folder>'
-python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial vector
-```
-The commands would look like:
+The format for the MetaPro command to perform the vector filtering is:  
+
+read1='&lt;path to your quality filter final results mouse.fastq&gt;'  
+config='&lt;path to config file&gt;'  
+output='&lt;path to output folder&gt;'  
+python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial vector  
+  
+
+The command should look as follows:  
+  
 ```
 read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/quality_filter/final_results/singletons.fastq
 config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
@@ -375,9 +381,9 @@ output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial vector
 ```
 
-MetaPro will automatically run the following:
 
-```
+MetaPro will automatically run the following:  
+
 bwa index -a bwtsw UniVec_Core
 samtools faidx UniVec_Core
 makeblastdb -in UniVec_Core -dbtype nucl
@@ -389,7 +395,7 @@ samtools fastq -n -f 4 -0 mouse1_univec_bwa.fastq mouse1_univec_bwa.bam
 vsearch --fastq_filter mouse1_univec_bwa.fastq --fastaout mouse1_univec_bwa.fasta
 blat -noHead -minIdentity=90 -minScore=65  UniVec_Core mouse1_univec_bwa.fasta -fine -q=rna -t=dna -out=blast8 mouse1_univec.blatout
 python3 /pipeline/Scripts/read_BLAT_Filter_v3.py single high mouse1_univec_bwa.fastq mouse1_univec.blatout mouse1_univec_blat.fastq mouse1_univec_blat_contaminats.fastq
-```
+
 
 **Notes**:
 
@@ -403,11 +409,9 @@ python3 /pipeline/Scripts/read_BLAT_Filter_v3.py single high mouse1_univec_bwa.f
 
 Now we want to perform additional alignments for the reads with BLAT to filter out any remaining reads that align to our vector contamination database. However, BLAT only accepts fasta files so we have to convert our reads from fastq to fasta. This can be done using VSEARCH.
 
-```
-Example call.  MetaPro automatically runs this
+_Example command._ MetaPro automatically runs this
 vsearch --fastq_filter mouse1_univec_bwa.fastq --fastaout mouse1_univec_bwa.fasta
 
-```
 
 **Notes**:
 
@@ -415,10 +419,8 @@ vsearch --fastq_filter mouse1_univec_bwa.fastq --fastaout mouse1_univec_bwa.fast
 
 Now we can use BLAT to perform additional alignments for the reads against our vector contamination database.
 
-```
-Example call.  MetaPro automatically runs this
+_Example command._ MetaPro automatically runs this.
 
-```
 
 **Notes**:
 
