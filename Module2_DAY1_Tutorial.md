@@ -84,8 +84,6 @@ Since we won't run the import step ourselves to save time, we can just download 
 
 ```
 cd sequence_data/
-```
-```
 wget http://quoc.ca/static/CBW_Willis_reads.qza
 ```
 
@@ -113,7 +111,7 @@ qiime demux summarize \
 ```
 
 **Output**
-* qual_viz.qzv: [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/qual_viz.qzv)
+* qual_viz.qzv: [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/qual_viz.qzv) / [visualize](https://view.qiime2.org/visualization/?type=html&src=https://quoc.ca/data-artifact?result_id=181)
 
 QIIME has an interface that can view .qza or .qzv files. One motivation to view a qza files is to inspect it's provenance (telling you from which file it comes from, with which parameters it was generated). Qzv are visualizations that we will generate throughout the tutorial. To see them, you have to download the file to your local machine.
 1. Type your public ip in a browser
@@ -166,9 +164,9 @@ The feature table is a BIOM table of samples x ASVs. ASVs can be referred as the
 qiime feature-table summarize --i-table unfiltered_table.qza --o-visualization table_summary
 ```
 **Output**
-* table_summary.qzv: [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/table_summary.qzv)
+* table_summary.qzv: [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/table_summary.qzv) / [visualize](https://view.qiime2.org/visualization/?type=html&src=https://quoc.ca/data-artifact?result_id=190)
 
-(Remember to view qzv files, we need to download them to our local machine then upload them to QIIME2's Viewer)
+(Remember to view the exact qzv files we create on our instance, we need to download them to our local machine then upload them to QIIME2's Viewer, but you can use the visualize link here as a backup)
 
 **Question** : Did we lose any samples during denoising? In which scenario would you lose a sample during denoising?
 
@@ -204,10 +202,7 @@ qiime taxa barplot \
   --o-visualization taxa-bar-plots
 ```
 **Output**
-* taxa-bar-plots.qza: [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/taxa-bar-plots.qzv)
-
-
-(Remember to view qzv files, we need to download them to our local machine then upload them to QIIME2's Viewer)
+* taxa-bar-plots.qzv: [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/taxa-bar-plots.qzv) / [visualize](https://view.qiime2.org/visualization/?type=html&src=https://quoc.ca/data-artifact?result_id=87)
 
 
 ### Alignment and phylogeny
@@ -220,7 +215,7 @@ qiime alignment mafft \
   --o-alignment aligned_representative_sequences
 ```
 **Artifact outputs**
-* aligned_representative_sequences.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/blob/main/qiime_artifacts/aligned_representative_sequences.qza)
+* aligned_representative_sequences.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/aligned_representative_sequences.qza)
 
 You can also run a masked alignment if you want to mask certain patterns (eg. repetitions or conserved regions) in the sequences before the alignment: 
 
@@ -230,7 +225,7 @@ qiime alignment mask \
   --o-masked-alignment masked_aligned_representative_sequences
 ```
 **Artifact outputs**
-* masked_aligned_representative_sequences.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/blob/main/qiime_artifacts/masked_aligned_representative_sequences.qza)
+* masked_aligned_representative_sequences.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/masked_aligned_representative_sequences.qza)
 
 
 We can visualize the alignment using a phylogenetic tree built with [FastTree](http://www.microbesonline.org/fasttree/). The tree can be unrooted, or rooted. QIIME doesn't have a function to visualize the trees, but we can export them and visualize them using other popular programs such as [iTOL](https://itol.embl.de) web interface or [ggtree](https://bioconductor.org/packages/release/bioc/html/ggtree.html) in R.
@@ -242,7 +237,7 @@ qiime phylogeny fasttree \
   --o-tree unrooted_tree
 ```
 **Artifact outputs**
-* unrooted_tree.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/blob/main/qiime_artifacts/unrooted_tree.qza)
+* unrooted_tree.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/unrooted_tree.qza)
 
 We can also make a midpoint-rooted tree which finds the midpoint of the longest path between a pair of leaves (two ASVs) and puts the root right there.
 
@@ -252,7 +247,7 @@ qiime phylogeny midpoint-root \
   --o-rooted-tree rooted_tree
 ```
 **Artifact outputs**
-* rooted_tree.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/blob/main/qiime_artifacts/rooted_tree.qza)
+* rooted_tree.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/rooted_tree.qza)
 
 Here's the rooted tree visualized on iTol:
 
@@ -273,25 +268,25 @@ qiime diversity core-metrics-phylogenetic \
   --m-metadata-file METADATA.txt
 ```
 **Visualization outputs**
-* bray_curtis_emperor.qzv : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/diversity_2000/bray_curtis_emperor.qzv)
-* jaccard_emperor.qzv : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/diversity_2000/jaccard_emperor.qzv)
-* unweighted_unifrac_emperor.qzv : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/diversity_2000/unweighted_unifrac_emperor.qzv)
-* weighted_unifrac_emperor.qzv : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/diversity_2000/weighted_unifrac_emperor.qzv)
+* bray_curtis_emperor.qzv : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/diversity_2000/bray_curtis_emperor.qzv) / [visualize](https://view.qiime2.org/visualization/?type=html&src=https://quoc.ca/data-artifact?result_id=212)
+* jaccard_emperor.qzv : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/diversity_2000/jaccard_emperor.qzv) / [visualize](https://view.qiime2.org/visualization/?type=html&src=https://quoc.ca/data-artifact?result_id=224)
+* unweighted_unifrac_emperor.qzv : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/diversity_2000/unweighted_unifrac_emperor.qzv) / [visualize](https://view.qiime2.org/visualization/?type=html&src=https://quoc.ca/data-artifact?result_id=233)
+* weighted_unifrac_emperor.qzv : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/diversity_2000/weighted_unifrac_emperor.qzv) / [visualize](https://view.qiime2.org/visualization/?type=html&src=https://quoc.ca/data-artifact?result_id=235)
 
 **Artifact outputs**
-* bray_curtis_distance_matrix.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/blob/main/qiime_artifacts/diversity_2000/bray_curtis_distance_matrix.qza)
-* bray_curtis_pcoa_results.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/tree/main/qiime_artifacts/diversity_2000)
-* evenness_vector.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/diversity_2000/evenness_vector.qza)
-* faith_pd_vector.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/diversity_2000/faith_pd_vector.qza)
-* jaccard_distance_matrix.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/diversity_2000/jaccard_distance_matrix.qza)
-* jaccard_pcoa_results.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/diversity_2000/jaccard_pcoa_results.qza)
-* observed_features_vector.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/diversity_2000/observed_features_vector.qza)
-* rarefied_table.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/diversity_2000/rarefied_table.qza)
-* shannon_vector.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/diversity_2000/shannon_vector.qza)
-* unweighted_unifrac_distance_matrix.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/diversity_2000/unweighted_unifrac_distance_matrix.qza)
-* unweighted_unifrac_pcoa_results.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/diversity_2000/unweighted_unifrac_pcoa_results.qza)
-* weighted_unifrac_distance_matrix.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/diversity_2000/weighted_unifrac_distance_matrix.qza)
-* weighted_unifrac_pcoa_results.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/diversity_2000/weighted_unifrac_pcoa_results.qza)
+* bray_curtis_distance_matrix.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/diversity_2000/bray_curtis_distance_matrix.qza)
+* bray_curtis_pcoa_results.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/diversity_2000/bray_curtos_pcoa_results.qza)
+* evenness_vector.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/diversity_2000/evenness_vector.qza)
+* faith_pd_vector.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/diversity_2000/faith_pd_vector.qza)
+* jaccard_distance_matrix.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/diversity_2000/jaccard_distance_matrix.qza)
+* jaccard_pcoa_results.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/diversity_2000/jaccard_pcoa_results.qza)
+* observed_features_vector.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/diversity_2000/observed_features_vector.qza)
+* rarefied_table.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/diversity_2000/rarefied_table.qza)
+* shannon_vector.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/diversity_2000/shannon_vector.qza)
+* unweighted_unifrac_distance_matrix.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/diversity_2000/unweighted_unifrac_distance_matrix.qza)
+* unweighted_unifrac_pcoa_results.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/diversity_2000/unweighted_unifrac_pcoa_results.qza)
+* weighted_unifrac_distance_matrix.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/diversity_2000/weighted_unifrac_distance_matrix.qza)
+* weighted_unifrac_pcoa_results.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/diversity_2000/weighted_unifrac_pcoa_results.qza)
 
 This is A LOT of information. We can start by looking at the beta-diversity plots. Remember, beta-diversity calculates the distance between two communities to tell us how similar (jaccard index) or dissimilar (bray-curtis index) they are. By including taxonomic information, we can calculate the UniFrac distance which uses the branch length between a set of taxa to determine if two communities are significantly different. The unweighted UniFrac distance uses presence/absence information of the taxa, whereas the weighted unifrac takes into consideration the relative abundances of each taxa to measure the differences between the microbial communities (eg. different environments). Each of these metrics are calculated between pairs of samples, therefore, they output a distance matrix. The distance matrix is used to make a PCoA plot that we can now visualize!
 
@@ -307,7 +302,7 @@ qiime diversity alpha-group-significance \
   --o-visualization diversity_2000/alpha_PD_significance
 ```
 **Visualization outputs**
-* alpha_PD_significance.qzv : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/diversity_2000/alpha_PD_significance.qzv)
+* alpha_PD_significance.qzv : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/diversity_2000/alpha_PD_significance.qzv) / [visualize](https://view.qiime2.org/visualization/?type=html&src=https://quoc.ca/data-artifact?result_id=237)
 
 ```
 qiime diversity alpha-group-significance \
@@ -316,7 +311,7 @@ qiime diversity alpha-group-significance \
   --o-visualization diversity_2000/alpha_shannon_significance
 ```
 **Visualization outputs**
-* alpha_shannon_significance.qzv : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_artifacts/diversity_2000/alpha_shannon_significance.qzv)
+* alpha_shannon_significance.qzv : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/diversity_2000/alpha_shannon_significance.qzv) / [visualize](https://view.qiime2.org/visualization/?type=html&src=https://quoc.ca/data-artifact?result_id=196)
 
 **Question** : Are the beta and alpha diversity giving you the same patterns? Why or why not?
 
@@ -333,7 +328,7 @@ qiime diversity alpha-rarefaction \
   --o-visualization diversity_2000/alpha_rarefaction.qzv
 ```
 **Visualization outputs**
-* alpha_rarefaction.qzv : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/blob/main/qiime_solutions/alpha_rarefaction.qzv)
+* alpha_rarefaction.qzv : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/diversity_2000/alpha_rarefaction.qzv) / [visualize](https://view.qiime2.org/visualization/?type=html&src=https://quoc.ca/data-artifact?result_id=238)
 
 
 ## Back to the feature table
@@ -350,7 +345,7 @@ qiime feature-table filter-features \
   --o-filtered-table abund-filtered-table.qza
 ```
 **Artifact outputs**
-* abund-filtered-table.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/blob/main/qiime_solutions/abund-filtered-table.qza)
+* abund-filtered-table.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/abund-filtered-table.qza)
 
 
 If you remember from the lecture, log-transformations don't tolerate 0s so we need to add a small pseudo-counts to our tables. 
@@ -361,7 +356,7 @@ qiime composition add-pseudocount \
   --o-composition-table comp-table
 ```
 **Artifact outputs**
-* comp-table.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/blob/main/qiime_solutions/comp-table.qza)
+* comp-table.qza : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/comp-table.qza)
 
 ```
 qiime composition ancom \
@@ -371,7 +366,7 @@ qiime composition ancom \
   --o-visualization ancom-size.qzv
 ```
 **Visualization outputs**
-* ancom-size.qzv : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/blob/main/qiime_solutions/ancom-size.qzv)
+* ancom-size.qzv : [download](https://github.com/beiko-lab/CBW2021_Module2_16S_Analysis/raw/main/qiime_solutions/ancom-size.qzv) / [visualize](https://view.qiime2.org/visualization/?type=html&src=https://quoc.ca/data-artifact?result_id=174)
 
 **Question** : Which taxa are significantly different across different size fraction samples? Can you find their taxonomic ID?
 
