@@ -159,26 +159,26 @@ These optional databases require indexing prior to use.
 
 
 -   the commands used to build the indexed databases are as follows **[DO NOT RUN]**
-    To unpack chocphlan and combine all of the sequences:
+    To unpack chocophlan and combine all of the sequences:
     -   tar -xvf chocophlan.tar.gz && cd chocophlan
     -   for i in $(ls | grep ".gz"); do gunzip $i; done
     -   for i in $(ls | grep ".m8"); do cat $i >> chocophlan_full.fasta
     -   mv chocophlan_full.fasta ..
      
     To index:  **[DO NOT RUN]**  
-        -   To prepare ChocoPhlAn for BWA:
-            -   bwa index -a bwtsw <path to chocophlan_full.fasta>
-            -   samtools faidx <path to chocophlan_full.fasta>
-        -   To prepare NR for DIAMOND:        
-            -   diamond makedb -p 8 --in <path to nr> -d <path to nr>
+        -   To prepare ChocoPhlAn for BWA:  
+        bwa index -a bwtsw <path to chocophlan_full.fasta>  
+        samtools faidx <path to chocophlan_full.fasta>
+        -   To prepare NR for DIAMOND:
+        diamond makedb -p 8 --in <path to nr> -d <path to nr>
         -   To prepare Kaiju:
-            -   /pipeline_tools/kaiju/makeDB.sh -r <a suitable destination for the Kaiju DB>  
+        /pipeline_tools/kaiju/makeDB.sh -r <a suitable destination for the Kaiju DB>  
   
  Additionally, a license from MetaGeneMark is required to run to the contig assembly step
 -   [MetaGeneMark](http://exon.gatech.edu/Genemark/license_download.cgi)
 
 ### Edit the configuration file
-MetaPro controls many of its features with a Configuration file. A copy has been provided for you in the precomputed files, but it needs to be altered to include the path to the databases.
+MetaPro controls many of its features with a configuration file. A copy has been provided for you in the downloaded data, but it needs to be altered to include the path to the databases.
 
 View the file:  
 
