@@ -93,7 +93,7 @@ Launch MetaPro within the Docker interactive mode:
   
   
   
-  ### Download data
+### Download data
 
 Our data set consists of 150 bp single-end Illumina reads generated from mouse colon contents. Download the data and precomputed files:  
 ```
@@ -131,7 +131,7 @@ chmod -R 777 mouse1_run
  
 
 
-### Databases and licenses:
+### Databases and licenses
 This tutorial relies on a few external databases and libraries to perform the filtering tasks associated with MetaPro.  
 We have assembled the smaller databases in our precomputed files package  
 
@@ -172,10 +172,9 @@ These optional databases require indexing prior to use.
         -   To prepare NR for DIAMOND:        
             -   diamond makedb -p 8 --in <path to nr> -d <path to nr>
         -   To prepare Kaiju:
-            -   /pipeline_tools/kaiju/makeDB.sh -r <a suitable destination for the Kaiju DB>
-            
-
-Additionally, a license from MetaGeneMark is required to run to the contig assembly step
+            -   /pipeline_tools/kaiju/makeDB.sh -r <a suitable destination for the Kaiju DB>  
+  
+ Additionally, a license from MetaGeneMark is required to run to the contig assembly step
 -   [MetaGeneMark](http://exon.gatech.edu/Genemark/license_download.cgi)
 
 ### Edit the configuration file
@@ -544,9 +543,9 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial repop
 
 The command would look like:
 ```
-read1=/media/cbwdata/workspace/mouse1_run/rRNA_filter/final_results/mRNA/singletons.fastq
-config=/media/cbwdata/workspace/config_mouse_tutorial.ini
-output=/media/cbwdata/workspace/mouse1_run
+read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/rRNA_filter/final_results/mRNA/singletons.fastq
+config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
+output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial repop
 ```
 
@@ -575,9 +574,9 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial contigs
 ```
 The command would look like:
 ```
-read1=/media/cbwdata/workspace/mouse1_run/duplicate_repopulation/final_results/singletons.fastq
-config=/media/cbwdata/workspace/config_mouse_tutorial.ini
-output=/media/cbwdata/workspace/mouse1_run
+read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/duplicate_repopulation/final_results/singletons.fastq
+config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
+output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial contigs
 ```
 
@@ -646,10 +645,10 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --
 
 The command would look like:
 ```
-read1=/media/cbwdata/workspace/mouse1_run/assemble_contigs/final_results/singletons.fastq
-contig=/media/cbwdata/workspace/mouse1_run/assemble_contigs/final_results/contigs.fasta
-config=/media/cbwdata/workspace/config_mouse_tutorial.ini
-output=/media/cbwdata/workspace/mouse1_run
+read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/assemble_contigs/final_results/singletons.fastq
+contig=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/assemble_contigs/final_results/contigs.fasta
+config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
+output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial GA
 ```
 
@@ -706,10 +705,10 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --
 ```
 The command would look like:
 ```
-read1=/media/cbwdata/workspace/mouse1_run/assemble_contigs/final_results/singletons.fastq
-contig=/media/cbwdata/workspace/mouse1_run/assemble_contigs/final_results/contigs.fasta
-config=/media/cbwdata/workspace/config_mouse_tutorial.ini
-output=/media/cbwdata/workspace/mouse1_run
+read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/assemble_contigs/final_results/singletons.fastq
+contig=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/assemble_contigs/final_results/contigs.fasta
+config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
+output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial TA
 ```
 
@@ -764,10 +763,10 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --
 
 The command would look like:
 ```
-read1=/media/cbwdata/workspace/mouse1_run/assemble_contigs/final_results/singletons.fastq
-contig=/media/cbwdata/workspace/mouse1_run/assemble_contigs/final_results/contigs.fasta
-config=/media/cbwdata/workspace/config_mouse_tutorial.ini
-output=/media/cbwdata/workspace/mouse1_run
+read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/assemble_contigs/final_results/singletons.fastq
+contig=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/assemble_contigs/final_results/contigs.fasta
+config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
+output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial EC
 ```
 
@@ -808,15 +807,15 @@ MetaPro generates many output files:
 -   A histogram of read quality
 -   A summary of all taxa identified, followed by the number of reads associated with those taxa.
 
-The command to generate the outputs is:
-```
-Example only: do not run.  Also, this command assumes that MetaPro has performed the gene, taxa, and enzyme annotations.
+The command to generate the outputs is:  
+  
+_Example only_ **[DO NOT RUN]** This command assumes that MetaPro has performed the gene, taxa, and enzyme annotations.
 read1='<path to your unassembled singletons.fastq>'
 contig='<path to your contigs.fasta>'
 config='<path to config file>'
 output='<path to output folder>'
 python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial output
-```
+
 
 
 
