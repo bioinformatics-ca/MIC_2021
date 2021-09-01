@@ -375,8 +375,8 @@ output='&lt;path to output folder&gt;'
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial vector  
   
 
-The command should look as follows:  
-  
+Run the command as follows: 
+
 ```
 read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/quality_filter/final_results/singletons.fastq
 config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
@@ -420,9 +420,10 @@ vsearch --fastq_filter mouse1_univec_bwa.fastq --fastaout mouse1_univec_bwa.fast
 
 -   The VSEARCH command used, `--fastq_filter`, is the same as the command used to filter low quality reads in Step 1. However, here we give no filter criteria so all input reads are passed to the output fasta file.
 
-Now we can use BLAT to perform additional alignments for the reads against our vector contamination database.
+Now we use BLAT to perform additional alignments for the reads against our vector contamination database.
 
 _Example command._ MetaPro automatically runs this.
+>&2 echo BLAT vector singletons | /pipeline_tools/PBLAT/pblat -noHead -minIdentity=90 -minScore=65 /media/cbwdata/workspace/metapro_tutorial/mouse1_run/vector_read_filter/data/0_vector_removal/vector_contaminants_seq.fasta /media/cbwdata/workspace/metapro_tutorial/mouse1_run/vector_read_filter/data/0_vector_removal/singletons_no_vectors.fasta -fine -q=rna -t=dna -out=blast8 -threads=80 /media/cbwdata/workspace/metapro_tutorial/mouse1_run/vector_read_filter/data/0_vector_removal/singletons_no_vectors.blatout
 
 
 **Notes**:
@@ -440,8 +441,6 @@ Lastly, a python script is used to filter the reads that BLAT does not confident
 python3 /pipeline/Scripts/read_BLAT_Filter_v3.py single high mouse1_univec_bwa.fastq mouse1_univec.blatout mouse1_univec_blat.fastq mouse1_univec_blat_contaminats.fastq  
 
 
-
-
 **Notes**:
 
 The argument structure for this script is:
@@ -452,7 +451,8 @@ Here, BLAT does not identify any additional sequences which align to the vector 
 some alignments to vector contaminants missed by BWA in large multi-million read datasets.
 In handling, paired-ended data, some alignments may yield paired-data to be broken.  To handle this, the filter stringency option decides how to resolve this discrepancy.  
 Low filter stringency will only remove reads where both pairs aligned to a vector.
-High filter stringency will remove reads where either pair aligned to a vector.
+High filter stringency will remove reads where either pair aligned to a vector.  
+
 
 
 ### Step 4. Remove host reads
@@ -500,7 +500,8 @@ blat -noHead -minIdentity=90 -minScore=65  mouse_cds.fa mouse1_mouse_bwa.fasta -
 
 <!-- ***Question 5: How many reads did BWA and BLAT align to the mouse host sequence database?*** -->
 
-***Optional:*** In your own future analyses you can choose to complete steps 3 and 4 simultaneously by combining the vector contamination database and the host sequence database using `cat UniVec_Core mouse_cds.fa > contaminants.fa`. However, doing these steps together makes it difficult to tell how much of your reads came specifically from your host organism.
+***Optional:*** In your own future analyses you can choose to complete steps 3 and 4 simultaneously by combining the vector contamination database and the host sequence database using `cat UniVec_Core mouse_cds.fa > contaminants.fa`. However, doing these steps together makes it difficult to tell how much of your reads came specifically from your host organism.  
+
 
 ### Step 5. Remove abundant rRNA sequences **[DO NOT RUN]**
 
@@ -513,10 +514,10 @@ MetaPro subdivides the input data, coordinates the concurrent processes, and col
 MetaPro will perform the following:
 - subdivide the input data into user-defined chunk sizes (e.g. 1000 reads).
 - Each chunk is then run independently:
-- - run each chunk through Barrnap
-- - using the results of Barrnap, filter the data chunk into mRNA, and leftover data for further scanning.
-- - run each leftover chunk through Infernal.
-- - filter the Barrnap leftover chunk using the Infernal results, to get mRNA, and "other"
+  - run each chunk through Barrnap
+  - using the results of Barrnap, filter the data chunk into mRNA, and leftover data for further scanning.
+  - run each leftover chunk through Infernal.
+  - filter the Barrnap leftover chunk using the Infernal results, to get mRNA, and "other"
 - collect all of the data pieces (Barrnap mRNA, Infernal mRNA) into mRNA, and "other"
 
 By running things this way, the rRNA step takes 4 minutes (as recorded with a 40-core computing node with 200 GB RAM, and an rRNA chunksize of 1000 reads), but it requires significant computing power, memory, and storage space, not available on a typical desktop PC.  
@@ -564,7 +565,7 @@ output='&lt;path to output folder&gt;'
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial repop  
 
 
-The command should look as follows:  
+Run the command as follows:  
 
 ```
 read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/rRNA_filter/final_results/mRNA/singletons.fastq
@@ -583,20 +584,23 @@ cd mouse1_run/duplicate_repopulation/final_results/
 <!-- ***Question 8: How many total contaminant, host, and rRNA reads were filtered out?*** -->
 
 
-### Step 7. Contig assembly
+### Step 7. Contig assembly   **[DO NOT RUN]**
 
 We have now gathered the putative mRNA scripts, and here we assemble the mRNA into contigs. 
 Previous studies have shown that assembling reads into larger contigs significantly increases our ability to annotate them to known genes through sequence similarity searches. Here we will apply the SPAdes genome assemblers' transcript assembly algorithm to our set of putative mRNA reads.
 The typical workload of MetaPro ranges anywhere from 40-million to 100-million reads, and more.  To make this process as efficient as possible, MetaPro assembles the data into contigs in an effort to shrink the number of reads to annotate.  
 
-```
-Example only: do not run.
-read1='<path to your rereplicated mRNA final results mouse.fastq>'
-config='<path to config file>'
-output='<path to output folder>'
-python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial contigs
-```
-The command would look like:
+The format of the MetaPro command is:  
+_Example command only._  
+
+read1='&lt;path to your rereplicated mRNA final results mouse.fastq&gt;'  
+config='&lt;path to config file&gt;'  
+output='&lt;path to output folder&gt;'  
+python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial contigs  
+  
+
+The command would look as follows: **[DO NOT RUN]**  
+  
 ```
 read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/duplicate_repopulation/final_results/singletons.fastq
 config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
@@ -622,10 +626,12 @@ In this step, MetaPro does the following:
 <!--
 ***Question 9: How many assemblies did SPAdes produce?  
 Hint: try using the command`tail mouse1_contigs.fasta`***
--->
+-->  
+  
 <!--
 ***Question 10: How many reads were not used in contig assembly? How many reads were used in contig assembly? How many contigs did we generate?***
--->
+-->  
+  
 
 
 
