@@ -108,11 +108,12 @@ ls
 
 The downloaded contents include:
 - the input sequence file `mouse1.fastq`
+- the MetaPro configuration file containing paths to tools and databases, as well as parameters `config_mouse_tutorial.ini` _(see below for description)_
 - a folder containing databases required for the tutorial `databases\`
 - the output directory containing some precomputed files `mouse1_run\`
 - an example Cytoscape file which may be generated with MetaPro to view microbial metabolic pathway activity `Example.cys`  
 
-MetaPro's tools may take a long time to run if the user does not have the necessary computing resources.  Therefore, we provide pre-computed output files (within the `mouse1_run/` folder) so that the user is not forced to run computationally intensive steps during the tutorial. 
+MetaPro's tools may take a long time to run if the user does not have the necessary computing resources.  Therefore, we provide _pre-computed output files_ (within the `mouse1_run/` folder) so that the user is not forced to run computationally intensive steps during the tutorial. 
 
 
 Inspect the sequences:
@@ -123,14 +124,14 @@ less mouse1.fastq
 **Notes**:
 -   Type `q` to exit `less`.
 
-Change the permissions of the `mouse1_run/` folder in order to view its contents through a browser ( via your IP address, http://[public ipv4] ):
+Change the permissions of the `mouse1_run/` folder in order to view its contents through a browser ( via your IP address, http://[ public ipv4 ] ):
 ```
 chmod -R 777 mouse1_run
 ```
  
 
 
-### Databases, and licenses:
+### Databases and licenses:
 This tutorial relies on a few external databases and libraries to perform the filtering tasks associated with MetaPro.  
 We have assembled the smaller databases in our precomputed files package  
 
@@ -157,58 +158,70 @@ These optional databases require indexing prior to use.
     -   One with all of the sequences separated. (for BLAT)
 
 
--   the commands used to build the indexed databases are as follows (You don't need to do these!)
+-   the commands used to build the indexed databases are as follows **[DO NOT RUN]**
     To unpack chocphlan and combine all of the sequences:
-    -   `tar -xvf chocophlan.tar.gz && cd chocophlan`
-    -   `for i in $(ls | grep ".gz"); do gunzip $i; done'
-    -   `for i in $(ls | grep ".m8"); do cat $i >> chocophlan_full.fasta`
-    -   `mv chocophlan_full.fasta ..`
+    -   tar -xvf chocophlan.tar.gz && cd chocophlan
+    -   for i in $(ls | grep ".gz"); do gunzip $i; done
+    -   for i in $(ls | grep ".m8"); do cat $i >> chocophlan_full.fasta
+    -   mv chocophlan_full.fasta ..
      
-    To index:    
+    To index:  **[DO NOT RUN]**  
         -   To prepare ChocoPhlAn for BWA:
-            -   `bwa index -a bwtsw <path to chocophlan_full.fasta>`
-            -   `samtools faidx <path to chocophlan_full.fasta>`
+            -   bwa index -a bwtsw <path to chocophlan_full.fasta>
+            -   samtools faidx <path to chocophlan_full.fasta>
         -   To prepare NR for DIAMOND:        
-            -   `diamond makedb -p 8 --in <path to nr> -d <path to nr>`
+            -   diamond makedb -p 8 --in <path to nr> -d <path to nr>
         -   To prepare Kaiju:
-            -   `/pipeline_tools/kaiju/makeDB.sh -r <a suitable destination for the Kaiju DB>`
-        -   To 
+            -   /pipeline_tools/kaiju/makeDB.sh -r <a suitable destination for the Kaiju DB>
             
 
 Additionally, a license from MetaGeneMark is required to run to the contig assembly step
 -   [MetaGeneMark](http://exon.gatech.edu/Genemark/license_download.cgi)
 
-### Configuration file:
-MetaPro controls many of its features with a Configuration file, a copy has been provided for you in the precomputed files, but it needs to be altered to include the path to the databases.
+### Edit the configuration file
+MetaPro controls many of its features with a Configuration file. A copy has been provided for you in the precomputed files, but it needs to be altered to include the path to the databases.
 
+View the file:  
+
+```
+less config_mouse_tutorial.ini
+```
+  
+Edit the configuration file to add the path to the `databases/` folder:  
+- Open the file using the VI editor:  
+  
+```
+vi config_mouse_tutorial.ini
+```
+- Once the file is open, navigate with arrow keys to the right of the "database_path:" field
+- type `i` to activate the INSERT mode
+- type the new path `/media/cbwdata/workspace/metapro_tutorial/databases`
+- press ESC to exit the INSERT mode
+- navigate to any characters you want to delete using arrow keys, and type `x` to remove them
+- exit the file and save changes by typing a colon followed by wq `: wq` and press ENTER 
+  
+If you make a mistake while editing the path, you may type `u` to undo the last change, or `U` to undo all changes to the line. Alternatively, you may exit without saving any changes to the file by pressing ESC, typing `:q!` and pressing ENTER.  
+  
+View your modified config file:  
+  
+```
+less config_mouse_tutorial.ini
+```
 
 ```
 [Databases]
-database_path: /project/j/jparkin/Lab_Databases #(a shortcut to help lay out paths)
+database_path: /media/cbwdata/workspace/metapro_tutorial/databases
 UniVec_Core: %(database_path)s/univec_core/UniVec_Core.fasta #(the UniVec core database)
 Adapter: %(database_path)s/Trimmomatic_adapters/TruSeq3-PE-2.fa #(The adapters database)
 Host: %(database_path)s/Mouse_cds/Mouse_cds.fasta #(The host database)
 Rfam: %(database_path)s/Rfam/Rfam.cm #(The Infernal rRNA database)
 DNA_DB: %(database_path)s/ChocoPhlAn/ChocoPhlAn.fasta #(The BWA database.  It assumes the index is in the same directory)
 DNA_DB_Split: %(database_path)s/ChocoPhlAn/ChocoPhlAn_split/ #(The split database, for BLAT)
-Prot_DB: %(database_path)s/nr_01_22_2020/nr #(it assumes there's a file named "nr.dmnd")
-Prot_DB_reads: %(database_path)s/nr_01_22_2020/nr #(The NR database file which contains the sequences)
-accession2taxid: %(database_path)s/accession2taxid/accession2taxid #(the GB version of the nucleotide accession2taxid table)
-WEVOTEDB: %(database_path)s/WEVOTE_db/ #(refer to the unpacked taxdump.tar.gz)
-nodes: %(database_path)s/WEVOTE_db/nodes.dmp #(a file within the NCBI taxdump package)
-names: %(database_path)s/WEVOTE_db/names.dmp #(a file within the NCBI taxdump package)
-Kaiju_db: %(database_path)s/kaiju_db/kaiju_db_nr.fmi #(This one is made from indexing the NCBI NR database)
-Centrifuge_db: %(database_path)s/centrifuge_db/nt #(The Centrifuge NT database)
-SWISS_PROT: %(database_path)s/swiss_prot_db/swiss_prot_db #(diamond-indexed swissprot sequences)
-SWISS_PROT_map: /pipeline/custom_databases/SwissProt_EC_Mapping.tsv (This is in the container: /pipeline/custom_databases)
-PriamDB: %(database_path)s/PRIAM_db/ (The PRIAM Database)
-DetectDB: %(database_path)s/DETECTv2 (
-EC_pathway: /pipeline/custom_databases/EC_pathway.txt #(This is in the container:  /pipeline/custom_databases) 
-path_to_superpath: /pipeline/custom_databases/pathway_to_superpathway.csv #(This is in the container:  /pipeline/custom_databases)
-MetaGeneMark_model: /pipeline_tools/mgm/MetaGeneMark_v1.mod #(This is in the container already.  do not alter)
+...
 ```
 
-### Checking read quality with FastQC
+
+### Check read quality with FastQC
 
 ```
 /pipeline_tools/FastQC/fastqc mouse1.fastq
@@ -237,9 +250,9 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial quality
 ```
 The commands would look like:
 ```
-read1=/media/cbwdata/workspace/mouse1.fastq
-config=/media/cbwdata/workspace/config_mouse_tutorial.ini
-output=/media/cbwdata/workspace/mouse1_run
+read1=/media/cbwdata/workspace/metapro_tutorial/mouse1.fastq
+config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
+output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial quality
 ```
 
@@ -345,9 +358,9 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial vector
 ```
 The commands would look like:
 ```
-read1=/media/cbwdata/workspace/mouse1_run/quality_filter/final_results/singletons.fastq
-config=/media/cbwdata/workspace/config_mouse_tutorial.ini
-output=/media/cbwdata/workspace/mouse1_run
+read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/quality_filter/final_results/singletons.fastq
+config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
+output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial vector
 ```
 
@@ -440,9 +453,9 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial host
 
 The commands would look like:
 ```
-read1=/media/cbwdata/workspace/mouse1_run/vector_read_filter/final_results/singletons.fastq
-config=/media/cbwdata/workspace/config_mouse_tutorial.ini
-output=/media/cbwdata/workspace/mouse1_run
+read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/vector_read_filter/final_results/singletons.fastq
+config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
+output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial host
 ```
 
@@ -502,9 +515,9 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial rRNA
 
 The command would look like:
 ```
-read1=/media/cbwdata/workspace/mouse1_run/host_read_filter/final_results/singletons.fastq
-config=/media/cbwdata/workspace/config_mouse_tutorial.ini
-output=/media/cbwdata/workspace/mouse1_run
+read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/host_read_filter/final_results/singletons.fastq
+config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
+output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial rRNA
 ```
 
