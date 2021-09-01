@@ -16,7 +16,7 @@ It is in your best interest to complete these before the workshop.
 
 **Module 1**
 
-Comming soon
+[Lecture](https://drive.google.com/file/d/1JdRpMTHhN0-dZJmppCvAtDK4WLyaQzYg/view?usp=sharing)
 
 **Module 2**
 
