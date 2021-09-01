@@ -83,6 +83,12 @@ qiime tools import \
 Since we won't run the import step ourselves to save time, we can just download the CBW_Willis_reads.qza file using wget in the sequence_data folder:
 
 ```
+cd workspace/
+```
+```
+ln -s ~/CourseData/MIC_data/Module2/qiime_artifacts/
+```
+```
 cd qiime_artifacts/
 ```
 ```
