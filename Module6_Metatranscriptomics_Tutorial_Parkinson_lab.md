@@ -50,58 +50,52 @@ This tutorial also assumes that the pipeline files are contained in a directory
 
 ## Preliminaries
 
-### Download and launch the MetaPro pipeline
-MetaPro operates in a containerized environment running Ubuntu Linux 18.04.  The pipeline and its dependent programs exist within a Docker container image, and may be accessed using the Docker or Singularity tools.
-
-For the purposes of this tutorial, Docker and Singlarity have both already been installed, and the MetaPro pipeline has been downloaded to your environment.
-
-
+### Launch the MetaPro pipeline
+MetaPro operates in a containerized environment running Ubuntu Linux 18.04.  The pipeline and its dependent programs exist within a Docker container image, and may be accessed using the Docker or Singularity tools. For the purposes of this tutorial, Docker and Singlarity have both already been installed, and the MetaPro pipeline has been downloaded to your environment.  
+  
 Docker and Singularity maintain different access modes to use their containers.  
 1) Scripted-mode: where the user calls software within the container and run. 
-2) Interactive-mode: where the user can enter into the container use it like an operating systems
+2) Interactive-mode: where the user can enter into the container use it like an operating systems.  
 
 
-<br/><br/>In this tutorial, we will be using Singularity in interactive mode to run MetaPro commands.
+<br/><br/>In this tutorial, we will be using Singularity in interactive mode to run MetaPro commands. The command to download and create the MetaPro image _(below)_ has already been run for you:  
+
+singularity pull docker://parkinsonlab/metapro:develop   **[DO NOT RUN]**  
 
 
-Download and create the MetaPro image: _(this has already been done for you)_
+<br/><br/>Navigate to your workspace folder (we will be using the absolute path):
 ```
-singularity pull docker://parkinsonlab/metapro:develop
+cd /media/cbwdata/workspace
 ```
 
-Launch MetaPro using Singularity in interactive mode:
-```
-singularity shell -B <directories to bind-mount> <path to the singularity image.sif>
-```
-For this tutorial, MetaPro may be launched as follows (without bind-mounting a directory):
+<br/><br/>Launch MetaPro using Singularity in interactive mode:  
+
+singularity shell -B &lt;directories to bind-mount> <path to the singularity image.sif&gt;
+
 ```
 singularity shell /media/cbwdata/MIC_data/Module6/Tools/metapro_develop.sif
 ```
+  
+<br/><br/>To access MetaPro using Docker, we include instructions below: _(not required for the current tutorial)_ 
 
+Install Docker:  
+&ensp;&ensp;&ensp;https://www.docker.com/products/docker-desktop  
 
-<br/><br/>The instructions _(not required for the current tutorial)_ to access MetaPro using Docker are included below:
+Next, pull the MetaPro docker image:  
 
-Install Docker:
-```
-https://www.docker.com/products/docker-desktop
-```
+&ensp;&ensp;&ensp;docker pull parkinsonlab/metapro:develop  
 
-Next, pull the MetaPro docker image:
-```
-docker pull parkinsonlab/metapro:develop
-```
+Launch MetaPro within the Docker interactive mode:  
 
-Launch MetaPro within the Docker interactive mode:
-```
-docker run -it -v <a folder in your directory>:<an equivalent folder to mount to in the container instance> <the docker image>
-```
-An example would be:
-```
-docker run -it -v C:\Users\Billy\Documents\MetaPro_tutorial:/MetaPro_docker_tutorial parkinsonlab/metapro:develop
-```
+&ensp;&ensp;&ensp;docker run -it -v &lt;a folder in your directory>:<an equivalent folder to mount to in the container instance&gt; &lt;the docker image&gt;
+
+&ensp;&ensp;&ensp;An example would be:  
+
+&ensp;&ensp;&ensp;docker run -it -v /home/ubuntu/MetaPro_tutorial:/MetaPro_docker_tutorial parkinsonlab/metapro:develop  
 
 
 
+<br/><br/>
 ### Input Files
 
 Our data set consists of 150 bp single-end Illumina reads generated from mouse colon contents. Download the data and precomputed files _(see below)_.
