@@ -166,20 +166,15 @@ These optional databases require indexing prior to use.
     -   for i in $(ls | grep ".m8"); do cat $i >> chocophlan_full.fasta
     -   mv chocophlan_full.fasta ..
      
-    To index:  **[DO NOT RUN]**  
-    
-    -   To prepare ChocoPhlAn for BWA:  
-    
-         bwa index -a bwtsw &lt;path to chocophlan_full.fasta&gt;  
-         samtools faidx &lt;path to chocophlan_full.fasta&gt;  
+    To prepare ChocoPhlAn for BWA:  
+    -   bwa index -a bwtsw &lt;path to chocophlan_full.fasta&gt;  
+    -   samtools faidx &lt;path to chocophlan_full.fasta&gt;  
                    
-    -   To prepare NR for DIAMOND:  
-    
-         diamond makedb -p 8 --in &lt;path to nr&gt; -d &lt;path to nr&gt;  
+    To prepare NR for DIAMOND:  
+    -   diamond makedb -p 8 --in &lt;path to nr&gt; -d &lt;path to nr&gt;  
                    
-    -   To prepare Kaiju:  
-   
-        /pipeline_tools/kaiju/makeDB.sh -r &lt;a suitable destination for the Kaiju DB&gt;  
+    To prepare Kaiju:  
+    -   /pipeline_tools/kaiju/makeDB.sh -r &lt;a suitable destination for the Kaiju DB&gt;  
   
  Additionally, a license from MetaGeneMark is required to run to the contig assembly step  
  -   [MetaGeneMark](http://exon.gatech.edu/Genemark/license_download.cgi)
@@ -231,12 +226,19 @@ DNA_DB_Split: %(database_path)s/ChocoPhlAn/ChocoPhlAn_split/ #(The split databas
 
 ```
 /pipeline_tools/FastQC/fastqc mouse1.fastq
-unzip mouse1_fastqc.zip
 ```
 
-The FastQC report is generated in a HTML file, `mouse1_fastqc.html`. You'll also find a zip file which includes data files used to generate the report.
+The FastQC report is generated as an HTML file `mouse1_fastqc.html`. A zip file is also generated which includes data files used to generate the HTML report.  
 
-To read the HTML report file, open it in a web browser (such as FireFox).  Then you can go through the report and find the following information:
+
+Access your workspace in a web browser (http://[ insert your IPv4 ]) to view the FastQC report:  
+
+```
+http://[ insert your IPv4 ]
+```
+
+
+You can find the following information in the report:
 
 -   Basic Statistics: Basic information of the mouse RNA-seq data, e.g. the total number of reads, read length, GC content.
 -   Per base sequence quality: An overview of the range of quality values across all bases at each position.
@@ -245,16 +247,19 @@ To read the HTML report file, open it in a web browser (such as FireFox).  Then 
 
 ## Processing the Reads
 
-### Step 1: Remove adapter sequences, trim low quality sequences, and remove duplicate reads. 
-For the first step, MetaPro removes adaptor sequences, trims low-quality reads, and removes duplicate reads in one pass.
-```
-The format is:
+### Step 1: Remove adapter sequences, trim low quality sequences, and remove duplicate reads.  
+
+In the first step, MetaPro removes adaptor sequences, trims low-quality reads, and removes duplicate reads in one pass.  
+
+The format of the command is:  
+
 read1='<path to input sequence>'
 config='<path to config file>'
 output='<path to output folder>'
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial quality
-```
-The commands would look like:
+
+  
+The command should look as follows:
 ```
 read1=/media/cbwdata/workspace/metapro_tutorial/mouse1.fastq
 config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
@@ -268,7 +273,7 @@ All MetaPro steps share the same file directory scheme:
 - data: where the interim files are placed for each run.  This includes intermediate steps.
 - final results: where the end-phase deliverables are placed, assuming the pipeline will continue running.
 - All of MetaPro's commands are generated in separate shellscripts in each folder.
-- Paths to the config file and output directory need not be defined again in subsequent steps. To verify the paths are correct:
+- **Paths to the config file and output directory need not be defined again in subsequent steps.** To verify that the paths are correct:
 ```
 echo $config
 echo $output
