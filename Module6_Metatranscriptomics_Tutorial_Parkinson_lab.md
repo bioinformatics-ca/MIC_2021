@@ -57,8 +57,7 @@ Docker and Singularity maintain different access modes to use their containers.
 1) Scripted-mode: where the user calls software within the container and run. 
 2) Interactive-mode: where the user can enter into the container use it like an operating systems.  
 
-
-<br/><br/>In this tutorial, we will be using Singularity in interactive mode to run MetaPro commands. The command to download and create the MetaPro image _(below)_ has already been run for you:  
+In this tutorial, we will be using Singularity in interactive mode to run MetaPro commands. The command to download and create the MetaPro image _(below)_ has already been run for you:  
 
 singularity pull docker://parkinsonlab/metapro:develop   **[DO NOT RUN]**  
 
@@ -68,10 +67,7 @@ singularity pull docker://parkinsonlab/metapro:develop   **[DO NOT RUN]**
 cd /media/cbwdata/workspace
 ```
 
-<br/><br/>Launch MetaPro using Singularity in interactive mode:  
-
-singularity shell -B &lt;directories to bind-mount> <path to the singularity image.sif&gt;
-
+Launch MetaPro using Singularity in interactive mode (using the command: singularity shell &lt;path to pipline file&gt;):  
 ```
 singularity shell /media/cbwdata/MIC_data/Module6/Tools/metapro_develop.sif
 ```
@@ -79,10 +75,9 @@ singularity shell /media/cbwdata/MIC_data/Module6/Tools/metapro_develop.sif
 <br/><br/>To access MetaPro using Docker, we include instructions below: _(not required for the current tutorial)_ 
 
 Install Docker:  
-&ensp;&ensp;&ensp;https://www.docker.com/products/docker-desktop  
+https://www.docker.com/products/docker-desktop  
 
 Next, pull the MetaPro docker image:  
-
 &ensp;&ensp;&ensp;docker pull parkinsonlab/metapro:develop  
 
 Launch MetaPro within the Docker interactive mode:  
@@ -90,7 +85,6 @@ Launch MetaPro within the Docker interactive mode:
 &ensp;&ensp;&ensp;docker run -it -v &lt;a folder in your directory>:<an equivalent folder to mount to in the container instance&gt; &lt;the docker image&gt;
 
 &ensp;&ensp;&ensp;An example would be:  
-
 &ensp;&ensp;&ensp;docker run -it -v /home/ubuntu/MetaPro_tutorial:/MetaPro_docker_tutorial parkinsonlab/metapro:develop  
 
 
