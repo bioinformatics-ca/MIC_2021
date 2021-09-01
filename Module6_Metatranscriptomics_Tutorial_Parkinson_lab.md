@@ -629,7 +629,7 @@ Hint: try using the command`tail mouse1_contigs.fasta`***
 
 
 
-### Step 8. Annotate reads to known genes/proteins
+### Step 8. Annotate reads to known genes/proteins **[DO NOT RUN]**
 
 Here we will attempt to infer the specific genes our putative mRNA reads originated from. In our pipeline we rely on a tiered set of sequence similarity searches of decreasing accuracy - BWA, BLAT, and DIAMOND. While BWA provides high stringency, sequence diversity that occurs at the nucleotide level results in few matches observed for these processes. Nonetheless it is quick. To avoid the problems of diversity that occur at the level of nucleotide, particularly in the absence of reference microbial genomes, we use a cascaded method involving two other tools: BLAT, and DIAMOND. BLAT provides a more sensitive alignment, along with quality scores to rank the matches.  DIAMOND is used to provide more sensitive peptide-based searches, which are less prone to sequence changes between strains.
 
@@ -657,17 +657,18 @@ These batches of files are then sent to a custom script that will perform all of
 -   collect and merge the unannotated DIAMOND reads
 -   collect all of the genes that were found in the reads, and convert them into proteins.  Then merge them with the proteins found in DIAMOND.  This step is for downstream analysis.
 
-The command is:
-```
-Example only: do not run. Heavily computationally intensive
-read1='<path to your unassembled singletons.fastq>'
-contig='<path to your contigs.fasta>'
-config='<path to config file>'
-output='<path to output folder>'
-python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial GA
-```
+The format of the MetaPro command is:  
+_Example command only._ This step is heavily computationally intensive.  
 
-The command would look like:
+read1='&lt;path to your unassembled singletons.fastq&gt;'  
+contig='&lt;path to your contigs.fasta&gt;'  
+config='&lt;path to config file&gt;'  
+output='&lt;path to output folder&gt;'  
+python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial GA  
+  
+  
+The command would look as follows **[DO NOT RUN]**:  
+  
 ```
 read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/assemble_contigs/final_results/singletons.fastq
 contig=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/assemble_contigs/final_results/contigs.fasta
@@ -676,7 +677,8 @@ output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial GA
 ```
 
-The outputs are located in:
+We have provided pre-computed outputs in the following directory:  
+  
 ```
 mouse1_run/GA_FINAL_MERGE/final_results
 ```
@@ -705,9 +707,11 @@ mouse1_run/GA_FINAL_MERGE/final_results
         -   If both reads agree on the same gene or protein, the read is counted only once. 
         -   This paired-read conflict resolution is performed in the GA_FINAL_MERGE step.
     
--   Unless you are running this tutorial on a computing cluster, most systems do not have enough memory to handle indexing or searching large databases like `ChocoPhlan` (19GB) and `nr` (>60GB). The descriptions in this section are purely for your information. Please use our precomputed gene, protein, and read mapping files from the tar file `tar -xzf tutorial_files.tar.gz`
+-   Unless you are running this tutorial on a computing cluster, most systems do not have enough memory to handle indexing or searching large databases like `ChocoPhlan` (19GB) and `nr` (>60GB). The descriptions in this section are purely for your information. Please use our precomputed gene, protein, and read mapping files from the tar file `tar -xzf tutorial_files.tar.gz`  
+-   
 
-### Step 9. Taxonomic Classification
+### Step 9. Taxonomic Classification **[DO NOT RUN]**  
+
 
 Now that we have putative mRNA transcripts, we can begin to infer the origins of our mRNA reads. Firstly, we will attempt to use a reference based short read classifier to infer the taxonomic orgin of our reads. Here we will use [Kaiju] (https://github.com/bioinformatics-centre/kaiju), [Centrifuge](https://ccb.jhu.edu/software/centrifuge/manual.shtml), and our Gene Annotation results to generate taxonomic classifications for our reads based on a reference database. 
 Kaiju can classify prokaryotic reads at speeds of millions of reads per minute using the proGenomes database on a system with less than 16GB of RAM (~13GB). Using the entire NCBI nr database as a reference takes ~43GB. Similarly fast classification tools require >100GB of RAM to classify reads against large databases. 
@@ -716,18 +720,21 @@ However, Kaiju still takes too much memory for the systems in the workshop so we
 Centrifuge is a lightweight rapid microbial classification engine.  It uses methods similar to BWA and the Ferrgina-Manzini (FM) index  to make quick work of assigning taxomony.
 
 The ChocoPhlan Pangenome Database contains taxonomic information that MetaPro extracts.  Kaiju, Centrifuge, and the extracted taxa are combined using [WEVOTE](https://github.com/aametwally/WEVOTE).  WEVOTE is the Weighted Voting Taxonomic Identification system.  It performs consensus merging of various taxa results and reconciles the taxa identification from various sources.  
-MetaPro uses this to settle on one confident taxon amongst Kaiju, Centrifuge, and the ChocoPhlan database choices.
+MetaPro uses this to settle on one confident taxon amongst Kaiju, Centrifuge, and the ChocoPhlan database choices.  
 
-The command to run this step is:
-```
-Example only: do not run.  Also MetaPro assumes the Gene Annotation step has completed
-read1='<path to your unassembled singletons.fastq>'
-contig='<path to your contigs.fasta>'
-config='<path to config file>'
-output='<path to output folder>'
-python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial TA
-```
-The command would look like:
+
+The format of the MetaPro command is:  
+_Example command only._  MetaPro assumes the Gene Annotation step has completed.  
+
+read1='&lt;path to your unassembled singletons.fastq&gt;'  
+contig='&lt;path to your contigs.fasta&gt;'  
+config='&lt;path to config file&gt;'  
+output='&lt;path to output folder&gt;'  
+python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial TA  
+  
+
+The command would look as follows **[DO NOT RUN]**:  
+  
 ```
 read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/assemble_contigs/final_results/singletons.fastq
 contig=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/assemble_contigs/final_results/contigs.fasta
@@ -762,7 +769,7 @@ Hint: Try decreasing the `Max depth` value on the top left of the screen and/or 
 
 
 
-### Step 10. Enzyme Function Annotation
+### Step 10. Enzyme Function Annotation **[DO NOT RUN]**
 
 To help interpret our metatranscriptomic datasets from a functional perspective, we rely on mapping our data to functional networks such as metabolic pathways and maps of protein complexes. Here we will use the KEGG carbohydrate metabolism pathway.
 
@@ -775,17 +782,17 @@ MetaPro combines the predictions of all 3 tools to give 2 answers, a lower-confi
 PRIAM is incredibly resource-intensive, and slow to run.  For the sake of brevity, the results have been provided for this tutorial.
 
 
-The command is:
-```
-Example only: do not run.  Also, this command assumes that MetaPro has performed the Gene annotation phase
-read1='<path to your unassembled singletons.fastq>'
-contig='<path to your contigs.fasta>'
-config='<path to config file>'
-output='<path to output folder>'
-python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial EC
-```
+The format of the MetaPro command is as follows.  
+_Example command only._ This command assumes that MetaPro has performed the Gene annotation phase.  
 
-The command would look like:
+read1='&lt;path to your unassembled singletons.fastq&gt;'  
+contig='&lt;path to your contigs.fasta&gt;'  
+config='&lt;path to config file&gt;'  
+output='&lt;path to output folder&gt;'  
+python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial EC  
+
+
+The command would look as follows **[DO NOT RUN]**:
 ```
 read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/assemble_contigs/final_results/singletons.fastq
 contig=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/assemble_contigs/final_results/contigs.fasta
@@ -794,10 +801,8 @@ output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial EC
 ```
 
-The results are provided in:
-```
-mouse1_run/enzyme_annotation/final_results
-```
+The pre-computed results are provided in: `mouse1_run/enzyme_annotation/final_results`  
+
 
 **Notes**:
 -   MetaPro's high-confidence and low-confidence are determined by the following:
@@ -817,8 +822,9 @@ mouse1_run/enzyme_annotation/final_results
 
 <!--
 ***Question 14: How many high-confidence unique enzyme functions were identified in our dataset?***
--->
-### Step 11. Generate annotation outputs
+-->  
+
+### Step 11. Generate annotation outputs  
 
 We have removed low quality bases/reads, vectors, adapters, linkers, primers, host sequences, and rRNA sequences and annotated reads to the best of our ability - now lets summarize our findings. We do this by looking at the relative expression of each of our genes in our microbiome.
 
@@ -833,13 +839,13 @@ MetaPro generates many output files:
 
 The command to generate the outputs is:  
   
-_Example only_ **[DO NOT RUN]** This command assumes that MetaPro has performed the gene, taxa, and enzyme annotations.
-read1='<path to your unassembled singletons.fastq>'
-contig='<path to your contigs.fasta>'
-config='<path to config file>'
-output='<path to output folder>'
-python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial output
+_Example only_ **[DO NOT RUN]** This command assumes that MetaPro has performed the gene, taxa, and enzyme annotations.  
 
+read1='&lt;path to your unassembled singletons.fastq&gt;'  
+contig='&lt;path to your contigs.fasta&gt;'  
+config='&lt;path to config file&gt;'  
+output='&lt;path to output folder&gt;'  
+python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial output  
 
 
 
