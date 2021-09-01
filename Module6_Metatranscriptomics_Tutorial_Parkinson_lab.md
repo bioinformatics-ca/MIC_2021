@@ -158,7 +158,8 @@ These optional databases require indexing prior to use.
     -   One with all of the sequences separated. (for BLAT)
 
 
--   the commands used to build the indexed databases are as follows **[DO NOT RUN]**
+-   The commands used to build the indexed databases are as follows **[DO NOT RUN]**  
+
     To unpack chocophlan and combine all of the sequences:
     -   tar -xvf chocophlan.tar.gz && cd chocophlan
     -   for i in $(ls | grep ".gz"); do gunzip $i; done
@@ -166,16 +167,22 @@ These optional databases require indexing prior to use.
     -   mv chocophlan_full.fasta ..
      
     To index:  **[DO NOT RUN]**  
-        -   To prepare ChocoPhlAn for BWA:  
-        bwa index -a bwtsw <path to chocophlan_full.fasta>  
-        samtools faidx <path to chocophlan_full.fasta>
-        -   To prepare NR for DIAMOND:
-        diamond makedb -p 8 --in <path to nr> -d <path to nr>
-        -   To prepare Kaiju:
-        /pipeline_tools/kaiju/makeDB.sh -r <a suitable destination for the Kaiju DB>  
+    
+    -   To prepare ChocoPhlAn for BWA:  
+    
+         bwa index -a bwtsw &lt;path to chocophlan_full.fasta&gt;  
+         samtools faidx &lt;path to chocophlan_full.fasta&gt;  
+                   
+    -   To prepare NR for DIAMOND:  
+    
+         diamond makedb -p 8 --in &lt;path to nr&gt; -d &lt;path to nr&gt;  
+                   
+    -   To prepare Kaiju:  
+   
+        /pipeline_tools/kaiju/makeDB.sh -r &lt;a suitable destination for the Kaiju DB&gt;  
   
- Additionally, a license from MetaGeneMark is required to run to the contig assembly step
--   [MetaGeneMark](http://exon.gatech.edu/Genemark/license_download.cgi)
+ Additionally, a license from MetaGeneMark is required to run to the contig assembly step  
+ -   [MetaGeneMark](http://exon.gatech.edu/Genemark/license_download.cgi)
 
 ### Edit the configuration file
 MetaPro controls many of its features with a configuration file. A copy has been provided for you in the downloaded data, but it needs to be altered to include the path to the databases.
