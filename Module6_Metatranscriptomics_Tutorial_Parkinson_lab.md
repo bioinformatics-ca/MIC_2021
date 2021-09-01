@@ -245,7 +245,8 @@ You can find the following information in the report:
 -   Per Base Sequence Content: A plot showing nucleotide bias across sequence length.
 -   Adapter Content: Provides information on the level of adapter contamination in your sequence sample.
 
-## Processing the Reads
+## Process the Reads  
+
 
 ### Step 1: Remove adapter sequences, trim low quality sequences, and remove duplicate reads.  
 
@@ -356,6 +357,8 @@ A second output file `mouse1_unique.fastq.clstr` is created which shows exactly 
 
 <!-- ***Question 3: Can you find how many unique reads there are?*** -->
 
+Navigate to `mouse1_run/quality_filter/final_results/` to view the FastQC report, or look at the generated `singletons.fastq` file itself in the output directory.  
+
 While the number of replicated reads in this small dataset is relatively low, with larger datasets, this step can reduce file size by as much as 50-80%  
 
 
@@ -397,9 +400,9 @@ blat -noHead -minIdentity=90 -minScore=65  UniVec_Core mouse1_univec_bwa.fasta -
 python3 /pipeline/Scripts/read_BLAT_Filter_v3.py single high mouse1_univec_bwa.fastq mouse1_univec.blatout mouse1_univec_blat.fastq mouse1_univec_blat_contaminats.fastq
 
 
-**Notes**:
+**Notes**:  
 
--   The commands to the following tasks:
+The commands to the following tasks:
     -   `bwa index, samtools faidx, and makeblastdb`: Index the UniVec core database for BWA and BLAT 
     -   `bwa mem`: Generates alignments of reads to the vector contaminant database
     -   `samtools view`: Converts the .sam output of bwa into .bam for the following steps
@@ -432,12 +435,12 @@ _Example command._ MetaPro automatically runs this.
     -   `-q`: Query type is RNA sequence.
     -   `-t`: Database type is DNA sequence.
 
-Lastly, a python script is used to filter the reads that BLAT does not confidently align to any sequences from our vector contamination database.
+Lastly, a python script is used to filter the reads that BLAT does not confidently align to any sequences from our vector contamination database, as follows:  
 
-```
-python3 /pipeline/Scripts/read_BLAT_Filter_v3.py single high mouse1_univec_bwa.fastq mouse1_univec.blatout mouse1_univec_blat.fastq mouse1_univec_blat_contaminats.fastq
+python3 /pipeline/Scripts/read_BLAT_Filter_v3.py single high mouse1_univec_bwa.fastq mouse1_univec.blatout mouse1_univec_blat.fastq mouse1_univec_blat_contaminats.fastq  
 
-```
+
+
 
 **Notes**:
 
@@ -454,33 +457,35 @@ High filter stringency will remove reads where either pair aligned to a vector.
 
 ### Step 4. Remove host reads
 
-To identify and filter host reads (here, reads of mouse origin) we repeat the steps above using a database of mouse DNA sequences. For our purposes we use a [mouse genome database](ftp://ftp.ensembl.org/pub/current_fasta/mus_musculus/cds/Mus_musculus.GRCm38.cds.all.fa.gz) downloaded from Ensembl.
+To identify and filter host reads (here, reads of mouse origin) we repeat the steps above using a database of mouse DNA sequences. For our purposes we use a [mouse genome database](ftp://ftp.ensembl.org/pub/current_fasta/mus_musculus/cds/Mus_musculus.GRCm38.cds.all.fa.gz) downloaded from Ensembl.  
 
-The MetaPro call is:
+
+The format of the MetaPro call is:  
+
+read1='&lt;path to your vector filter final results mouse.fastq&gt;'  
+config='&lt;path to config file&gt;'  
+output='&lt;path to output folder&gt;'  
+python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial host  
+  
+
+Run the command as follows:  
+
 ```
-read1='<path to your vector filter final results mouse.fastq>'
-config='<path to config file>'
-output='<path to output folder>'
-python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial host
+read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/vector_read_filter/final_results/singletons.fastq  
+config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini  
+output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run  
+python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial host  
 ```
 
-The commands would look like:
-```
-read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/vector_read_filter/final_results/singletons.fastq
-config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
-output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
-python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial host
-```
+This call will perform the following steps:  
 
-This call will perform the following steps:
 - Prepare the host database for alignment (BWA + BLAT)
 - perform alignment using BWA
 - convert the unaligned reads from BWA to a format for BLAT
 - perform alignment of the unaligned reads using BLAT
 - Run a script to remove the host reads from the input sample 
 
-
-```
+The following are the commands run by the script:
 bwa index -a bwtsw mouse_cds.fa
 samtools faidx mouse_cds.fa
 makeblastdb -in mouse_cds.fa -dbtype nucl
@@ -491,13 +496,13 @@ samtools fastq -n -f 4 -0 mouse1_mouse_bwa.fastq mouse1_mouse_bwa.bam
 vsearch --fastq_filter mouse1_mouse_bwa.fastq --fastaout mouse1_mouse_bwa.fasta
 blat -noHead -minIdentity=90 -minScore=65  mouse_cds.fa mouse1_mouse_bwa.fasta -fine -q=rna -t=dna -out=blast8 mouse1_mouse.blatout
 ./1_BLAT_Filter.py mouse1_mouse_bwa.fastq mouse1_mouse.blatout mouse1_mouse_blat.fastq mouse1_mouse_blat_contaminats.fastq
-```
+
 
 <!-- ***Question 5: How many reads did BWA and BLAT align to the mouse host sequence database?*** -->
 
 ***Optional:*** In your own future analyses you can choose to complete steps 3 and 4 simultaneously by combining the vector contamination database and the host sequence database using `cat UniVec_Core mouse_cds.fa > contaminants.fa`. However, doing these steps together makes it difficult to tell how much of your reads came specifically from your host organism.
 
-### Step 5. Remove abundant rRNA sequences
+### Step 5. Remove abundant rRNA sequences **[DO NOT RUN]**
 
 rRNA genes tend to be highly expressed in all samples and must therefore be screened out to avoid lengthy downstream processing times for the assembly and annotation steps. MetaPro uses [Barrnap] (https://github.com/tseemann/barrnap) and [Infernal] (http://infernal.janelia.org/).
 You could use sequence similarity tools such as BWA or BLAST for this step, but we find Infernal, albeit slower, is more sensitive as it relies on a database of covariance models (CMs) describing rRNA sequence profiles based on the Rfam database. Due to the reliance on CMs, Infernal, can take as much as 4 hours for ~100,000 reads on a single core.  In an effort to shrink the computing time, we leverage a computing cluster's multiple cores.
@@ -514,19 +519,20 @@ MetaPro will perform the following:
 - - filter the Barrnap leftover chunk using the Infernal results, to get mRNA, and "other"
 - collect all of the data pieces (Barrnap mRNA, Infernal mRNA) into mRNA, and "other"
 
-By running things this way, the rRNA step takes 4 minutes(as recorded with a 40-core computing node with 200 GB RAM, and an rRNA chunksize of 1000 reads), but it requires significant computing power, memory, and storage space, not available on a typical desktop PC.
-If you were to run this on your own, you will need the RFam database.
-The call to MetaPro would be:
-```
--NOTE: example form.
+By running things this way, the rRNA step takes 4 minutes (as recorded with a 40-core computing node with 200 GB RAM, and an rRNA chunksize of 1000 reads), but it requires significant computing power, memory, and storage space, not available on a typical desktop PC.  
 
-read1='<path to your host filter final results mouse.fastq>'
-config='<path to config file>'
-output='<path to output folder>'
+If you were to run this on your own, you will need the RFam database.  
+
+The format of the MetaPro call is:  
+
+read1='&lt;path to your host filter final results mouse.fastq&gt;'
+config='&lt;path to config file&gt;'
+output='&lt;path to output folder&gt;'
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial rRNA
-```
 
-The command would look like:
+
+The command would look as follows **[DO NOT RUN]**:  
+
 ```
 read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/host_read_filter/final_results/singletons.fastq
 config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
@@ -534,12 +540,14 @@ output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial rRNA
 ```
 
-Instead, we have provided you with the results.
+We have provided you with the precomputed results:  
+
 ``` 
-mouse1_run/rRNA_filter/final_results
+ls mouse1_run/rRNA_filter/final_results
 ```
 
-Here, we only remove a few thousand reads that map to rRNA, but in some datasets rRNA may represent up to 80% of the sequenced reads.
+Here, we only remove a few thousand reads that map to rRNA, but in some datasets rRNA may represent up to 80% of the sequenced reads.  
+
 
 <!-- ***Question 6: How many rRNA sequences were identified? How many reads are now remaining?*** -->
 
@@ -548,14 +556,16 @@ Here, we only remove a few thousand reads that map to rRNA, but in some datasets
 
 After removing contaminants, host sequences, and rRNA, we need to replace the previously removed replicate reads back in our data set.
 
-```
-read1='<path to your rRNA filter final results mouse.fastq>'
-config='<path to config file>'
-output='<path to output folder>'
-python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial repop
-```
+The format of the MetaPro call is:  
 
-The command would look like:
+read1='&lt;path to your rRNA filter final results mouse.fastq&gt;'  
+config='&lt;path to config file&gt;'  
+output='&lt;path to output folder&gt;'  
+python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial repop  
+
+
+The command should look as follows:  
+
 ```
 read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/rRNA_filter/final_results/mRNA/singletons.fastq
 config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
