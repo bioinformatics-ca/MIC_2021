@@ -836,15 +836,23 @@ ls mouse1_run/outputs/final_results/
 > ***Question 12: have a look at the `RPKM_table.tsv` file. What are the most highly expressed genes? Which phylum appears most active?***  
 
 <br/><br/>
-### Step 12. Visualize the results using a KEGG Pathway as a scaffold in Cytoscape.
+### Step 12. Visualize the results using a KEGG Pathway as a scaffold in Cytoscape.  
+
+This step will be performed on **your workstation**, using a Cytoscape file output from MetaPro.  
 
 To visualize our processed microbiome dataset in the context of the carbohydrate metabolism pathways, we use the network visualization tool **Cytoscape** together with the `enhancedGraphics` and `KEGGscape` plugins. Some useful commands for loading in networks, node attributes and changing visual properties are provided below (there are many Cytoscape tutorials available online).  Use cytoscape 3.7.2 (https://github.com/cytoscape/cytoscape/releases/3.7.2/) instead of the latest version.  
 
 
 **Download the metabolic pathway**
 
-First, download the carbohydrate metabolism pathways from KEGG using the following commands:
+First, download the carbohydrate metabolism pathways from KEGG onto your workstation by pasting the following addresses into a browser:  
+```
+https://github.com/ParkinsonLab/Metatranscriptome-Workshop/releases/download/EC/ec00010.xml
+https://github.com/ParkinsonLab/Metatranscriptome-Workshop/releases/download/EC/ec00500.xml
+```
 
+
+Alternatively, if you are using Linux, you may use the `wget` command as follows:
 ```
 wget https://github.com/ParkinsonLab/Metatranscriptome-Workshop/releases/download/EC/ec00010.xml
 wget https://github.com/ParkinsonLab/Metatranscriptome-Workshop/releases/download/EC/ec00500.xml
