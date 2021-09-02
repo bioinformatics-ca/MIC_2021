@@ -424,7 +424,7 @@ The commands do the following tasks:
     -   `samtools view`: Converts the .sam output of bwa into .bam for the following steps  
     -   `samtools fastq`: Generates fastq outputs for all reads that mapped to the vector contaminant database (`-F 4`) and all reads that did not map to the vector contaminant database (`-f 4`)  
     
-The command line parameters for BLAT are:
+The command line parameters for BLAT are:  
     -   `-noHead`: Suppresses .psl header (so it's just a tab-separated file).  
     -   `-minIdentity`: Sets minimum sequence identity is 90%.  
     -   `-minScore`: Sets minimum score is 65. This is the matches minus the mismatches minus some sort of gap penalty.  
@@ -530,7 +530,7 @@ read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/host_read_filter/fina
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial rRNA
 ```
 
-We have provided you with the precomputed results:  
+We have provided you with the pre-computed results:  
 
 ``` 
 ls mouse1_run/rRNA_filter/final_results
