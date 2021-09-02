@@ -301,7 +301,7 @@ In this Quality-filtering stage, MetaPro will perform several actions:
 - remove duplicate reads within the dataset  
 
 
-<!-- ***Question 1: How many low quality sequences have been removed?*** -->
+> ***Question 1: How many low quality sequences have been removed?***
 
 Use FastQC to check the quality of the reads filtered for low quality bases and short length:  
 
@@ -319,7 +319,7 @@ Compare with the previous report to see changes in the following sections:
 -   Per base sequence quality
 
 
-<!-- ***Question 2: How has the per read sequence quality curve changed in the final filtered output?*** -->
+> ***Question 2: How has the per read sequence quality curve changed in the final filtered output?***
 
 Use FastQC to check the quality of the final filtered output:  
 
@@ -396,17 +396,17 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial vector
 
 MetaPro will automatically run the following:  
 
-bwa index -a bwtsw UniVec_Core
-samtools faidx UniVec_Core
-makeblastdb -in UniVec_Core -dbtype nucl
+&ensp;&ensp;&ensp;&ensp;bwa index -a bwtsw UniVec_Core  
+&ensp;&ensp;&ensp;&ensp;samtools faidx UniVec_Core  
+&ensp;&ensp;&ensp;&ensp;makeblastdb -in UniVec_Core -dbtype nucl  
 
-bwa mem -t 4 UniVec_Core mouse1_unique.fastq > mouse1_univec_bwa.sam
-samtools view -bS mouse1_univec_bwa.sam > mouse1_univec_bwa.bam
-samtools fastq -n -F 4 -0 mouse1_univec_bwa_contaminats.fastq mouse1_univec_bwa.bam
-samtools fastq -n -f 4 -0 mouse1_univec_bwa.fastq mouse1_univec_bwa.bam
-vsearch --fastq_filter mouse1_univec_bwa.fastq --fastaout mouse1_univec_bwa.fasta
-blat -noHead -minIdentity=90 -minScore=65  UniVec_Core mouse1_univec_bwa.fasta -fine -q=rna -t=dna -out=blast8 mouse1_univec.blatout
-python3 /pipeline/Scripts/read_BLAT_Filter_v3.py single high mouse1_univec_bwa.fastq mouse1_univec.blatout mouse1_univec_blat.fastq mouse1_univec_blat_contaminats.fastq
+&ensp;&ensp;&ensp;&ensp;bwa mem -t 4 UniVec_Core mouse1_unique.fastq > mouse1_univec_bwa.sam  
+&ensp;&ensp;&ensp;&ensp;samtools view -bS mouse1_univec_bwa.sam > mouse1_univec_bwa.bam  
+&ensp;&ensp;&ensp;&ensp;samtools fastq -n -F 4 -0 mouse1_univec_bwa_contaminats.fastq mouse1_univec_bwa.bam  
+&ensp;&ensp;&ensp;&ensp;samtools fastq -n -f 4 -0 mouse1_univec_bwa.fastq mouse1_univec_bwa.bam  
+&ensp;&ensp;&ensp;&ensp;vsearch --fastq_filter mouse1_univec_bwa.fastq --fastaout mouse1_univec_bwa.fasta  
+&ensp;&ensp;&ensp;&ensp;blat -noHead -minIdentity=90 -minScore=65  UniVec_Core mouse1_univec_bwa.fasta -fine -q=rna -t=dna -out=blast8 mouse1_univec.blatout  
+&ensp;&ensp;&ensp;&ensp;python3 /pipeline/Scripts/read_BLAT_Filter_v3.py single high mouse1_univec_bwa.fastq mouse1_univec.blatout mouse1_univec_blat.fastq mouse1_univec_blat_contaminats.fastq
 
 
 **Notes**:  
@@ -490,17 +490,17 @@ This call will perform the following steps:
 - perform alignment of the unaligned reads using BLAT
 - Run a script to remove the host reads from the input sample 
 
-The following are the commands run by the script:
-bwa index -a bwtsw mouse_cds.fa
-samtools faidx mouse_cds.fa
-makeblastdb -in mouse_cds.fa -dbtype nucl
-bwa mem -t 4 mouse_cds.fa mouse1_univec_blat.fastq > mouse1_mouse_bwa.sam
-samtools view -bS mouse1_mouse_bwa.sam > mouse1_mouse_bwa.bam
-samtools fastq -n -F 4 -0 mouse1_mouse_bwa_contaminats.fastq mouse1_mouse_bwa.bam
-samtools fastq -n -f 4 -0 mouse1_mouse_bwa.fastq mouse1_mouse_bwa.bam
-vsearch --fastq_filter mouse1_mouse_bwa.fastq --fastaout mouse1_mouse_bwa.fasta
-blat -noHead -minIdentity=90 -minScore=65  mouse_cds.fa mouse1_mouse_bwa.fasta -fine -q=rna -t=dna -out=blast8 mouse1_mouse.blatout
-./1_BLAT_Filter.py mouse1_mouse_bwa.fastq mouse1_mouse.blatout mouse1_mouse_blat.fastq mouse1_mouse_blat_contaminats.fastq
+The following are the commands run by the script:  
+bwa index -a bwtsw mouse_cds.fa  
+samtools faidx mouse_cds.fa  
+makeblastdb -in mouse_cds.fa -dbtype nucl  
+bwa mem -t 4 mouse_cds.fa mouse1_univec_blat.fastq > mouse1_mouse_bwa.sam  
+samtools view -bS mouse1_mouse_bwa.sam > mouse1_mouse_bwa.bam  
+samtools fastq -n -F 4 -0 mouse1_mouse_bwa_contaminats.fastq mouse1_mouse_bwa.bam  
+samtools fastq -n -f 4 -0 mouse1_mouse_bwa.fastq mouse1_mouse_bwa.bam  
+vsearch --fastq_filter mouse1_mouse_bwa.fastq --fastaout mouse1_mouse_bwa.fasta  
+blat -noHead -minIdentity=90 -minScore=65  mouse_cds.fa mouse1_mouse_bwa.fasta -fine -q=rna -t=dna -out=blast8 mouse1_mouse.blatout  
+./1_BLAT_Filter.py mouse1_mouse_bwa.fastq mouse1_mouse.blatout mouse1_mouse_blat.fastq mouse1_mouse_blat_contaminats.fastq  
 
 
 <!-- ***Question 5: How many reads did BWA and BLAT align to the mouse host sequence database?*** -->
@@ -516,14 +516,15 @@ Here, MetaPro demonstrates the case for automation.
 MetaPro subdivides the input data, coordinates the concurrent processes, and collects the results into one single file after all of the scanning has been complete.
 
 
-MetaPro will perform the following:
-- subdivide the input data into user-defined chunk sizes (e.g. 1000 reads).
-- Each chunk is then run independently:
-  - run each chunk through Barrnap
-  - using the results of Barrnap, filter the data chunk into mRNA, and leftover data for further scanning.
-  - run each leftover chunk through Infernal.
-  - filter the Barrnap leftover chunk using the Infernal results, to get mRNA, and "other"
-- collect all of the data pieces (Barrnap mRNA, Infernal mRNA) into mRNA, and "other"
+MetaPro will perform the following:  
+
+- subdivide the input data into user-defined chunk sizes (e.g. 1000 reads).  
+- Each chunk is then run independently:  
+  - run each chunk through Barrnap  
+  - using the results of Barrnap, filter the data chunk into mRNA, and leftover data for further scanning.  
+  - run each leftover chunk through Infernal.  
+  - filter the Barrnap leftover chunk using the Infernal results, to get mRNA, and "other"  
+- collect all of the data pieces (Barrnap mRNA, Infernal mRNA) into mRNA, and "other"  
 
 By running things this way, the rRNA step takes 4 minutes (as recorded with a 40-core computing node with 200 GB RAM, and an rRNA chunksize of 1000 reads), but it requires significant computing power, memory, and storage space, not available on a typical desktop PC.  
 
@@ -607,7 +608,8 @@ mouse1_run/assemble_contigs/final_results
 
 
 **Notes**:
-In this step, MetaPro does the following:
+In this step, MetaPro does the following:  
+
 -   Assemble the reads into contigs using SPAdes
 -   Use MetaGeneMark to predict the genes in these contigs
 -   Use BWA to align the mRNA reads against these split-contigs to find out which reads were consumed by the process.
@@ -636,7 +638,8 @@ Since BWA and BLAT utilize nucleotide searches, we rely on the [ChocoPhlan pange
 
 For DIAMOND searches we use the [Non-Redundant (NR) protein database] (ftp://ftp.ncbi.nih.gov/blast/db/FASTA/nr.gz) from the NCBI.
 
-This is a computationally intensive step.  We employ our subdivision strategy here, similar to our design for rRNA removal, as seen below
+This is a computationally intensive step.  We employ our subdivision strategy here, similar to our design for rRNA removal, as seen below  
+
 -   The mRNA read data (contigs, remaining singletons, and remaining paired reads if applicable) are split into chunksizes (GA_chunksize in the configuration)
 -   Each chunk is sent through BWA to be aligned against the ChocoPhlan database  
 -   A map of genes to constituent reads is formed for each chunk.
@@ -645,16 +648,19 @@ This is a computationally intensive step.  We employ our subdivision strategy he
 -   Reads not annotated by BLAT are isolated, and are sent through to DIAMOND.
 -   A 3rd batch of maps of annotations to constituent reads are formed for the DIAMOND reads for each chunk.
 
-In all, this leaves us with (split into chunks):
+In all, this leaves us with (split into chunks):  
+
 -   a batch of BWA-annotated gene-to-read maps
 -   a batch of BLAT-annotated gene-to-read maps
 -   a batch of DIAMOND-annotated protein-to-read maps
 -   a batch of reads unannotated by BWA, BLAT, and DIAMOND.
 
-These batches of files are then sent to a custom script that will perform all of the final merging:
+These batches of files are then sent to a custom script that will perform all of the final merging:  
+
 -   collect and merge every map to form one map.  
 -   collect and merge the unannotated DIAMOND reads
--   collect all of the genes that were found in the reads, and convert them into proteins.  Then merge them with the proteins found in DIAMOND.  This step is for downstream analysis.
+-   collect all of the genes that were found in the reads, and convert them into proteins.  Then merge them with the proteins found in DIAMOND.  This step is for downstream analysis.  
+
 
 The format of the MetaPro command is:  
 
