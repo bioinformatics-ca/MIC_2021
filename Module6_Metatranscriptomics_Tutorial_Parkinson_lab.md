@@ -571,9 +571,7 @@ Now that we have filtered vectors, adapters, linkers, primers, host sequences, a
 <br/><br/>
 ### Step 7. Contig assembly   *** **[DO NOT RUN]**
 
-We have now gathered the putative mRNA scripts, and here we assemble the mRNA into contigs. 
-Previous studies have shown that assembling reads into larger contigs significantly increases our ability to annotate them to known genes through sequence similarity searches. Here we will apply the SPAdes genome assemblers' transcript assembly algorithm to our set of putative mRNA reads.
-The typical workload of MetaPro ranges anywhere from 40-million to 100-million reads, and more.  To make this process as efficient as possible, MetaPro assembles the data into contigs in an effort to shrink the number of reads to annotate.  
+We have now identified the putative mRNA reads, and here we assemble the reads into contigs. Previous studies have shown that assembling reads into larger contigs significantly increases the ability to annotate them to known genes through sequence similarity searches. Here we will apply the SPAdes transcript assembly algorithm to our set of putative mRNA reads.  
 
 The format of the MetaPro command is:  
 
@@ -588,7 +586,7 @@ read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/duplicate_repopulatio
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial contigs
 ```
 
-The expected output will be in:
+The expected output will be in:  
 ```
 mouse1_run/assemble_contigs/final_results
 ```
