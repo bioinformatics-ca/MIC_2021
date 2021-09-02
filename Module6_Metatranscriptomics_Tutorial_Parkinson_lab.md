@@ -365,10 +365,11 @@ _Example command only_ **[DO NOT RUN]**. MetaPro already calls this command as p
 The command line parameters are:
     -   `-i`: The input fasta or fastq file.
     -   `-o`: The output file containing dereplicated sequences, where a unique representative sequence is used to represent each set of sequences with multiple replicates.
-A second output file `mouse1_unique.fastq.clstr` is created which shows exactly which replicated sequences are represented by each unique sequence in the dereplicated file and a third, empty, output file, `mouse1_unique.fastq2.clstr` is also created which is only used for paired-end reads.
+A second output file `mouse1_unique.fastq.clstr` is created which shows exactly which replicated sequences are represented by each unique sequence in the dereplicated file and a third, empty, output file, `mouse1_unique.fastq2.clstr` is also created which is only used for paired-end reads.  
 
 
-<!-- ***Question 3: Can you find how many unique reads there are?*** -->
+
+> ***Question 3: Can you find how many unique reads there are?***  
 
 Navigate to `mouse1_run/quality_filter/final_results/` to view the FastQC report, or look at the generated `singletons.fastq` file itself in the output directory.  
 
@@ -583,7 +584,7 @@ cd mouse1_run/duplicate_repopulation/final_results/
 /pipeline_tools/FastQC/fastqc singletons.fastq
 ```  
 
-> ***Question 8: How many total contaminant, host, and rRNA reads were filtered out?***
+> ***Question 7: How many total contaminant, host, and rRNA reads were filtered out?***
 
 
 ### Step 7. Contig assembly   *** **[DO NOT RUN]**
@@ -623,11 +624,11 @@ In this step, MetaPro does the following:
 
 
 
-> ***Question 9: How many assemblies did SPAdes produce?  
+> ***Question 8: How many assemblies did SPAdes produce?  
 Hint: try using the command`tail mouse1_contigs.fasta`***  
   
 
-> ***Question 10: How many reads were not used in contig assembly? How many reads were used in contig assembly? How many contigs did we generate?***  
+> ***Question 9: How many reads were not used in contig assembly? How many reads were used in contig assembly? How many contigs did we generate?***  
   
 
 
@@ -753,12 +754,11 @@ python3 /pipeline/Scripts/alter_taxa_for_krona.py mouse1_run/taxonomic_annotatio
 /pipeline_tools/KronaTools/scripts/ImportText.pl -o mouse1_classification.html mouse1_classification_Krona.txt
 ```
 
-View the pie chart representation of the taxonomies detected through a web browser.
+View the pie chart representation of the taxonomies detected through a web browser.  
 
-<!-- 
-***Question 10: What is the most abundant family in our dataset? What is the most abundant phylum?  
+
+> ***Question 10: What is the most abundant family in our dataset? What is the most abundant phylum?  
 Hint: Try decreasing the `Max depth` value on the top left of the screen and/or double clicking on spcific taxa.***
--->
 
 
 
@@ -807,11 +807,11 @@ The pre-computed results are provided in: `mouse1_run/enzyme_annotation/final_re
         -   Using this co-occurence database, MetaPro filters invalid predictions.
             -   In cases where more-than-2 enzymes are annotated to a protein, the top 2 enzymes are taken, based on the probability score.
             -   If a pair of enzymes do not exist in the database, the enzyme with the higher probability score is declared the proper annotation.
-            -   Otherwise, the annotation is declared as a pair of enzymes.
+            -   Otherwise, the annotation is declared as a pair of enzymes.  
+  
 
-<!--
-***Question 14: How many high-confidence unique enzyme functions were identified in our dataset?***
--->  
+
+> ***Question 11: How many high-confidence unique enzyme functions were identified in our dataset?***  
 
 
 ### Step 11. Generate output files *** **[DO NOT RUN]**  
@@ -848,7 +848,7 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --
 **Notes:**
 
 
-> ***Question 15: have a look at the `mouse1_RPKM.txt` file. What are the most highly expressed genes? Which phylum appears most active?***  
+> ***Question 12: have a look at the `mouse1_RPKM.txt` file. What are the most highly expressed genes? Which phylum appears most active?***  
 
 
 ### Step 12. Visualize the results using a KEGG Pathway as a scaffold in Cytoscape.
