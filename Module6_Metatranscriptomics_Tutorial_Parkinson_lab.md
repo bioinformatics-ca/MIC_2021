@@ -295,10 +295,10 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial quality
 
 
 In this Quality-filtering stage, MetaPro will perform several actions:  
--filter reads below a quality score of 75  
--filter reads below a minimum length of 30 bp  
--remove adapters  
--remove duplicate reads within the dataset  
+- filter reads below a quality score of 75  
+- filter reads below a minimum length of 30 bp  
+- remove adapters  
+- remove duplicate reads within the dataset  
 
 
 <!-- ***Question 1: How many low quality sequences have been removed?*** -->
