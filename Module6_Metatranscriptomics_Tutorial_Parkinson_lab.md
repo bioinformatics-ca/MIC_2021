@@ -254,10 +254,10 @@ In the first step, MetaPro removes adaptor sequences, trims low-quality reads, a
 
 The format of the command is:  
 
-read1='&lt;path to input sequence&gt;'  
-config='&lt;path to config file&gt;'  
-output='&lt;path to output folder&gt;'  
-python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial quality  
+&ensp;&ensp;&ensp;&ensp;read1='&lt;path to input sequence&gt;'  
+&ensp;&ensp;&ensp;&ensp;config='&lt;path to config file&gt;'  
+&ensp;&ensp;&ensp;&ensp;output='&lt;path to output folder&gt;'  
+&ensp;&ensp;&ensp;&ensp;python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial quality  
   
 
 Run the command as follows:  
@@ -369,10 +369,10 @@ To identify and filter reads from sources of vector, adapter, linker, and primer
 
 The format for the MetaPro command to perform the vector filtering is:  
 
-read1='&lt;path to your quality filter final results mouse.fastq&gt;'  
-config='&lt;path to config file&gt;'  
-output='&lt;path to output folder&gt;'  
-python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial vector  
+&ensp;&ensp;&ensp;&ensp;read1='&lt;path to your quality filter final results mouse.fastq&gt;'  
+&ensp;&ensp;&ensp;&ensp;config='&lt;path to config file&gt;'  
+&ensp;&ensp;&ensp;&ensp;output='&lt;path to output folder&gt;'  
+&ensp;&ensp;&ensp;&ensp;python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial vector  
   
 
 Run the command as follows: 
@@ -462,10 +462,10 @@ To identify and filter host reads (here, reads of mouse origin) we repeat the st
 
 The format of the MetaPro call is:  
 
-read1='&lt;path to your vector filter final results mouse.fastq&gt;'  
-config='&lt;path to config file&gt;'  
-output='&lt;path to output folder&gt;'  
-python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial host  
+&ensp;&ensp;&ensp;&ensp;read1='&lt;path to your vector filter final results mouse.fastq&gt;'  
+&ensp;&ensp;&ensp;&ensp;config='&lt;path to config file&gt;'  
+&ensp;&ensp;&ensp;&ensp;output='&lt;path to output folder&gt;'  
+&ensp;&ensp;&ensp;&ensp;python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial host  
   
 
 Run the command as follows:  
@@ -526,10 +526,10 @@ If you were to run this on your own, you will need the RFam database.
 
 The format of the MetaPro call is:  
 
-read1='&lt;path to your host filter final results mouse.fastq&gt;'
-config='&lt;path to config file&gt;'
-output='&lt;path to output folder&gt;'
-python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial rRNA
+&ensp;&ensp;&ensp;&ensp;read1='&lt;path to your host filter final results mouse.fastq&gt;'
+&ensp;&ensp;&ensp;&ensp;config='&lt;path to config file&gt;'
+&ensp;&ensp;&ensp;&ensp;output='&lt;path to output folder&gt;'
+&ensp;&ensp;&ensp;&ensp;python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial rRNA
 
 
 The command would look as follows **[DO NOT RUN]**:  
@@ -559,10 +559,10 @@ After removing contaminants, host sequences, and rRNA, we need to replace the pr
 
 The format of the MetaPro call is:  
 
-read1='&lt;path to your rRNA filter final results mouse.fastq&gt;'  
-config='&lt;path to config file&gt;'  
-output='&lt;path to output folder&gt;'  
-python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial repop  
+&ensp;&ensp;&ensp;&ensp;read1='&lt;path to your rRNA filter final results mouse.fastq&gt;'  
+&ensp;&ensp;&ensp;&ensp;config='&lt;path to config file&gt;'  
+&ensp;&ensp;&ensp;&ensp;output='&lt;path to output folder&gt;'  
+&ensp;&ensp;&ensp;&ensp;python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial repop  
 
 
 Run the command as follows:  
@@ -593,10 +593,10 @@ The typical workload of MetaPro ranges anywhere from 40-million to 100-million r
 The format of the MetaPro command is:  
 _Example command only._  
 
-read1='&lt;path to your rereplicated mRNA final results mouse.fastq&gt;'  
-config='&lt;path to config file&gt;'  
-output='&lt;path to output folder&gt;'  
-python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial contigs  
+&ensp;&ensp;&ensp;&ensp;read1='&lt;path to your rereplicated mRNA final results mouse.fastq&gt;'  
+&ensp;&ensp;&ensp;&ensp;config='&lt;path to config file&gt;'  
+&ensp;&ensp;&ensp;&ensp;output='&lt;path to output folder&gt;'  
+&ensp;&ensp;&ensp;&ensp;python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial contigs  
   
 
 The command would look as follows: **[DO NOT RUN]**  
@@ -666,11 +666,11 @@ These batches of files are then sent to a custom script that will perform all of
 The format of the MetaPro command is:  
 _Example command only._ This step is heavily computationally intensive.  
 
-read1='&lt;path to your unassembled singletons.fastq&gt;'  
-contig='&lt;path to your contigs.fasta&gt;'  
-config='&lt;path to config file&gt;'  
-output='&lt;path to output folder&gt;'  
-python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial GA  
+&ensp;&ensp;&ensp;&ensp;read1='&lt;path to your unassembled singletons.fastq&gt;'  
+&ensp;&ensp;&ensp;&ensp;contig='&lt;path to your contigs.fasta&gt;'  
+&ensp;&ensp;&ensp;&ensp;config='&lt;path to config file&gt;'  
+&ensp;&ensp;&ensp;&ensp;output='&lt;path to output folder&gt;'  
+&ensp;&ensp;&ensp;&ensp;python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial GA  
   
   
 The command would look as follows **[DO NOT RUN]**:  
@@ -732,11 +732,11 @@ MetaPro uses this to settle on one confident taxon amongst Kaiju, Centrifuge, an
 The format of the MetaPro command is:  
 _Example command only._  MetaPro assumes the Gene Annotation step has completed.  
 
-read1='&lt;path to your unassembled singletons.fastq&gt;'  
-contig='&lt;path to your contigs.fasta&gt;'  
-config='&lt;path to config file&gt;'  
-output='&lt;path to output folder&gt;'  
-python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial TA  
+&ensp;&ensp;&ensp;&ensp;read1='&lt;path to your unassembled singletons.fastq&gt;'  
+&ensp;&ensp;&ensp;&ensp;contig='&lt;path to your contigs.fasta&gt;'  
+&ensp;&ensp;&ensp;&ensp;config='&lt;path to config file&gt;'  
+&ensp;&ensp;&ensp;&ensp;output='&lt;path to output folder&gt;'  
+&ensp;&ensp;&ensp;&ensp;python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial TA  
   
 
 The command would look as follows **[DO NOT RUN]**:  
@@ -791,11 +791,11 @@ PRIAM is incredibly resource-intensive, and slow to run.  For the sake of brevit
 The format of the MetaPro command is as follows.  
 _Example command only._ This command assumes that MetaPro has performed the Gene annotation phase.  
 
-read1='&lt;path to your unassembled singletons.fastq&gt;'  
-contig='&lt;path to your contigs.fasta&gt;'  
-config='&lt;path to config file&gt;'  
-output='&lt;path to output folder&gt;'  
-python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial EC  
+&ensp;&ensp;&ensp;&ensp;read1='&lt;path to your unassembled singletons.fastq&gt;'  
+&ensp;&ensp;&ensp;&ensp;contig='&lt;path to your contigs.fasta&gt;'  
+&ensp;&ensp;&ensp;&ensp;config='&lt;path to config file&gt;'  
+&ensp;&ensp;&ensp;&ensp;output='&lt;path to output folder&gt;'  
+&ensp;&ensp;&ensp;&ensp;python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial EC  
 
 
 The command would look as follows **[DO NOT RUN]**:
@@ -847,11 +847,11 @@ The command to generate the outputs is:
   
 _Example only_ **[DO NOT RUN]** This command assumes that MetaPro has performed the gene, taxa, and enzyme annotations.  
 
-read1='&lt;path to your unassembled singletons.fastq&gt;'  
-contig='&lt;path to your contigs.fasta&gt;'  
-config='&lt;path to config file&gt;'  
-output='&lt;path to output folder&gt;'  
-python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial output  
+&ensp;&ensp;&ensp;&ensp;read1='&lt;path to your unassembled singletons.fastq&gt;'  
+&ensp;&ensp;&ensp;&ensp;contig='&lt;path to your contigs.fasta&gt;'  
+&ensp;&ensp;&ensp;&ensp;config='&lt;path to config file&gt;'  
+&ensp;&ensp;&ensp;&ensp;output='&lt;path to output folder&gt;'  
+&ensp;&ensp;&ensp;&ensp;python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial output  
 
 
 
