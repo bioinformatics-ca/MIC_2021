@@ -103,11 +103,14 @@ In this part of the integrated assignment, we will be analyzing a new 16S sequen
 
 For this section, you will use the Qiime2 environment. Activate it with `conda activate qiime2-2021.4`. 
 
-Unlike the practical, you will start with the FASTQ reads for the integrated assignment. These FASTQs has been downloaded to your AWS instance already and can be found in the location specified above. As with all sequencing data, a sequence quality pre-check and filtering step is crucial. For your first step, let's import these FASTQ files into a Qiime2 artefact and visualize our quality scores. 
+Unlike the practical, you will start with the FASTQ reads for the integrated assignment. These FASTQs has been downloaded to your AWS instance already and can be found in the location specified above. Please symlink the files into your workspace directory. As with all sequencing data, a sequence quality pre-check and filtering step is crucial. For your first step, let's import these FASTQ files into a Qiime2 artefact and visualize our quality scores. 
 
 The import command is a bit different compared to the 16S module, see if you can figure it out by using the `--help` command or using the [qiime2 import tutorial](https://docs.qiime2.org/2021.4/tutorials/importing/)
-If not, the answer is hidden here:
-<answer> `qiime tools import --type 'SampleData[PairedEndSequencesWithQuality]' --input-path ~/CourseData/MIC_data/IntegratedAssignment/16s/16s_reads/manifest.txt --output-path oralMicrobiome --input-format PairedEndFastqManifestPhred33V2` </answer>
+
+If you have trouble, the answer is hidden here:
+<answer> 
+	`qiime tools import --type 'SampleData[PairedEndSequencesWithQuality]' --input-path ~/CourseData/MIC_data/IntegratedAssignment/16s/16s_reads/manifest.txt --output-path oralMicrobiome --input-format PairedEndFastqManifestPhred33V2` 
+</answer>
 
 After you do this, you should have a Qiime2 Artefact (*.qza) and a Qiime2 visualization file (*.qzv)
 
@@ -134,14 +137,13 @@ Hint commands:
 ```bash
 qiime dada2 denoise-paired
 qiime feature-classifier
-The metadata file can be found in the 16s data folder.
+The metadata file can be found in the 16s data folder (~/CourseData/MIC_data/IntegratedAssignment/16s/metadata.txt).
 https://view.qiime2.com
 ```
 
 > **Q2. What is the difference between ASVs and OTUs? Are there major differences in taxa present at different oral sites as well as sex? Are there any site specific species?**
 
-### 1.3- Diversity metrics & phylogenetic trees
-
+### 1.3- Diversity metrics, phylogenetic trees and differential abundances.
 With your ASV abundances, can you measure the diversity of our samples? Then, produce a phylogenetic tree of your microbiomes.
 
 What you should have after this is a phylogenetic tree (*.tre) and a few Qiime2 visualization artefacts containing your diversity measurements (*.qzv)
@@ -152,6 +154,7 @@ Hint commands:
 qiime diversity
 qiime alignment
 qiime phylogeny
+qiime composition
 https://view.qiime2.com
 ```
 
