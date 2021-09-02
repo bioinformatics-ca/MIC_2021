@@ -77,7 +77,7 @@ ${IntegratedAssignment}/ShotgunMetagenomics/DRAM_output_for_QC_MAGs/
 source activate $software
 ```
 
-We encourage you to (not immediately) refer back to the commands provided in the presented modules, but instead to read the help functions of each function (unless you’re stuck!), you can usually bring out the help menu by using the `--help` flag.
+We encourage you to (not immediately) refer back to the commands provided in the presented modules, but instead to read the help functions of each command (unless you’re stuck!), you can usually bring out the help menu by using the `--help` flag after your commands.
 
 If you really do get stuck at a step and cannot figure it out by yourself, don't worry. Some intermediate files are available so that you can "skip" a command. Simply copy it from the following locations into your working directory and continue working. Make sure you come back at a later date to troubleshoot where it went wrong!
 
@@ -91,13 +91,15 @@ If you really do get stuck at a step and cannot figure it out by yourself, don't
 ~/CourseData/MIC_data/16s/picrust2_Intermediate_Files
 ```
 
+Throughout this assignment, we will ask a few questions to keep you on track and reflect on what the outputs mean. For an added challenge, answer the questions posed in each module's practical using this oral microbiome dataset!
+
 Last but not at least, feel free to work together here if it helps you, but please run the commands yourself in your own instance. Just note that the answers and results might be slighly different for different students depending on your parameters used. 
 
 # PART I
 
 ## 1- 16S rRNA Gene Analyses
 
-In this part of the integrated assignment, we will be analyzing a new 16S sequencing dataset of human oral microbiomes using what we learned in this workshop. We will be starting with FASTQ files and you will import them into Qiime2 and produce a tab-delimited file containing the ASV abundance data, as well as assign taxonomy and calculating diversity measures. The same tools will be used, but the commands to use them will not all be provided! But no worries, there will be hints throughout the assignment to point you in the right direction. One part of the exercise is to use the correct commands and parameters, and the other is to read and understand the main output files.
+In this part of the integrated assignment, we will be analyzing a new 16S sequencing dataset of human oral microbiomes using what we learned in this workshop. We will be starting with FASTQ files and you will import them into Qiime2 and produce a tab-delimited file containing the ASV abundance data, assign taxonomy, measuring diversity, calculating differential abundances, and predicting the microbiome functional pathways. The same tools will be used, but the commands to use them will not all be provided! But no worries, there will be hints throughout the assignment to point you in the right direction. One part of the exercise is to use the correct commands and parameters, and the other is to read and understand the main output files.
 
 ### 1.1 - 16S raw data preprocessing and exploration
 
@@ -107,13 +109,7 @@ Unlike the practical, you will start with the FASTQ reads for the integrated ass
 
 The import command is a bit different compared to the 16S module, see if you can figure it out by using the `--help` command or using the [qiime2 import tutorial](https://docs.qiime2.org/2021.4/tutorials/importing/)
 
-If you have trouble, the answer is hidden here:
-<answer> 
-	<summary>Click to expand!</summary>
-	
-	`qiime tools import --type 'SampleData[PairedEndSequencesWithQuality]' --input-path ~/CourseData/MIC_data/IntegratedAssignment/16s/16s_reads/manifest.txt --output-path oralMicrobiome --input-format PairedEndFastqManifestPhred33V2` 
-	
-</answer>
+If you have trouble, the answer is below after section 1.5. 
 
 After you do this, you should have a Qiime2 Artefact (*.qza) and a Qiime2 visualization file (*.qzv)
 
@@ -126,8 +122,6 @@ qiime demux
 The manifest file can be found in the 16s/16s_reads folder.
 https://view.qiime2.com
 ```
-
-Throughout this assignment, we will ask a few questions to keep you on track and reflect on what the outputs mean. For an added challenge, answer the questions posed in each module's practical using this oral microbiome dataset!
 
 > **Q1. How are the sequence qualities of this dataset? Are there any samples that have a low number of reads? Should the reads be truncated?**
 
@@ -144,7 +138,7 @@ The metadata file can be found in the 16s data folder (~/CourseData/MIC_data/Int
 https://view.qiime2.com
 ```
 
-> **Q2. What is the difference between ASVs and OTUs? Are there major differences in taxa present at different oral sites as well as sex? Are there any site specific species?**
+> **Q2. What is the difference between ASVs and OTUs? Are there visual differences in taxa present at different oral sites? what about sex and couple?**
 
 ### 1.3- Diversity metrics, phylogenetic trees and differential abundances.
 With your ASV abundances, can you measure the diversity of our samples? Then, produce a phylogenetic tree of your microbiomes.
@@ -161,33 +155,17 @@ qiime composition
 https://view.qiime2.com
 ```
 
-> **Q3. Using your calculated diversities, can you describe any significant between group differences?**
+> **Q3. Can you describe any significant between group differences? Are there any site specific species?**
 
 ### 1.4- Predicting the microbiome's functional pathways using PiCRUSt2
-For this section, you will use the picrust2 environment. Activate it with `conda activate picrust2`. 
 
 First, in order to predict the functional pathways, we need to extract a few files from our Qiime2 workflow.
 
 > **Q4. Do you remember what the inputs for PiCRUSt2 are?**
 
-To generate the 3 input files from our Qiime2 work flow, check out the `qiime tools export` command. If you have trouble understanding it, see the answer below.
+To generate the 3 input files from our Qiime2 work flow, check out the `qiime tools export` command. If you have trouble understanding it, see the answer below in section 1.6.
 
-<answer> 
-	<summary>Click to expand!</summary>
-	
-```bash
-#export our ASV abundances
-qiime tools export --input-path unfiltered_table.qza --output-path ./
-biom convert -i feature-table.biom -o feature-table.tsv --to-tsv
-#removing some junk rows in the tsv file.
-tail -n +2 feature-table.tsv | tail -c +2 > abundances.tsv
-
-#export the ASV's sequences
-qiime tools export --input-path representative_sequences.qza --output-path ./
-
-```
-
-</answer>
+After you generated the input files, for the remainder of this section, you will use the picrust2 environment. Activate it with `conda activate picrust2`. 
 
 Now that we have the ASV abundance (abundances.tsv), ASV sequences (dna-sequences.fasta) and the metadata fille (metadata.txt), let's infer some functional pathways. We are now delving into the world of PiCRUSt2, refer back to the PiCRUSt2 tutorial for a refresher if needed. Let's start by generating our predictions for ECs.
 
@@ -220,7 +198,7 @@ pathway_pipeline.py
 add_descriptions.py
 ```
 
-> **Q6. Now you have predicted the functional profile of your microbiomes, visualize it however you like and see if there are any differences in functional profiles between microbiomes of different oral sites. Can you describe the inherited limitations of using PiCRUSt2 to extrapolate microbiome functions?**
+> **Q6. Now you have predicted the functional profile of your microbiomes, visualize it however you like and prepare a summary of differences in functional profiles between microbiomes of different oral sites. Can you describe the inherited limitations of using PiCRUSt2 to extrapolate microbiome functions?**
 
 ### 1.5- Conclusion
 
@@ -228,8 +206,28 @@ Congratulations! You have just completed the 16s portion of the integrated assig
 
 Inside the `~/CourseData/MIC_data/IntegratedAssignment/16s` folder, there is a file named `section1_workflow.sh` that contains all of the commands I used in section 1 to generate my results. Feel free to check your commands against it. Note that it might be different to what you did and that's totally okay!
 
-Keep you findings and conclusions in mind though as we will delve into the shotgun metagenomic data of this oral microbiome in the next section. In the end, we will ask you to compare and contrast the findings of both methods.
+Keep you findings and conclusions from the 16S data in mind though as we move on to delve into the shotgun metagenomic data of this oral microbiome in the next section. In the end, we will ask you to compare and contrast the findings of both methods.
 
+
+###1.6- Code answers
+
+For importing reads into Qiime2:
+```bash
+qiime tools import --type 'SampleData[PairedEndSequencesWithQuality]' --input-path ~/CourseData/MIC_data/IntegratedAssignment/16s/16s_reads/manifest.txt --output-path oralMicrobiome --input-format PairedEndFastqManifestPhred33V2
+``` 
+
+For exporting input files for picrust2
+```bash
+#export our ASV abundances
+qiime tools export --input-path unfiltered_table.qza --output-path ./
+biom convert -i feature-table.biom -o feature-table.tsv --to-tsv
+#removing some junk rows in the tsv file.
+tail -n +2 feature-table.tsv | tail -c +2 > abundances.tsv
+
+#export the ASV's sequences
+qiime tools export --input-path representative_sequences.qza --output-path ./
+
+```
 ---
 
 ---
