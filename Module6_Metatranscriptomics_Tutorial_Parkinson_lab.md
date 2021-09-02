@@ -370,8 +370,6 @@ To identify and filter reads from sources of vector, adapter, linker, and primer
 The format for the MetaPro command to perform the vector filtering is:  
 
 &ensp;&ensp;&ensp;&ensp;read1='&lt;path to your quality filter final results mouse.fastq&gt;'  
-&ensp;&ensp;&ensp;&ensp;config='&lt;path to config file&gt;'  
-&ensp;&ensp;&ensp;&ensp;output='&lt;path to output folder&gt;'  
 &ensp;&ensp;&ensp;&ensp;python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial vector  
   
 
@@ -379,8 +377,6 @@ Run the command as follows:
 
 ```
 read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/quality_filter/final_results/singletons.fastq
-config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
-output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial vector
 ```
 
@@ -463,8 +459,6 @@ To identify and filter host reads (here, reads of mouse origin) we repeat the st
 The format of the MetaPro call is:  
 
 &ensp;&ensp;&ensp;&ensp;read1='&lt;path to your vector filter final results mouse.fastq&gt;'  
-&ensp;&ensp;&ensp;&ensp;config='&lt;path to config file&gt;'  
-&ensp;&ensp;&ensp;&ensp;output='&lt;path to output folder&gt;'  
 &ensp;&ensp;&ensp;&ensp;python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial host  
   
 
@@ -472,8 +466,6 @@ Run the command as follows:
 
 ```
 read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/vector_read_filter/final_results/singletons.fastq  
-config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini  
-output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run  
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial host  
 ```
 
@@ -526,18 +518,14 @@ If you were to run this on your own, you will need the RFam database.
 
 The format of the MetaPro call is:  
 
-&ensp;&ensp;&ensp;&ensp;read1='&lt;path to your host filter final results mouse.fastq&gt;'
-&ensp;&ensp;&ensp;&ensp;config='&lt;path to config file&gt;'
-&ensp;&ensp;&ensp;&ensp;output='&lt;path to output folder&gt;'
-&ensp;&ensp;&ensp;&ensp;python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial rRNA
+&ensp;&ensp;&ensp;&ensp;read1='&lt;path to your host filter final results mouse.fastq&gt;'  
+&ensp;&ensp;&ensp;&ensp;python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial rRNA  
 
 
-The command would look as follows **[DO NOT RUN]**:  
+The command would look as follows: **[DO NOT RUN]**  
 
 ```
 read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/host_read_filter/final_results/singletons.fastq
-config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
-output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial rRNA
 ```
 
@@ -560,8 +548,6 @@ After removing contaminants, host sequences, and rRNA, we need to replace the pr
 The format of the MetaPro call is:  
 
 &ensp;&ensp;&ensp;&ensp;read1='&lt;path to your rRNA filter final results mouse.fastq&gt;'  
-&ensp;&ensp;&ensp;&ensp;config='&lt;path to config file&gt;'  
-&ensp;&ensp;&ensp;&ensp;output='&lt;path to output folder&gt;'  
 &ensp;&ensp;&ensp;&ensp;python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial repop  
 
 
@@ -569,8 +555,6 @@ Run the command as follows:
 
 ```
 read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/rRNA_filter/final_results/mRNA/singletons.fastq
-config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
-output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial repop
 ```
 
@@ -594,8 +578,6 @@ The format of the MetaPro command is:
 _Example command only._  
 
 &ensp;&ensp;&ensp;&ensp;read1='&lt;path to your rereplicated mRNA final results mouse.fastq&gt;'  
-&ensp;&ensp;&ensp;&ensp;config='&lt;path to config file&gt;'  
-&ensp;&ensp;&ensp;&ensp;output='&lt;path to output folder&gt;'  
 &ensp;&ensp;&ensp;&ensp;python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial contigs  
   
 
@@ -603,8 +585,6 @@ The command would look as follows: **[DO NOT RUN]**
   
 ```
 read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/duplicate_repopulation/final_results/singletons.fastq
-config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
-output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial contigs
 ```
 
@@ -635,7 +615,8 @@ Hint: try using the command`tail mouse1_contigs.fasta`***
 
 
 
-### Step 8. Annotate reads to known genes/proteins **[DO NOT RUN]**
+### Step 8. Annotate reads to known genes/proteins **[DO NOT RUN]**  
+
 
 Here we will attempt to infer the specific genes our putative mRNA reads originated from. In our pipeline we rely on a tiered set of sequence similarity searches of decreasing accuracy - BWA, BLAT, and DIAMOND. While BWA provides high stringency, sequence diversity that occurs at the nucleotide level results in few matches observed for these processes. Nonetheless it is quick. To avoid the problems of diversity that occur at the level of nucleotide, particularly in the absence of reference microbial genomes, we use a cascaded method involving two other tools: BLAT, and DIAMOND. BLAT provides a more sensitive alignment, along with quality scores to rank the matches.  DIAMOND is used to provide more sensitive peptide-based searches, which are less prone to sequence changes between strains.
 
@@ -668,18 +649,14 @@ _Example command only._ This step is heavily computationally intensive.
 
 &ensp;&ensp;&ensp;&ensp;read1='&lt;path to your unassembled singletons.fastq&gt;'  
 &ensp;&ensp;&ensp;&ensp;contig='&lt;path to your contigs.fasta&gt;'  
-&ensp;&ensp;&ensp;&ensp;config='&lt;path to config file&gt;'  
-&ensp;&ensp;&ensp;&ensp;output='&lt;path to output folder&gt;'  
 &ensp;&ensp;&ensp;&ensp;python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial GA  
   
   
-The command would look as follows **[DO NOT RUN]**:  
+The command would look as follows: **[DO NOT RUN]**  
   
 ```
 read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/assemble_contigs/final_results/singletons.fastq
 contig=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/assemble_contigs/final_results/contigs.fasta
-config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
-output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial GA
 ```
 
@@ -718,7 +695,6 @@ mouse1_run/GA_FINAL_MERGE/final_results
 
 ### Step 9. Taxonomic Classification **[DO NOT RUN]**  
 
-
 Now that we have putative mRNA transcripts, we can begin to infer the origins of our mRNA reads. Firstly, we will attempt to use a reference based short read classifier to infer the taxonomic orgin of our reads. Here we will use [Kaiju] (https://github.com/bioinformatics-centre/kaiju), [Centrifuge](https://ccb.jhu.edu/software/centrifuge/manual.shtml), and our Gene Annotation results to generate taxonomic classifications for our reads based on a reference database. 
 Kaiju can classify prokaryotic reads at speeds of millions of reads per minute using the proGenomes database on a system with less than 16GB of RAM (~13GB). Using the entire NCBI nr database as a reference takes ~43GB. Similarly fast classification tools require >100GB of RAM to classify reads against large databases. 
 
@@ -734,18 +710,14 @@ _Example command only._  MetaPro assumes the Gene Annotation step has completed.
 
 &ensp;&ensp;&ensp;&ensp;read1='&lt;path to your unassembled singletons.fastq&gt;'  
 &ensp;&ensp;&ensp;&ensp;contig='&lt;path to your contigs.fasta&gt;'  
-&ensp;&ensp;&ensp;&ensp;config='&lt;path to config file&gt;'  
-&ensp;&ensp;&ensp;&ensp;output='&lt;path to output folder&gt;'  
 &ensp;&ensp;&ensp;&ensp;python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial TA  
   
 
-The command would look as follows **[DO NOT RUN]**:  
+The command would look as follows: **[DO NOT RUN]**  
   
 ```
 read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/assemble_contigs/final_results/singletons.fastq
 contig=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/assemble_contigs/final_results/contigs.fasta
-config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
-output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial TA
 ```
 
@@ -788,22 +760,19 @@ MetaPro combines the predictions of all 3 tools to give 2 answers, a lower-confi
 PRIAM is incredibly resource-intensive, and slow to run.  For the sake of brevity, the results have been provided for this tutorial.
 
 
-The format of the MetaPro command is as follows.  
+The MetaPro command is:  
 _Example command only._ This command assumes that MetaPro has performed the Gene annotation phase.  
 
 &ensp;&ensp;&ensp;&ensp;read1='&lt;path to your unassembled singletons.fastq&gt;'  
 &ensp;&ensp;&ensp;&ensp;contig='&lt;path to your contigs.fasta&gt;'  
-&ensp;&ensp;&ensp;&ensp;config='&lt;path to config file&gt;'  
-&ensp;&ensp;&ensp;&ensp;output='&lt;path to output folder&gt;'  
 &ensp;&ensp;&ensp;&ensp;python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial EC  
 
 
-The command would look as follows **[DO NOT RUN]**:
+The command would look as follows: **[DO NOT RUN]**  
+
 ```
 read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/assemble_contigs/final_results/singletons.fastq
 contig=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/assemble_contigs/final_results/contigs.fasta
-config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
-output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial EC
 ```
 
@@ -830,27 +799,27 @@ The pre-computed results are provided in: `mouse1_run/enzyme_annotation/final_re
 ***Question 14: How many high-confidence unique enzyme functions were identified in our dataset?***
 -->  
 
-### Step 11. Generate annotation outputs  
 
-We have removed low quality bases/reads, vectors, adapters, linkers, primers, host sequences, and rRNA sequences and annotated reads to the best of our ability - now lets summarize our findings. We do this by looking at the relative expression of each of our genes in our microbiome.
+### Step 11. Generate output files **[DO NOT RUN]**  
 
-MetaPro generates many output files:
+We have removed low quality bases/reads, vectors, adapters, linkers, primers, host sequences, and rRNA sequences and annotated reads to the best of our ability - now lets summarize our findings. We do this by looking at the relative expression of each of our genes in our microbiome.  
+
+MetaPro generates many output files:  
+
 -   A gene expression table of RPKMs in terms of the 20-most prevalent taxa in the sample
 -   A Cytoscape-compatible network file
 -   An enzyme superpathway heatmap to visualize the distribution of enzymes found.
 -   A read count summary table, to track where the reads went.
 -   A gene/protein-to-read map of all genes and proteins identified by MetaPro, followed by its constituent reads
 -   A histogram of read quality
--   A summary of all taxa identified, followed by the number of reads associated with those taxa.
+-   A summary of all taxa identified, followed by the number of reads associated with those taxa.  
 
-The command to generate the outputs is:  
-  
-_Example only_ **[DO NOT RUN]** This command assumes that MetaPro has performed the gene, taxa, and enzyme annotations.  
+
+The MetaPro command is: **[DO NOT RUN]**
+_Example command only._ This command assumes that MetaPro has performed the gene, taxa, and enzyme annotations.  
 
 &ensp;&ensp;&ensp;&ensp;read1='&lt;path to your unassembled singletons.fastq&gt;'  
 &ensp;&ensp;&ensp;&ensp;contig='&lt;path to your contigs.fasta&gt;'  
-&ensp;&ensp;&ensp;&ensp;config='&lt;path to config file&gt;'  
-&ensp;&ensp;&ensp;&ensp;output='&lt;path to output folder&gt;'  
 &ensp;&ensp;&ensp;&ensp;python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial output  
 
 
@@ -859,11 +828,12 @@ _Example only_ **[DO NOT RUN]** This command assumes that MetaPro has performed 
 
 <!--
 ***Question 15: have a look at the `mouse1_RPKM.txt` file. What are the most highly expressed genes? Which phylum appears most active?***
--->
+-->  
+
 ### Step 12. Visualize the results using a KEGG Pathway as a scaffold in Cytoscape.
 
-To visualize our processed microbiome dataset in the context of the carbohydrate metabolism pathways, we use the network visualization tool - Cytoscape together with the enhancedGraphics and KEGGscape plugins. Some useful commands for loading in networks, node attributes and changing visual properties are provided below (there are many cytoscape tutorials available online).
-Note: Use cytoscape 3.7.2, instead of the latest version
+To visualize our processed microbiome dataset in the context of the carbohydrate metabolism pathways, we use the network visualization tool - Cytoscape together with the enhancedGraphics and KEGGscape plugins. Some useful commands for loading in networks, node attributes and changing visual properties are provided below (there are many cytoscape tutorials available online).  _Use cytoscape 3.7.2, instead of the latest version._  
+
 ```
 https://github.com/cytoscape/cytoscape/releases/3.7.2/
 ```
