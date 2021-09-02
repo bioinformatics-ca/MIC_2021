@@ -15,9 +15,11 @@ description: MIC 2021 Integrated Assignment
 
 By now you’ve been introduced to a few pipelines for analyzing both 16S amplicon and shotgun metagenomics sequencing data. For this assignment we’ll be re-visiting these pipelines, but we will not be providing all of the commands for you to copy-and-paste. Two key skills for bioinformaticians to have is to be able to adapt existing pipelines on your data and to quickly learn how to use new tools. You’ll need to showcase both of these skills to complete this assignment!
 
-For your integrated assignment, we will use our knowledge gained from this workshop to explore a (sub-sampled) dataset collected from ***Shaiber. A et al.***
+For your integrated assignment, we will not provide a step-by-step tutorial. Rather you will use our knowledge gained from this workshop to explore a (sub-sampled) dataset collected from ***Shaiber. A et al*** by yourself.
 
 [Functional and genetic markers of niche partitioning among enigmatic members of the human oral microbiome - Genome Biology](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02195-w)
+
+By the end of this assignment, we hope that you will have a deep understanding of how each tool work, how everything ties together, and able to use these tools for your own research! 
 
 ## A quick introduction to this dataset
 
@@ -42,9 +44,9 @@ For shotgun metagenomics data, we have provided only 1 replicate from each sampl
 
 ## Data location and conda environment required
 
-Before we begin, lets remind ourselves about a few important paths and conda activation command
+Before we begin, lets remind ourselves about a few important paths and conda activation command. Remeber to change into your working directory, make a new folder called "IntegratedAssignment" and cd into that. You can optionally symlink (`ln`) these data locations to your workspace as introduced in 16S module.
 
-```bash
+```bash\
 # Datasets
 
 IntegratedAssignment=~/CourseData/MIC_data/IntegratedAssignment
@@ -77,7 +79,7 @@ source activate $software
 
 We encourage you to (not immediately) refer back to the commands provided in the presented modules, but instead to read the help functions of each function (unless you’re stuck!), you can usually bring out the help menu by using the `--help` flag.
 
-If you really do get stuck at a step and cannot figure it out by yourself, don't worry. We left some intermediate files that you can use to "skip" a command. Simply copy it from the following locations into your working directory and continue working. Make sure you come back at a later date to troubleshoot where it went wrong!
+If you really do get stuck at a step and cannot figure it out by yourself, don't worry. Some intermediate files are available so that you can "skip" a command. Simply copy it from the following locations into your working directory and continue working. Make sure you come back at a later date to troubleshoot where it went wrong!
 
 ```bash
 #Intermediate files
@@ -89,6 +91,8 @@ If you really do get stuck at a step and cannot figure it out by yourself, don't
 ~/CourseData/MIC_data/16s/picrust2_Intermediate_Files
 ```
 
+Last but not at least, feel free to work together here if it helps you, but please run the commands yourself in your own instance. Just note that the answers and results might be slighly different for different students depending on your parameters used. 
+
 # PART I
 
 ## 1- 16S rRNA Gene Analyses
@@ -97,13 +101,20 @@ In this part of the integrated assignment, we will be analyzing a new 16S sequen
 
 ### 1.1 - 16S raw data preprocessing and exploration
 
-As with all sequencing data, a sequence quality pre-check and filtering step is crucial. For your first step, let's use what we learned in the 16S module to import these FASTQ files into a Qiime2 artefact and visualize our quality scores.
+For this section, you will use the Qiime2 environment. Activate it with `conda activate qiime2-2021.4`. 
+
+Unlike the practical, you will start with the FASTQ reads for the integrated assignment. These FASTQs has been downloaded to your AWS instance already and can be found in the location specified above. As with all sequencing data, a sequence quality pre-check and filtering step is crucial. For your first step, let's import these FASTQ files into a Qiime2 artefact and visualize our quality scores. 
+
+The import command is a bit different compared to the 16S module, see if you can figure it out by using the `--help` command or using the [qiime2 import tutorial](https://docs.qiime2.org/2021.4/tutorials/importing/)
+If not, the answer is hidden here:
+<answer> `qiime tools import --type 'SampleData[PairedEndSequencesWithQuality]' --input-path ~/CourseData/MIC_data/IntegratedAssignment/16s/16s_reads/manifest.txt --output-path oralMicrobiome --input-format PairedEndFastqManifestPhred33V2` </answer>
 
 After you do this, you should have a Qiime2 Artefact (*.qza) and a Qiime2 visualization file (*.qzv)
 
 Hint commands:
 
-```jsx
+```bash
+ln
 qiime tools import
 qiime demux
 The manifest file can be found in the 16s/16s_reads folder.
@@ -112,20 +123,18 @@ https://view.qiime2.com
 
 Throughout this assignment, we will ask a few questions to keep you on track and reflect on what the outputs mean. For an added challenge, answer the questions posed in each module's practical using this oral microbiome dataset!
 
-> **Q1. How are the sequence quality of this dataset? Are there any samples that have a low number of reads? Should the reads be truncated?**
+> **Q1. How are the sequence qualities of this dataset? Are there any samples that have a low number of reads? Should the reads be truncated?**
 
 ### 1.2- ASV identification and taxonomy classification
 
-Now that you had checked your quality, let's assign ASVs and their respective taxonomies. If you determined that you need to truncate your reads due to quality issues, remember to do that now.
-
-At the end of this step, you should have a table of ASVs and their abundances , a table of Taxonomies assigned to each ASV, and a Qiime2 visualization artefact (*.qzv) in which you can see your Taxa bar plots.
+Now that you had checked your quality, let's identify ASVs and assign their respective taxa identities. If you determined that you need to truncate your reads due to quality issues, remember to do that now.
 
 Hint commands:
 
 ```bash
 qiime dada2 denoise-paired
 qiime feature-classifier
-The metadata file can be found in the 16s folder.
+The metadata file can be found in the 16s data folder.
 https://view.qiime2.com
 ```
 
@@ -149,14 +158,15 @@ https://view.qiime2.com
 > **Q3. Using your calculated diversities, can you describe any significant between group differences?**
 
 ### 1.4- Predicting the microbiome's functional pathways using PiCRUSt2
+For this section, you will use the picrust2 environment. Activate it with `conda activate picrust2`. 
 
 First, in order to predict the functional pathways, we need to extract a few files from our Qiime2 workflow.
 
 > **Q4. Do you remember what the inputs for PiCRUSt2 are?**
 
-To generate the 3 input files from our Qiime2 work flow:
+To generate the 3 input files from our Qiime2 work flow, check out the `qiime tools export` command. If you have trouble understanding it, see the answer below.
 
-Hint commands:
+<answer>
 
 ```bash
 #export our ASV abundances
@@ -169,6 +179,7 @@ tail -n +2 feature-table.tsv | tail -c +2 > abundances.tsv
 qiime tools export --input-path representative_sequences.qza --output-path ./
 
 ```
+</answer>
 
 Now that we have the ASV abundance (abundances.tsv), ASV sequences (dna-sequences.fasta) and the metadata fille (metadata.txt), let's infer some functional pathways. We are now delving into the world of PiCRUSt2, refer back to the PiCRUSt2 tutorial for a refresher if needed. Let's start by generating our predictions for ECs.
 
@@ -207,7 +218,7 @@ add_descriptions.py
 
 Congratulations! You have just completed the 16s portion of the integrated assignment. I hope this gave you a chance to practice and solidify your understanding of 16S marker gene metagenomics.
 
-Inside the `~/CourseData/MIC_data/IntegratedAssignment/16s` folder, there is a file named `section1_workflow.sh` that contains all of the commands used in section 1 joined together into 1 bash script. Feel free to check your commands against it.   
+Inside the `~/CourseData/MIC_data/IntegratedAssignment/16s` folder, there is a file named `section1_workflow.sh` that contains all of the commands I used in section 1 to generate my results. Feel free to check your commands against it. Note that it might be different to what you did and that's totally okay!
 
 Keep you findings and conclusions in mind though as we will delve into the shotgun metagenomic data of this oral microbiome in the next section. In the end, we will ask you to compare and contrast the findings of both methods.
 
