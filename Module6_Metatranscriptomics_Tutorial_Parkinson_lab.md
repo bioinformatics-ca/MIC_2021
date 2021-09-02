@@ -301,8 +301,10 @@ In this Quality-filtering stage, MetaPro will perform several actions:
 - remove duplicate reads within the dataset  
 
 
-> ***Question 1: How many low quality sequences have been removed?***
+<br/><br/>
+> ***Question 1: How many low quality sequences have been removed?***  
 
+<br/><br/>
 Use FastQC to check the quality of the reads filtered for low quality bases and short length:  
 
 ```
@@ -316,11 +318,13 @@ Navigate to the ~/4_quality_filter/ directory in your browser to view the HTML r
 Compare with the previous report to see changes in the following sections:
 
 -   Basic Statistics
--   Per base sequence quality
+-   Per base sequence quality  
 
 
+<br/><br/>
 > ***Question 2: How has the per read sequence quality curve changed in the final filtered output?***
 
+<br/><br/>
 Use FastQC to check the quality of the final filtered output:  
 
 ```
@@ -368,10 +372,10 @@ The command line parameters are:
 A second output file `mouse1_unique.fastq.clstr` is created which shows exactly which replicated sequences are represented by each unique sequence in the dereplicated file and a third, empty, output file, `mouse1_unique.fastq2.clstr` is also created which is only used for paired-end reads.  
 
 
-
+<br/><br/>
 > ***Question 3: Can you find how many unique reads there are?***  
 
-Navigate to `mouse1_run/quality_filter/final_results/` to view the FastQC report, or look at the generated `singletons.fastq` file itself in the output directory.  
+<br/><br/>Navigate to `mouse1_run/quality_filter/final_results/` to view the FastQC report, or look at the generated `singletons.fastq` file itself in the output directory.  
 
 While the number of replicated reads in this small dataset is relatively low, with larger datasets, this step can reduce file size by as much as 50-80%  
 
@@ -417,12 +421,13 @@ The commands to the following tasks:
     -   `bwa mem`: Generates alignments of reads to the vector contaminant database
     -   `samtools view`: Converts the .sam output of bwa into .bam for the following steps
     -   `samtools fastq`: Generates fastq outputs for all reads that mapped to the vector contaminant database (`-F 4`) and all reads that did not map to the vector contaminant database (`-f 4`)  
+    
+
+<br/><br/>
+> ***Question 4: Can you find how many reads BWA mapped to the vector database?***  
 
 
-> ***Question 4: Can you find how many reads BWA mapped to the vector database?***
-
-
-Now we want to perform additional alignments for the reads with BLAT to filter out any remaining reads that align to our vector contamination database. However, BLAT only accepts fasta files so we have to convert our reads from fastq to fasta. This can be done using VSEARCH.
+<br/><br/>Now we want to perform additional alignments for the reads with BLAT to filter out any remaining reads that align to our vector contamination database. However, BLAT only accepts fasta files so we have to convert our reads from fastq to fasta. This can be done using VSEARCH.
 
 _Example command._ MetaPro automatically runs this
 vsearch --fastq_filter mouse1_univec_bwa.fastq --fastaout mouse1_univec_bwa.fasta
@@ -506,8 +511,9 @@ The following are the commands run by the script:
 &ensp;&ensp;&ensp;&ensp;./1_BLAT_Filter.py mouse1_mouse_bwa.fastq mouse1_mouse.blatout mouse1_mouse_blat.fastq mouse1_mouse_blat_contaminats.fastq  
 
 
-
+<br/><br/>
 > ***Question 5: How many reads did BWA and BLAT align to the mouse host sequence database?***  
+
 
 
 ***Optional:*** In your own future analyses you can choose to complete steps 3 and 4 simultaneously by combining the vector contamination database and the host sequence database using `cat UniVec_Core mouse_cds.fa > contaminants.fa`. However, doing these steps together makes it difficult to tell how much of your reads came specifically from your host organism.  
@@ -556,10 +562,10 @@ ls mouse1_run/rRNA_filter/final_results
 
 Here, we only remove a few thousand reads that map to rRNA, but in some datasets rRNA may represent up to 80% of the sequenced reads.  
 
+<br/><br/>
+> ***Question 6: How many rRNA sequences were identified? How many reads are now remaining?***  
 
-> ***Question 6: How many rRNA sequences were identified? How many reads are now remaining?***
-
-
+<br/><br/>
 ### Step 6. Rereplication / duplicate repopulation
 
 After removing contaminants, host sequences, and rRNA, we need to replace the previously removed replicate reads back in our data set.
@@ -584,9 +590,10 @@ cd mouse1_run/duplicate_repopulation/final_results/
 /pipeline_tools/FastQC/fastqc singletons.fastq
 ```  
 
-> ***Question 7: How many total contaminant, host, and rRNA reads were filtered out?***
+<br/><br/>
+> ***Question 7: How many total contaminant, host, and rRNA reads were filtered out?***  
 
-
+<br/><br/>
 ### Step 7. Contig assembly   *** **[DO NOT RUN]**
 
 We have now gathered the putative mRNA scripts, and here we assemble the mRNA into contigs. 
@@ -623,15 +630,15 @@ In this step, MetaPro does the following:
 [SPAdes](https://cab.spbu.ru/software/spades/) assembles long contigs, but MetaPro requires that each contig only represent 1 gene.  Thus the need to disassemble them, using [MetaGeneMark](http://exon.gatech.edu/Genemark/meta_gmhmmp.cgi)  MetaGeneMark requires the user to register and obtain a free license.  Thus, we have provided the results in the precomputed files package.  
 
 
-
+<br/><br/>
 > ***Question 8: How many assemblies did SPAdes produce?  
 Hint: try using the command`tail mouse1_contigs.fasta`***  
   
-
+<br/><br/>
 > ***Question 9: How many reads were not used in contig assembly? How many reads were used in contig assembly? How many contigs did we generate?***  
   
 
-
+<br/><br/>
 ### Step 8. Annotate reads to known genes/proteins *** **[DO NOT RUN]**  
 
 
@@ -756,12 +763,12 @@ python3 /pipeline/Scripts/alter_taxa_for_krona.py mouse1_run/taxonomic_annotatio
 
 View the pie chart representation of the taxonomies detected through a web browser.  
 
-
+<br/><br/>
 > ***Question 10: What is the most abundant family in our dataset? What is the most abundant phylum?  
 Hint: Try decreasing the `Max depth` value on the top left of the screen and/or double clicking on spcific taxa.***
 
 
-
+<br/><br/>
 ### Step 10. Enzyme Function Annotation *** **[DO NOT RUN]**
 
 To help interpret our metatranscriptomic datasets from a functional perspective, we rely on mapping our data to functional networks such as metabolic pathways and maps of protein complexes. Here we will use the KEGG carbohydrate metabolism pathway.
@@ -810,10 +817,11 @@ The pre-computed results are provided in: `mouse1_run/enzyme_annotation/final_re
             -   Otherwise, the annotation is declared as a pair of enzymes.  
   
 
-
+<br/><br/>
 > ***Question 11: How many high-confidence unique enzyme functions were identified in our dataset?***  
 
 
+<br/><br/>
 ### Step 11. Generate output files *** **[DO NOT RUN]**  
 
 We have removed low quality bases/reads, vectors, adapters, linkers, primers, host sequences, and rRNA sequences and annotated reads to the best of our ability - now lets summarize our findings. We do this by looking at the relative expression of each of our genes in our microbiome.  
@@ -845,12 +853,10 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --
 ```
 
 
-**Notes:**
-
-
+<br/><br/>
 > ***Question 12: have a look at the `mouse1_RPKM.txt` file. What are the most highly expressed genes? Which phylum appears most active?***  
 
-
+<br/><br/>
 ### Step 12. Visualize the results using a KEGG Pathway as a scaffold in Cytoscape.
 
 To visualize our processed microbiome dataset in the context of the carbohydrate metabolism pathways, we use the network visualization tool **Cytoscape** together with the `enhancedGraphics` and `KEGGscape` plugins. Some useful commands for loading in networks, node attributes and changing visual properties are provided below (there are many Cytoscape tutorials available online).  Use cytoscape 3.7.2 (https://github.com/cytoscape/cytoscape/releases/3.7.2/) instead of the latest version.  
