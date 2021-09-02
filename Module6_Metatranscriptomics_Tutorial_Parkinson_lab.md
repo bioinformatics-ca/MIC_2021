@@ -248,6 +248,31 @@ You can find the following information in the report:
 ## Process the Reads  
 
 
+### Define paths to the configuration file and the output folder  
+
+Paths to the configuration file and output directory need only to be defined once.
+
+```
+config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
+output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
+```
+
+Verify the variables:  
+
+```
+echo $config
+echo $output
+```
+
+**Notes:**  
+
+All MetaPro steps share the same file directory scheme:
+- data: where the interim files are placed for each run.  This includes intermediate steps.
+- final results: where the end-phase deliverables are placed, assuming the pipeline will continue running.
+- All of MetaPro's commands are generated in separate shellscripts in each folder.  
+
+
+
 ### Step 1: Remove adapter sequences, trim low quality sequences, and remove duplicate reads.  
 
 In the first step, MetaPro removes adaptor sequences, trims low-quality reads, and removes duplicate reads in one pass.  
@@ -255,8 +280,6 @@ In the first step, MetaPro removes adaptor sequences, trims low-quality reads, a
 The format of the command is:  
 
 &ensp;&ensp;&ensp;&ensp;read1='&lt;path to input sequence&gt;'  
-&ensp;&ensp;&ensp;&ensp;config='&lt;path to config file&gt;'  
-&ensp;&ensp;&ensp;&ensp;output='&lt;path to output folder&gt;'  
 &ensp;&ensp;&ensp;&ensp;python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial quality  
   
 
@@ -264,8 +287,6 @@ Run the command as follows:
 
 ```
 read1=/media/cbwdata/workspace/metapro_tutorial/mouse1.fastq
-config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
-output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial quality
 ```
 
@@ -326,17 +347,6 @@ The command line parameters are:
     -   `--fastqout` Indicates the output file contain the quality filtered reads
 
 
-
-**Notes**:
-All MetaPro steps share the same file directory scheme:
-- data: where the interim files are placed for each run.  This includes intermediate steps.
-- final results: where the end-phase deliverables are placed, assuming the pipeline will continue running.
-- All of MetaPro's commands are generated in separate shellscripts in each folder.
-- **Paths to the config file and output directory need not be defined again in subsequent steps.** To verify that the paths are correct:
-```
-echo $config
-echo $output
-```
 
 
 ### Step 2. Remove duplicate reads
