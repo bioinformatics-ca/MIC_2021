@@ -860,6 +860,10 @@ wget https://github.com/ParkinsonLab/Metatranscriptome-Workshop/releases/downloa
 
 You can find other [pathways on KEGG] (http://www.genome.jp/kegg-bin/get_htext?htext=br08901.keg) which can also be imported into Cytoscape by selecting the `Download KGML` option on the top of the page for each pathway.
 
+
+Next, download the `Cytoscape_network.tsv` file through the browser. It is located within the `mouse1_run/outputs/final_results` folder.  This file contains expression values of enzymes (as RPKMs) of all taxa detected at >1% abundance within the dataset.
+
+
 **Install the Cytoscape plugins**
 
 -   Select `Apps` -> `App Manager`
@@ -877,7 +881,7 @@ You can find other [pathways on KEGG] (http://www.genome.jp/kegg-bin/get_htext?h
 **Loading a node attribute text file (.txt) - this will map attributes to nodes in your network which you can subsequently visualize**
 
 -   Select `File` -> `Import` -> `Table` -> `File...`
--   Select the `mouse1_cytoscape.txt` file and click `Open`
+-   Select the `Cytoscape_network.tsv` file and click `Open`
 -   Change the `Key Column for network` from `shared name` to `KEGG_NODE_LABEL`
 -   Click OK
 
