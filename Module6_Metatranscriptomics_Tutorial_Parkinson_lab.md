@@ -93,7 +93,7 @@ Launch MetaPro within the Docker interactive mode:
   
   
   
-### Download data  
+### Download the data  
 
 Our data set consists of 150 bp single-end Illumina reads generated from mouse colon contents. Download the data and precomputed files:  
 ```
@@ -128,10 +128,54 @@ Change the permissions of the `mouse1_run/` folder in order to view its contents
 ```
 chmod -R 777 mouse1_run
 ```
- 
 
 
-### Databases and licenses
+### Edit the configuration file  
+
+MetaPro controls many of its features with a configuration file. A copy has been provided for you in the downloaded data, but it needs to be altered to include the path to the databases.
+
+View the file:  
+
+```
+less config_mouse_tutorial.ini
+```
+  
+Edit the configuration file to add the path to the `databases/` folder:  
+- Open the file using the VI editor:  
+  
+```
+vi config_mouse_tutorial.ini
+```
+- Once the file is open, navigate with arrow keys to the right of the "database_path:" field
+- type `i` to activate the INSERT mode
+- type the new path `/media/cbwdata/workspace/metapro_tutorial/databases`
+- press ESC to exit the INSERT mode
+- navigate to any characters you want to delete using arrow keys, and type `x` to remove them
+- exit the file and save changes by typing a colon followed by wq `: wq` and press ENTER 
+  
+If you make a mistake while editing the path, you may type `u` to undo the last change, or `U` to undo all changes to the line. Alternatively, you may exit without saving any changes to the file by pressing ESC, typing `:q!` and pressing ENTER.  
+  
+View your modified config file:  
+  
+```
+less config_mouse_tutorial.ini
+```
+
+```
+[Databases]
+database_path: /media/cbwdata/workspace/metapro_tutorial/databases
+UniVec_Core: %(database_path)s/univec_core/UniVec_Core.fasta #(the UniVec core database)
+Adapter: %(database_path)s/Trimmomatic_adapters/TruSeq3-PE-2.fa #(The adapters database)
+Host: %(database_path)s/Mouse_cds/Mouse_cds.fasta #(The host database)
+Rfam: %(database_path)s/Rfam/Rfam.cm #(The Infernal rRNA database)
+DNA_DB: %(database_path)s/ChocoPhlAn/ChocoPhlAn.fasta #(The BWA database.  It assumes the index is in the same directory)
+DNA_DB_Split: %(database_path)s/ChocoPhlAn/ChocoPhlAn_split/ #(The split database, for BLAT)
+...
+```
+
+
+### Databases and licenses  
+
 This tutorial relies on a few external databases and libraries to perform the filtering tasks associated with MetaPro.  
 We have assembled the smaller databases in our precomputed files package  
 
@@ -179,69 +223,6 @@ These optional databases require indexing prior to use.
  Additionally, a license from MetaGeneMark is required to run to the contig assembly step  
  -   [MetaGeneMark](http://exon.gatech.edu/Genemark/license_download.cgi)
 
-### Edit the configuration file
-MetaPro controls many of its features with a configuration file. A copy has been provided for you in the downloaded data, but it needs to be altered to include the path to the databases.
-
-View the file:  
-
-```
-less config_mouse_tutorial.ini
-```
-  
-Edit the configuration file to add the path to the `databases/` folder:  
-- Open the file using the VI editor:  
-  
-```
-vi config_mouse_tutorial.ini
-```
-- Once the file is open, navigate with arrow keys to the right of the "database_path:" field
-- type `i` to activate the INSERT mode
-- type the new path `/media/cbwdata/workspace/metapro_tutorial/databases`
-- press ESC to exit the INSERT mode
-- navigate to any characters you want to delete using arrow keys, and type `x` to remove them
-- exit the file and save changes by typing a colon followed by wq `: wq` and press ENTER 
-  
-If you make a mistake while editing the path, you may type `u` to undo the last change, or `U` to undo all changes to the line. Alternatively, you may exit without saving any changes to the file by pressing ESC, typing `:q!` and pressing ENTER.  
-  
-View your modified config file:  
-  
-```
-less config_mouse_tutorial.ini
-```
-
-```
-[Databases]
-database_path: /media/cbwdata/workspace/metapro_tutorial/databases
-UniVec_Core: %(database_path)s/univec_core/UniVec_Core.fasta #(the UniVec core database)
-Adapter: %(database_path)s/Trimmomatic_adapters/TruSeq3-PE-2.fa #(The adapters database)
-Host: %(database_path)s/Mouse_cds/Mouse_cds.fasta #(The host database)
-Rfam: %(database_path)s/Rfam/Rfam.cm #(The Infernal rRNA database)
-DNA_DB: %(database_path)s/ChocoPhlAn/ChocoPhlAn.fasta #(The BWA database.  It assumes the index is in the same directory)
-DNA_DB_Split: %(database_path)s/ChocoPhlAn/ChocoPhlAn_split/ #(The split database, for BLAT)
-...
-```
-
-
-### Check read quality with FastQC
-
-```
-/pipeline_tools/FastQC/fastqc mouse1.fastq
-```
-
-The FastQC report is generated as an HTML file `mouse1_fastqc.html`. A zip file is also generated which includes data files used to generate the report.  
-
-Access your workspace in a web browser to view the FastQC report:  
-```
-http://[ insert your IPv4 ]
-```
-
-
-You can find the following information in the report:
-
--   Basic Statistics: Basic information of the mouse RNA-seq data, e.g. the total number of reads, read length, GC content.
--   Per base sequence quality: An overview of the range of quality values across all bases at each position.
--   Per Base Sequence Content: A plot showing nucleotide bias across sequence length.
--   Adapter Content: Provides information on the level of adapter contamination in your sequence sample.  
 
 
 ### Store paths to the configuration file and the output folder in variables  
@@ -266,6 +247,29 @@ All MetaPro steps share the same file directory scheme:
 - data: where the interim files are placed for each run.  This includes intermediate steps.
 - final results: where the end-phase deliverables are placed, assuming the pipeline will continue running.
 - All of MetaPro's commands are generated in separate shellscripts in each folder.  
+
+
+
+### Check read quality with FastQC  
+
+```
+/pipeline_tools/FastQC/fastqc mouse1.fastq
+```
+
+The FastQC report is generated as an HTML file `mouse1_fastqc.html`. A zip file is also generated which includes data files used to generate the report.  
+
+Access your workspace in a web browser to view the FastQC report:  
+```
+http://[ insert your IPv4 ]
+```
+
+
+You can find the following information in the report:
+
+-   Basic Statistics: Basic information of the mouse RNA-seq data, e.g. the total number of reads, read length, GC content.
+-   Per base sequence quality: An overview of the range of quality values across all bases at each position.
+-   Per Base Sequence Content: A plot showing nucleotide bias across sequence length.
+-   Adapter Content: Provides information on the level of adapter contamination in your sequence sample.  
 
 
 
