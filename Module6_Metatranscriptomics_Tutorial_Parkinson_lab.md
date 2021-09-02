@@ -243,19 +243,17 @@ You can find the following information in the report:
 -   Basic Statistics: Basic information of the mouse RNA-seq data, e.g. the total number of reads, read length, GC content.
 -   Per base sequence quality: An overview of the range of quality values across all bases at each position.
 -   Per Base Sequence Content: A plot showing nucleotide bias across sequence length.
--   Adapter Content: Provides information on the level of adapter contamination in your sequence sample.
-
-## Process the Reads  
+-   Adapter Content: Provides information on the level of adapter contamination in your sequence sample.  
 
 
-### Define paths to the configuration file and the output folder  
-
-Paths to the configuration file and output directory need only to be defined once.
+### Set paths to the configuration file and the output folder  
 
 ```
 config=/media/cbwdata/workspace/metapro_tutorial/config_mouse_tutorial.ini
 output=/media/cbwdata/workspace/metapro_tutorial/mouse1_run
 ```
+
+These paths are needed to run MetaPro commands which are structured as follows: `python3 /pipeline/MetaPro.py -c $config -s [sequence file] -o $output --tutorial [processing step]`  
 
 Verify the variables:  
 
@@ -271,6 +269,9 @@ All MetaPro steps share the same file directory scheme:
 - final results: where the end-phase deliverables are placed, assuming the pipeline will continue running.
 - All of MetaPro's commands are generated in separate shellscripts in each folder.  
 
+
+
+## Process the Reads  
 
 
 ### Step 1: Remove adapter sequences, trim low quality sequences, and remove duplicate reads.  
