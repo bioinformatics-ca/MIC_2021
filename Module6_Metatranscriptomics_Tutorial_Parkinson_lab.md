@@ -424,7 +424,7 @@ The commands do the following tasks:
     -   `samtools view`: Converts the .sam output of bwa into .bam for the following steps  
     -   `samtools fastq`: Generates fastq outputs for all reads that mapped to the vector contaminant database (`-F 4`) and all reads that did not map to the vector contaminant database (`-f 4`)  
     
--   The command line parameters for BLAT are:
+The command line parameters for BLAT are:
     -   `-noHead`: Suppresses .psl header (so it's just a tab-separated file).
     -   `-minIdentity`: Sets minimum sequence identity is 90%.
     -   `-minScore`: Sets minimum score is 65. This is the matches minus the mismatches minus some sort of gap penalty.
@@ -432,8 +432,8 @@ The commands do the following tasks:
     -   `-q`: Query type is RNA sequence.
     -   `-t`: Database type is DNA sequence.
 
-- The argument structure for the final python script is:  
-&ensp;&ensp;&ensp;&ensp;read_BLAT_Filter_v3.py <operating mode: either "single" or "paired"> <filter stringency.  to handle paired-read conflicts.  "low" or "high"> <Input_Reads.fq> <BLAT_Output_File> <Unmapped_Reads_Output> <Mapped_Reads_Output>`
+The argument structure for the final python script is:  
+&ensp;&ensp;&ensp;&ensp;read_BLAT_Filter_v3.py &lt;operating mode: either "single" or "paired"&gt; &lt;filter stringency.  to handle paired-read conflicts.  "low" or "high"&lg; &lt;Input_Reads.fq&gt; &lt;BLAT_Output_File&lg; &lt;Unmapped_Reads_Output&gt; &lt;Mapped_Reads_Output&gt;`
 
 Here, BLAT does not identify any additional sequences which align to the vector contaminant database. However, we have found that BLAT is often able find alignments not identified by BWA, particularly when searching against a database consisting of whole genomes.  
 
@@ -445,7 +445,7 @@ In handling paired-ended data, cases will arise where one read maps to a vector,
 > ***Question 4: Can you find how many reads BWA mapped to the vector database?***  
 
 
-
+<br/><br/>
 ### Step 4. Remove host reads
 
 To identify and filter host reads (here, reads of mouse origin) we repeat the steps above using a database of mouse DNA sequences. For our purposes we use a [mouse genome database](ftp://ftp.ensembl.org/pub/current_fasta/mus_musculus/cds/Mus_musculus.GRCm38.cds.all.fa.gz) downloaded from Ensembl.  
