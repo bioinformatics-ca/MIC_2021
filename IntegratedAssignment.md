@@ -109,6 +109,8 @@ The import command is a bit different compared to the 16S module, see if you can
 
 If you have trouble, the answer is hidden here:
 <answer> 
+	<summary>Click to expand!</summary>
+	
 	`qiime tools import --type 'SampleData[PairedEndSequencesWithQuality]' --input-path ~/CourseData/MIC_data/IntegratedAssignment/16s/16s_reads/manifest.txt --output-path oralMicrobiome --input-format PairedEndFastqManifestPhred33V2` 
 </answer>
 
@@ -169,8 +171,9 @@ First, in order to predict the functional pathways, we need to extract a few fil
 
 To generate the 3 input files from our Qiime2 work flow, check out the `qiime tools export` command. If you have trouble understanding it, see the answer below.
 
-<answer>
-
+<answer> 
+	<summary>Click to expand!</summary>
+	
 ```bash
 #export our ASV abundances
 qiime tools export --input-path unfiltered_table.qza --output-path ./
