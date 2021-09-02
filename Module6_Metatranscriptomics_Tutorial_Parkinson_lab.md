@@ -14,7 +14,7 @@ description: MIC 2021 Module 6 Lab
 
 **This work is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/). This means that you are able to copy, share and modify the work, as long as the result is distributed under the same license.**
 
-This tutorial was developed by Billy Taj (billy.taj@sickkids.ca), Mobolaji Adeolu (adeolum@mcmaster.ca), John Parkinson (john.parkinson@utoronto.ca) & Xuejian Xiong (xuejian@sickkids.ca). The document was updated by Ana Popovic for CBW Microbiome 2021.
+This tutorial was developed by Billy Taj (billy.taj@sickkids.ca), Mobolaji Adeolu (adeolum@mcmaster.ca), John Parkinson (john.parkinson@utoronto.ca) & Xuejian Xiong (xuejian@sickkids.ca), and updated by Ana Popovic for CBW Microbiome 2021.
 
 
 ## Overview
