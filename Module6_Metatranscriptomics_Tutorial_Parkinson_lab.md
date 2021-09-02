@@ -466,10 +466,10 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial host
 
 This call will perform the following steps:  
 
-- Prepare the host database for alignment (BWA + BLAT)
-- perform alignment using BWA
-- convert the unaligned reads from BWA to a format for BLAT
-- perform alignment of the unaligned reads using BLAT
+- Prepare the host database for alignment (BWA + BLAT)  
+- perform alignment using BWA  
+- convert the unaligned reads from BWA to a format for BLAT  
+- perform alignment of the unaligned reads using BLAT  
 - Run a script to remove the host reads from the input sample  
 
 
@@ -494,12 +494,12 @@ The following are the commands run by the script:
 ***Optional:*** In your own future analyses you can choose to complete steps 3 and 4 simultaneously by combining the vector contamination database and the host sequence database using `cat UniVec_Core mouse_cds.fa > contaminants.fa`. However, doing these steps together makes it difficult to tell how much of your reads came specifically from your host organism.  
 
 
-### Step 5. Remove abundant rRNA sequences *** **[DO NOT RUN]**
+### Step 5. Remove abundant rRNA sequences *** **[DO NOT RUN]**  
 
 rRNA genes tend to be highly expressed in all samples and must therefore be screened out to avoid lengthy downstream processing times for the assembly and annotation steps. MetaPro uses [Barrnap] (https://github.com/tseemann/barrnap) and [Infernal] (http://infernal.janelia.org/).
-You could use sequence similarity tools such as BWA or BLAST for this step, but we find Infernal, albeit slower, is more sensitive as it relies on a database of covariance models (CMs) describing rRNA sequence profiles based on the Rfam database. Due to the reliance on CMs, Infernal, can take as much as 4 hours for ~100,000 reads on a single core.  In an effort to shrink the computing time, we leverage a computing cluster's multiple cores.
-Here, MetaPro demonstrates the case for automation.
-MetaPro subdivides the input data, coordinates the concurrent processes, and collects the results into one single file after all of the scanning has been complete.
+You could use sequence similarity tools such as BWA or BLAST for this step, but we find Infernal, albeit slower, is more sensitive as it relies on a database of covariance models (CMs) describing rRNA sequence profiles based on the Rfam database. Due to the reliance on CMs, Infernal, can take as much as 4 hours for ~100,000 reads on a single core.  In an effort to shrink the computing time, we leverage a computing cluster's multiple cores.  
+
+Here, MetaPro demonstrates the case for automation. MetaPro subdivides the input data, coordinates the concurrent processes, and collects the results into one single file after all of the scanning has been complete.  
 
 
 MetaPro will perform the following:  
@@ -511,6 +511,7 @@ MetaPro will perform the following:
   - run each leftover chunk through Infernal.  
   - filter the Barrnap leftover chunk using the Infernal results, to get mRNA, and "other"  
 - collect all of the data pieces (Barrnap mRNA, Infernal mRNA) into mRNA, and "other"  
+
 
 By running things this way, the rRNA step takes 4 minutes (as recorded with a 40-core computing node with 200 GB RAM, and an rRNA chunksize of 1000 reads), but it requires significant computing power, memory, and storage space, not available on a typical desktop PC.  
 
@@ -543,7 +544,7 @@ Here, we only remove a few thousand reads that map to rRNA, but in some datasets
 <br/><br/>
 ### Step 6. Rereplication / duplicate repopulation
 
-After removing contaminants, host sequences, and rRNA, we need to replace the previously removed replicate reads back in our data set.
+After removing contaminants, host sequences, and rRNA, we need to replace the previously removed replicate reads back in our data set.  
 
 The format of the MetaPro command is:  
 
@@ -558,11 +559,10 @@ read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/rRNA_filter/final_res
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial repop
 ```
 
-Now that we have filtered vectors, adapters, linkers, primers, host sequences, and rRNA, check read quality of putative mRNA reads with FastQC:
+Now that we have filtered vectors, adapters, linkers, primers, host sequences, and rRNA, check read quality of putative mRNA reads with FastQC:  
 
 ```
-cd mouse1_run/duplicate_repopulation/final_results/
-/pipeline_tools/FastQC/fastqc singletons.fastq
+/pipeline_tools/FastQC/fastqc mouse1_run/duplicate_repopulation/final_results/singletons.fastq
 ```  
 
 <br/><br/>
