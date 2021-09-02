@@ -415,9 +415,11 @@ The commands to the following tasks:
     -   `bwa index, samtools faidx, and makeblastdb`: Index the UniVec core database for BWA and BLAT 
     -   `bwa mem`: Generates alignments of reads to the vector contaminant database
     -   `samtools view`: Converts the .sam output of bwa into .bam for the following steps
-    -   `samtools fastq`: Generates fastq outputs for all reads that mapped to the vector contaminant database (`-F 4`) and all reads that did not map to the vector contaminant database (`-f 4`)
+    -   `samtools fastq`: Generates fastq outputs for all reads that mapped to the vector contaminant database (`-F 4`) and all reads that did not map to the vector contaminant database (`-f 4`)  
 
-<!-- ***Question 4: Can you find how many reads BWA mapped to the vector database?*** -->
+
+> ***Question 4: Can you find how many reads BWA mapped to the vector database?***
+
 
 Now we want to perform additional alignments for the reads with BLAT to filter out any remaining reads that align to our vector contamination database. However, BLAT only accepts fasta files so we have to convert our reads from fastq to fasta. This can be done using VSEARCH.
 
@@ -429,10 +431,9 @@ vsearch --fastq_filter mouse1_univec_bwa.fastq --fastaout mouse1_univec_bwa.fast
 
 -   The VSEARCH command used, `--fastq_filter`, is the same as the command used to filter low quality reads in Step 1. However, here we give no filter criteria so all input reads are passed to the output fasta file.
 
-Now we use BLAT to perform additional alignments for the reads against our vector contamination database.
-
-_Example command._ MetaPro automatically runs this.
->&2 echo BLAT vector singletons | /pipeline_tools/PBLAT/pblat -noHead -minIdentity=90 -minScore=65 /media/cbwdata/workspace/metapro_tutorial/mouse1_run/vector_read_filter/data/0_vector_removal/vector_contaminants_seq.fasta /media/cbwdata/workspace/metapro_tutorial/mouse1_run/vector_read_filter/data/0_vector_removal/singletons_no_vectors.fasta -fine -q=rna -t=dna -out=blast8 -threads=80 /media/cbwdata/workspace/metapro_tutorial/mouse1_run/vector_read_filter/data/0_vector_removal/singletons_no_vectors.blatout
+Next, we use BLAT to perform additional alignments of the reads against our vector contamination database.  
+_Example command._ MetaPro automatically runs this.  
+/pipeline_tools/PBLAT/pblat -noHead -minIdentity=90 -minScore=65 /media/cbwdata/workspace/metapro_tutorial/mouse1_run/vector_read_filter/data/0_vector_removal/vector_contaminants_seq.fasta /media/cbwdata/workspace/metapro_tutorial/mouse1_run/vector_read_filter/data/0_vector_removal/singletons_no_vectors.fasta -fine -q=rna -t=dna -out=blast8 -threads=80 /media/cbwdata/workspace/metapro_tutorial/mouse1_run/vector_read_filter/data/0_vector_removal/singletons_no_vectors.blatout
 
 
 **Notes:**
@@ -488,27 +489,30 @@ This call will perform the following steps:
 - perform alignment using BWA
 - convert the unaligned reads from BWA to a format for BLAT
 - perform alignment of the unaligned reads using BLAT
-- Run a script to remove the host reads from the input sample 
+- Run a script to remove the host reads from the input sample  
+
 
 The following are the commands run by the script:  
-bwa index -a bwtsw mouse_cds.fa  
-samtools faidx mouse_cds.fa  
-makeblastdb -in mouse_cds.fa -dbtype nucl  
-bwa mem -t 4 mouse_cds.fa mouse1_univec_blat.fastq > mouse1_mouse_bwa.sam  
-samtools view -bS mouse1_mouse_bwa.sam > mouse1_mouse_bwa.bam  
-samtools fastq -n -F 4 -0 mouse1_mouse_bwa_contaminats.fastq mouse1_mouse_bwa.bam  
-samtools fastq -n -f 4 -0 mouse1_mouse_bwa.fastq mouse1_mouse_bwa.bam  
-vsearch --fastq_filter mouse1_mouse_bwa.fastq --fastaout mouse1_mouse_bwa.fasta  
-blat -noHead -minIdentity=90 -minScore=65  mouse_cds.fa mouse1_mouse_bwa.fasta -fine -q=rna -t=dna -out=blast8 mouse1_mouse.blatout  
-./1_BLAT_Filter.py mouse1_mouse_bwa.fastq mouse1_mouse.blatout mouse1_mouse_blat.fastq mouse1_mouse_blat_contaminats.fastq  
+&ensp;&ensp;&ensp;&ensp;bwa index -a bwtsw mouse_cds.fa  
+&ensp;&ensp;&ensp;&ensp;samtools faidx mouse_cds.fa  
+&ensp;&ensp;&ensp;&ensp;makeblastdb -in mouse_cds.fa -dbtype nucl  
+&ensp;&ensp;&ensp;&ensp;bwa mem -t 4 mouse_cds.fa mouse1_univec_blat.fastq > mouse1_mouse_bwa.sam  
+&ensp;&ensp;&ensp;&ensp;samtools view -bS mouse1_mouse_bwa.sam > mouse1_mouse_bwa.bam  
+&ensp;&ensp;&ensp;&ensp;samtools fastq -n -F 4 -0 mouse1_mouse_bwa_contaminats.fastq mouse1_mouse_bwa.bam  
+&ensp;&ensp;&ensp;&ensp;samtools fastq -n -f 4 -0 mouse1_mouse_bwa.fastq mouse1_mouse_bwa.bam  
+&ensp;&ensp;&ensp;&ensp;vsearch --fastq_filter mouse1_mouse_bwa.fastq --fastaout mouse1_mouse_bwa.fasta  
+&ensp;&ensp;&ensp;&ensp;blat -noHead -minIdentity=90 -minScore=65  mouse_cds.fa mouse1_mouse_bwa.fasta -fine -q=rna -t=dna -out=blast8 mouse1_mouse.blatout  
+&ensp;&ensp;&ensp;&ensp;./1_BLAT_Filter.py mouse1_mouse_bwa.fastq mouse1_mouse.blatout mouse1_mouse_blat.fastq mouse1_mouse_blat_contaminats.fastq  
 
 
-<!-- ***Question 5: How many reads did BWA and BLAT align to the mouse host sequence database?*** -->
+
+> ***Question 5: How many reads did BWA and BLAT align to the mouse host sequence database?***  
+
 
 ***Optional:*** In your own future analyses you can choose to complete steps 3 and 4 simultaneously by combining the vector contamination database and the host sequence database using `cat UniVec_Core mouse_cds.fa > contaminants.fa`. However, doing these steps together makes it difficult to tell how much of your reads came specifically from your host organism.  
 
 
-### Step 5. Remove abundant rRNA sequences **[DO NOT RUN]**
+### Step 5. Remove abundant rRNA sequences *** **[DO NOT RUN]**
 
 rRNA genes tend to be highly expressed in all samples and must therefore be screened out to avoid lengthy downstream processing times for the assembly and annotation steps. MetaPro uses [Barrnap] (https://github.com/tseemann/barrnap) and [Infernal] (http://infernal.janelia.org/).
 You could use sequence similarity tools such as BWA or BLAST for this step, but we find Infernal, albeit slower, is more sensitive as it relies on a database of covariance models (CMs) describing rRNA sequence profiles based on the Rfam database. Due to the reliance on CMs, Infernal, can take as much as 4 hours for ~100,000 reads on a single core.  In an effort to shrink the computing time, we leverage a computing cluster's multiple cores.
@@ -552,7 +556,7 @@ ls mouse1_run/rRNA_filter/final_results
 Here, we only remove a few thousand reads that map to rRNA, but in some datasets rRNA may represent up to 80% of the sequenced reads.  
 
 
-<!-- ***Question 6: How many rRNA sequences were identified? How many reads are now remaining?*** -->
+> ***Question 6: How many rRNA sequences were identified? How many reads are now remaining?***
 
 
 ### Step 6. Rereplication / duplicate repopulation
@@ -577,9 +581,9 @@ Now that we have filtered vectors, adapters, linkers, primers, host sequences, a
 ```
 cd mouse1_run/duplicate_repopulation/final_results/
 /pipeline_tools/FastQC/fastqc singletons.fastq
-```
+```  
 
-<!-- ***Question 8: How many total contaminant, host, and rRNA reads were filtered out?*** -->
+> ***Question 8: How many total contaminant, host, and rRNA reads were filtered out?***
 
 
 ### Step 7. Contig assembly   *** **[DO NOT RUN]**
@@ -615,21 +619,19 @@ In this step, MetaPro does the following:
 -   Use BWA to align the mRNA reads against these split-contigs to find out which reads were consumed by the process.
 -   Produce a relational map of split-contig and their constituent reads.
 
-[SPAdes](https://cab.spbu.ru/software/spades/) assembles long contigs, but MetaPro requires that each contig only represent 1 gene.  Thus the need to disassemble them, using [MetaGeneMark](http://exon.gatech.edu/Genemark/meta_gmhmmp.cgi)  MetaGeneMark requires the user to register and obtain a free license.  Thus, we have provided the results in the precomputed files package.
+[SPAdes](https://cab.spbu.ru/software/spades/) assembles long contigs, but MetaPro requires that each contig only represent 1 gene.  Thus the need to disassemble them, using [MetaGeneMark](http://exon.gatech.edu/Genemark/meta_gmhmmp.cgi)  MetaGeneMark requires the user to register and obtain a free license.  Thus, we have provided the results in the precomputed files package.  
 
-<!--
-***Question 9: How many assemblies did SPAdes produce?  
-Hint: try using the command`tail mouse1_contigs.fasta`***
--->  
-  
-<!--
-***Question 10: How many reads were not used in contig assembly? How many reads were used in contig assembly? How many contigs did we generate?***
--->  
+
+
+> ***Question 9: How many assemblies did SPAdes produce?  
+Hint: try using the command`tail mouse1_contigs.fasta`***  
   
 
+> ***Question 10: How many reads were not used in contig assembly? How many reads were used in contig assembly? How many contigs did we generate?***  
+  
 
 
-### Step 8. Annotate reads to known genes/proteins **[DO NOT RUN]**  
+### Step 8. Annotate reads to known genes/proteins *** **[DO NOT RUN]**  
 
 
 Here we will attempt to infer the specific genes our putative mRNA reads originated from. In our pipeline we rely on a tiered set of sequence similarity searches of decreasing accuracy - BWA, BLAT, and DIAMOND. While BWA provides high stringency, sequence diversity that occurs at the nucleotide level results in few matches observed for these processes. Nonetheless it is quick. To avoid the problems of diversity that occur at the level of nucleotide, particularly in the absence of reference microbial genomes, we use a cascaded method involving two other tools: BLAT, and DIAMOND. BLAT provides a more sensitive alignment, along with quality scores to rank the matches.  DIAMOND is used to provide more sensitive peptide-based searches, which are less prone to sequence changes between strains.
@@ -710,7 +712,7 @@ mouse1_run/GA_FINAL_MERGE/final_results
 -   Unless you are running this tutorial on a computing cluster, most systems do not have enough memory to handle indexing or searching large databases like `ChocoPhlan` (19GB) and `nr` (>60GB). The descriptions in this section are purely for your information. Please use our precomputed gene, protein, and read mapping files from the tar file `tar -xzf tutorial_files.tar.gz`  
 -   
 
-### Step 9. Taxonomic Classification **[DO NOT RUN]**  
+### Step 9. Taxonomic Classification *** **[DO NOT RUN]**  
 
 Now that we have putative mRNA transcripts, we can begin to infer the origins of our mRNA reads. Firstly, we will attempt to use a reference based short read classifier to infer the taxonomic orgin of our reads. Here we will use [Kaiju] (https://github.com/bioinformatics-centre/kaiju), [Centrifuge](https://ccb.jhu.edu/software/centrifuge/manual.shtml), and our Gene Annotation results to generate taxonomic classifications for our reads based on a reference database. 
 Kaiju can classify prokaryotic reads at speeds of millions of reads per minute using the proGenomes database on a system with less than 16GB of RAM (~13GB). Using the entire NCBI nr database as a reference takes ~43GB. Similarly fast classification tools require >100GB of RAM to classify reads against large databases. 
@@ -760,7 +762,7 @@ Hint: Try decreasing the `Max depth` value on the top left of the screen and/or 
 
 
 
-### Step 10. Enzyme Function Annotation **[DO NOT RUN]**
+### Step 10. Enzyme Function Annotation *** **[DO NOT RUN]**
 
 To help interpret our metatranscriptomic datasets from a functional perspective, we rely on mapping our data to functional networks such as metabolic pathways and maps of protein complexes. Here we will use the KEGG carbohydrate metabolism pathway.
 
@@ -812,7 +814,7 @@ The pre-computed results are provided in: `mouse1_run/enzyme_annotation/final_re
 -->  
 
 
-### Step 11. Generate output files **[DO NOT RUN]**  
+### Step 11. Generate output files *** **[DO NOT RUN]**  
 
 We have removed low quality bases/reads, vectors, adapters, linkers, primers, host sequences, and rRNA sequences and annotated reads to the best of our ability - now lets summarize our findings. We do this by looking at the relative expression of each of our genes in our microbiome.  
 
@@ -845,9 +847,8 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --
 
 **Notes:**
 
-<!--
-***Question 15: have a look at the `mouse1_RPKM.txt` file. What are the most highly expressed genes? Which phylum appears most active?***
--->  
+
+> ***Question 15: have a look at the `mouse1_RPKM.txt` file. What are the most highly expressed genes? Which phylum appears most active?***  
 
 
 ### Step 12. Visualize the results using a KEGG Pathway as a scaffold in Cytoscape.
