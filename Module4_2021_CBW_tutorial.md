@@ -490,7 +490,7 @@ cp ~/CourseData/MIC_data/Module4/Intermediate_Results/Module4/Workshop_strat_mat
 Lets take a look at this file with the less command:
 
 ```
-less Workshop_strat-matrix_RPKM.txt
+less Workshop_strat_matrix_RPKM.txt
 ```
 *** Question 7: What is RPKM contributed to the sample CSM79HR8 for the EC 2.1.2.9 contributed by Bacteroides vulgatus? ***
 
