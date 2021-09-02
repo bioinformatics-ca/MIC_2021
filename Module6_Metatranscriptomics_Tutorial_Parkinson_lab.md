@@ -59,7 +59,7 @@ Docker and Singularity maintain different access modes to use their containers.
 
 In this tutorial, we will be using Singularity in interactive mode to run MetaPro commands. The command to download and create the MetaPro image _(below)_ has already been run for you:  
 
-singularity pull docker://parkinsonlab/metapro:develop   **[DO NOT RUN]**  
+&ensp;&ensp;&ensp;&ensp;singularity pull docker://parkinsonlab/metapro:develop   **[DO NOT RUN]**  
 
 
 <br/><br/>Navigate to your workspace and create new tutorial folder (we will be using the absolute path):  
@@ -86,10 +86,10 @@ Next, pull the MetaPro docker image:
 
 Launch MetaPro within the Docker interactive mode:  
 
-&ensp;&ensp;&ensp;docker run -it -v &lt;a folder in your directory>:<an equivalent folder to mount to in the container instance&gt; &lt;the docker image&gt;
+&ensp;&ensp;&ensp;&ensp;docker run -it -v &lt;a folder in your directory>:<an equivalent folder to mount to in the container instance&gt; &lt;the docker image&gt;
 
-&ensp;&ensp;&ensp;An example would be:  
-&ensp;&ensp;&ensp;docker run -it -v /home/ubuntu/MetaPro_tutorial:/MetaPro_docker_tutorial parkinsonlab/metapro:develop  
+&ensp;&ensp;&ensp;&ensp;An example would be:  
+&ensp;&ensp;&ensp;&ensp;docker run -it -v /home/ubuntu/MetaPro_tutorial:/MetaPro_docker_tutorial parkinsonlab/metapro:develop  
   
   
   
