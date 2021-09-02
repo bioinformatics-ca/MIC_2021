@@ -400,51 +400,31 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial vector
 
 
 MetaPro will automatically run the following:  
-
+- Index the vector contamination database.  
 &ensp;&ensp;&ensp;&ensp;bwa index -a bwtsw UniVec_Core  
 &ensp;&ensp;&ensp;&ensp;samtools faidx UniVec_Core  
 &ensp;&ensp;&ensp;&ensp;makeblastdb -in UniVec_Core -dbtype nucl  
-
+- Use BWA to filter out reads aligning to the vector contamination database.  
 &ensp;&ensp;&ensp;&ensp;bwa mem -t 4 UniVec_Core mouse1_unique.fastq > mouse1_univec_bwa.sam  
 &ensp;&ensp;&ensp;&ensp;samtools view -bS mouse1_univec_bwa.sam > mouse1_univec_bwa.bam  
 &ensp;&ensp;&ensp;&ensp;samtools fastq -n -F 4 -0 mouse1_univec_bwa_contaminats.fastq mouse1_univec_bwa.bam  
 &ensp;&ensp;&ensp;&ensp;samtools fastq -n -f 4 -0 mouse1_univec_bwa.fastq mouse1_univec_bwa.bam  
+- Use BLAT to filter out any remaining reads that align to the vector contamination database. Sicne BLAT only accepts fasta files, VSEARCH is used to first convert the reads from fastq to fasta.  
 &ensp;&ensp;&ensp;&ensp;vsearch --fastq_filter mouse1_univec_bwa.fastq --fastaout mouse1_univec_bwa.fasta  
 &ensp;&ensp;&ensp;&ensp;blat -noHead -minIdentity=90 -minScore=65  UniVec_Core mouse1_univec_bwa.fasta -fine -q=rna -t=dna -out=blast8 mouse1_univec.blatout  
+- Lastly, a python script is used to filter the reads that BLAT does not confidently align to any vector sequences.  
 &ensp;&ensp;&ensp;&ensp;python3 /pipeline/Scripts/read_BLAT_Filter_v3.py single high mouse1_univec_bwa.fastq mouse1_univec.blatout mouse1_univec_blat.fastq mouse1_univec_blat_contaminats.fastq
 
 
 **Notes**:  
 
-The commands to the following tasks:
-    -   `bwa index, samtools faidx, and makeblastdb`: Index the UniVec core database for BWA and BLAT 
-    -   `bwa mem`: Generates alignments of reads to the vector contaminant database
-    -   `samtools view`: Converts the .sam output of bwa into .bam for the following steps
+The commands do the following tasks:  
+    -   `bwa index, samtools faidx, and makeblastdb`: Index the UniVec core database for BWA and BLAT  
+    -   `bwa mem`: Generates alignments of reads to the vector contaminant database  
+    -   `samtools view`: Converts the .sam output of bwa into .bam for the following steps  
     -   `samtools fastq`: Generates fastq outputs for all reads that mapped to the vector contaminant database (`-F 4`) and all reads that did not map to the vector contaminant database (`-f 4`)  
     
-
-<br/><br/>
-> ***Question 4: Can you find how many reads BWA mapped to the vector database?***  
-
-
-<br/><br/>Now we want to perform additional alignments for the reads with BLAT to filter out any remaining reads that align to our vector contamination database. However, BLAT only accepts fasta files so we have to convert our reads from fastq to fasta. This can be done using VSEARCH.
-
-_Example command._ MetaPro automatically runs this
-vsearch --fastq_filter mouse1_univec_bwa.fastq --fastaout mouse1_univec_bwa.fasta
-
-
-**Notes**:
-
--   The VSEARCH command used, `--fastq_filter`, is the same as the command used to filter low quality reads in Step 1. However, here we give no filter criteria so all input reads are passed to the output fasta file.
-
-Next, we use BLAT to perform additional alignments of the reads against our vector contamination database.  
-_Example command._ MetaPro automatically runs this.  
-/pipeline_tools/PBLAT/pblat -noHead -minIdentity=90 -minScore=65 /media/cbwdata/workspace/metapro_tutorial/mouse1_run/vector_read_filter/data/0_vector_removal/vector_contaminants_seq.fasta /media/cbwdata/workspace/metapro_tutorial/mouse1_run/vector_read_filter/data/0_vector_removal/singletons_no_vectors.fasta -fine -q=rna -t=dna -out=blast8 -threads=80 /media/cbwdata/workspace/metapro_tutorial/mouse1_run/vector_read_filter/data/0_vector_removal/singletons_no_vectors.blatout
-
-
-**Notes:**
-
--   The command line parameters are:
+-   The command line parameters for BLAT are:
     -   `-noHead`: Suppresses .psl header (so it's just a tab-separated file).
     -   `-minIdentity`: Sets minimum sequence identity is 90%.
     -   `-minScore`: Sets minimum score is 65. This is the matches minus the mismatches minus some sort of gap penalty.
@@ -452,22 +432,17 @@ _Example command._ MetaPro automatically runs this.
     -   `-q`: Query type is RNA sequence.
     -   `-t`: Database type is DNA sequence.
 
-Lastly, a python script is used to filter the reads that BLAT does not confidently align to any sequences from our vector contamination database, as follows:  
+- The argument structure for the final python script is:  
+&ensp;&ensp;&ensp;&ensp;read_BLAT_Filter_v3.py <operating mode: either "single" or "paired"> <filter stringency.  to handle paired-read conflicts.  "low" or "high"> <Input_Reads.fq> <BLAT_Output_File> <Unmapped_Reads_Output> <Mapped_Reads_Output>`
 
-python3 /pipeline/Scripts/read_BLAT_Filter_v3.py single high mouse1_univec_bwa.fastq mouse1_univec.blatout mouse1_univec_blat.fastq mouse1_univec_blat_contaminats.fastq  
+Here, BLAT does not identify any additional sequences which align to the vector contaminant database. However, we have found that BLAT is often able find alignments not identified by BWA, particularly when searching against a database consisting of whole genomes.  
 
+In handling paired-ended data, cases will arise where one read maps to a vector, while the pair does not. The filter stringency decides how to resolve such cases:  
+- Low filter stringency will only remove reads where both pairs aligned to a vector.  
+- High filter stringency will remove reads where either pair aligned to a vector.  
 
-**Notes:**
-
-The argument structure for this script is:
-`read_BLAT_Filter_v3.py <operating mode: either "single" or "paired"> <filter stringency.  to handle paired-read conflicts.  "low" or "high"> <Input_Reads.fq> <BLAT_Output_File> <Unmapped_Reads_Output> <Mapped_Reads_Output>`
-
-Here, BLAT does not identify any additional sequences which align to the vector contaminant database. However, we have found that BLAT is often able find alignments not identified by BWA, particularly when searching against a database consisting of whole genomes.
-
-some alignments to vector contaminants missed by BWA in large multi-million read datasets.
-In handling, paired-ended data, some alignments may yield paired-data to be broken.  To handle this, the filter stringency option decides how to resolve this discrepancy.  
-Low filter stringency will only remove reads where both pairs aligned to a vector.
-High filter stringency will remove reads where either pair aligned to a vector.  
+<br/><br/>
+> ***Question 4: Can you find how many reads BWA mapped to the vector database?***  
 
 
 
