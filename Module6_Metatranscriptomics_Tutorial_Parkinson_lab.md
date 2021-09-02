@@ -425,15 +425,15 @@ The commands do the following tasks:
     -   `samtools fastq`: Generates fastq outputs for all reads that mapped to the vector contaminant database (`-F 4`) and all reads that did not map to the vector contaminant database (`-f 4`)  
     
 The command line parameters for BLAT are:
-    -   `-noHead`: Suppresses .psl header (so it's just a tab-separated file).
-    -   `-minIdentity`: Sets minimum sequence identity is 90%.
-    -   `-minScore`: Sets minimum score is 65. This is the matches minus the mismatches minus some sort of gap penalty.
-    -   `-fine`: For high-quality mRNAs.
-    -   `-q`: Query type is RNA sequence.
-    -   `-t`: Database type is DNA sequence.
+    -   `-noHead`: Suppresses .psl header (so it's just a tab-separated file).  
+    -   `-minIdentity`: Sets minimum sequence identity is 90%.  
+    -   `-minScore`: Sets minimum score is 65. This is the matches minus the mismatches minus some sort of gap penalty.  
+    -   `-fine`: For high-quality mRNAs.  
+    -   `-q`: Query type is RNA sequence.  
+    -   `-t`: Database type is DNA sequence.  
 
 The argument structure for the final python script is:  
-&ensp;&ensp;&ensp;&ensp;read_BLAT_Filter_v3.py &lt;operating mode: either "single" or "paired"&gt; &lt;filter stringency.  to handle paired-read conflicts.  "low" or "high"&lg; &lt;Input_Reads.fq&gt; &lt;BLAT_Output_File&lg; &lt;Unmapped_Reads_Output&gt; &lt;Mapped_Reads_Output&gt;`
+&ensp;&ensp;&ensp;&ensp;read_BLAT_Filter_v3.py &lt;operating mode: either "single" or "paired"&gt; &lt;filter stringency.  to handle paired-read conflicts.  "low" or "high"&lg; &lt;Input_Reads.fq&gt; &lt;BLAT_Output_File&lg; &lt;Unmapped_Reads_Output&gt; &lt;Mapped_Reads_Output&gt;`  
 
 Here, BLAT does not identify any additional sequences which align to the vector contaminant database. However, we have found that BLAT is often able find alignments not identified by BWA, particularly when searching against a database consisting of whole genomes.  
 
