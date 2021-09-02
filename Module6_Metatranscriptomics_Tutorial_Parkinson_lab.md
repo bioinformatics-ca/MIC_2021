@@ -565,7 +565,7 @@ Here, we only remove a few thousand reads that map to rRNA, but in some datasets
 <br/><br/>
 > ***Question 6: How many rRNA sequences were identified? How many reads are now remaining?***  
 
-<br/><br/>
+
 ### Step 6. Rereplication / duplicate repopulation
 
 After removing contaminants, host sequences, and rRNA, we need to replace the previously removed replicate reads back in our data set.
@@ -593,7 +593,7 @@ cd mouse1_run/duplicate_repopulation/final_results/
 <br/><br/>
 > ***Question 7: How many total contaminant, host, and rRNA reads were filtered out?***  
 
-<br/><br/>
+
 ### Step 7. Contig assembly   *** **[DO NOT RUN]**
 
 We have now gathered the putative mRNA scripts, and here we assemble the mRNA into contigs. 
