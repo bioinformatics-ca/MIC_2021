@@ -112,6 +112,7 @@ If you have trouble, the answer is hidden here:
 	<summary>Click to expand!</summary>
 	
 	`qiime tools import --type 'SampleData[PairedEndSequencesWithQuality]' --input-path ~/CourseData/MIC_data/IntegratedAssignment/16s/16s_reads/manifest.txt --output-path oralMicrobiome --input-format PairedEndFastqManifestPhred33V2` 
+	
 </answer>
 
 After you do this, you should have a Qiime2 Artefact (*.qza) and a Qiime2 visualization file (*.qzv)
@@ -185,6 +186,7 @@ tail -n +2 feature-table.tsv | tail -c +2 > abundances.tsv
 qiime tools export --input-path representative_sequences.qza --output-path ./
 
 ```
+
 </answer>
 
 Now that we have the ASV abundance (abundances.tsv), ASV sequences (dna-sequences.fasta) and the metadata fille (metadata.txt), let's infer some functional pathways. We are now delving into the world of PiCRUSt2, refer back to the PiCRUSt2 tutorial for a refresher if needed. Let's start by generating our predictions for ECs.
