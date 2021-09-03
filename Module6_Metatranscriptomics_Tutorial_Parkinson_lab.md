@@ -611,8 +611,8 @@ In this step, MetaPro does the following:
 
 
 <br/><br/>
-> ***Question 8: How many assemblies did SPAdes produce?  
-Hint: try using the command`tail mouse1_contigs.fasta`***  
+> ***Question 8: How many contigs did SPAdes produce?  
+Hint: try using the command `tail mouse1_contigs.fasta`***  
   
 <br/><br/>
 > ***Question 9: How many reads were not used in contig assembly? How many reads were used in contig assembly? How many contigs did we generate?***  
