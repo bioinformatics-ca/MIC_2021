@@ -19,7 +19,7 @@ For your integrated assignment, we will not provide a step-by-step tutorial. Rat
 
 [Functional and genetic markers of niche partitioning among enigmatic members of the human oral microbiome - Genome Biology](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02195-w)
 
-By the end of this assignment, we hope that you will have a deep understanding of how each tool work, how everything ties together, and able to use these tools for your own research! 
+By the end of this assignment, we hope that you will have a deep understanding of how each tool work, how everything ties together, and able to use these tools for your own research!
 
 ## A quick introduction to this dataset
 
@@ -46,7 +46,7 @@ For shotgun metagenomics data, we have provided only 1 replicate from each sampl
 
 Before we begin, lets remind ourselves about a few important paths and conda activation command. Remeber to change into your working directory, make a new folder called "IntegratedAssignment" and cd into that. You can optionally symlink (`ln`) these data locations to your workspace as introduced in 16S module.
 
-```bash\
+```bash
 # Datasets
 
 IntegratedAssignment=~/CourseData/MIC_data/IntegratedAssignment
@@ -73,8 +73,11 @@ ${IntegratedAssignment}/ShotgunMetagenomics/GTDB_named_MAGs
 ${IntegratedAssignment}/ShotgunMetagenomics/DRAM_output_for_QC_MAGs/
 
 # Activating conda environment
-# Replace $software with the one you want to use
-source activate $software
+# Replace $env with the one you want to use
+source activate $env
+# OR
+conda activate $env
+
 ```
 
 We encourage you to (not immediately) refer back to the commands provided in the presented modules, but instead to read the help functions of each command (unless you’re stuck!), you can usually bring out the help menu by using the `--help` flag after your commands.
@@ -93,7 +96,7 @@ If you really do get stuck at a step and cannot figure it out by yourself, don't
 
 Throughout this assignment, we will ask a few questions to keep you on track and reflect on what the outputs mean. For an added challenge, answer the questions posed in each module's practical using this oral microbiome dataset!
 
-Last but not at least, feel free to work together here if it helps you, but please run the commands yourself in your own instance. Just note that the answers and results might be slighly different for different students depending on your parameters used. 
+Last but not at least, feel free to work together here if it helps you, but please run the commands yourself in your own instance. Just note that the answers and results might be slighly different for different students depending on your parameters used.
 
 # PART I
 
@@ -103,13 +106,13 @@ In this part of the integrated assignment, we will be analyzing a new 16S sequen
 
 ### 1.1 - 16S raw data preprocessing and exploration
 
-For this section, you will use the Qiime2 environment. Activate it with `conda activate qiime2-2021.4`. 
+For this section, you will use the Qiime2 environment. Activate it with `conda activate qiime2-2021.4`.
 
-Unlike the practical, you will start with the FASTQ reads for the integrated assignment. These FASTQs has been downloaded to your AWS instance already and can be found in the location specified above. Please symlink the files into your workspace directory. As with all sequencing data, a sequence quality pre-check and filtering step is crucial. For your first step, let's import these FASTQ files into a Qiime2 artefact and visualize our quality scores. 
+Unlike the practical, you will start with the FASTQ reads for the integrated assignment. These FASTQs has been downloaded to your AWS instance already and can be found in the location specified above. Please symlink the files into your workspace directory. As with all sequencing data, a sequence quality pre-check and filtering step is crucial. For your first step, let's import these FASTQ files into a Qiime2 artefact and visualize our quality scores.
 
 The import command is a bit different compared to the 16S module, see if you can figure it out by using the `--help` command or using the [qiime2 import tutorial](https://docs.qiime2.org/2021.4/tutorials/importing/)
 
-If you have trouble, the answer is below after section 1.5. 
+If you have trouble, the answer is below after section 1.5.
 
 After you do this, you should have a Qiime2 Artefact (*.qza) and a Qiime2 visualization file (*.qzv)
 
@@ -165,7 +168,7 @@ First, in order to predict the functional pathways, we need to extract a few fil
 
 To generate the 3 input files from our Qiime2 work flow, check out the `qiime tools export` command. If you have trouble understanding it, see the answer below in section 1.6.
 
-After you generated the input files, for the remainder of this section, you will use the picrust2 environment. Activate it with `conda activate picrust2`. 
+After you generated the input files, for the remainder of this section, you will use the picrust2 environment. Activate it with `conda activate picrust2`.
 
 Now that we have the ASV abundance (abundances.tsv), ASV sequences (dna-sequences.fasta) and the metadata fille (metadata.txt), let's infer some functional pathways. We are now delving into the world of PiCRUSt2, refer back to the PiCRUSt2 tutorial for a refresher if needed. Let's start by generating our predictions for ECs.
 
@@ -214,7 +217,7 @@ Keep you findings and conclusions from the 16S data in mind though as we move on
 For importing reads into Qiime2:
 ```bash
 qiime tools import --type 'SampleData[PairedEndSequencesWithQuality]' --input-path ~/CourseData/MIC_data/IntegratedAssignment/16s/16s_reads/manifest.txt --output-path oralMicrobiome --input-format PairedEndFastqManifestPhred33V2
-``` 
+```
 
 For exporting input files for picrust2
 ```bash
@@ -257,6 +260,12 @@ Since these are human oral samples in ***Shaiber. A et al.*** it's always possib
 
 **Reminder:** You can use `GNU` to run samples in parallel and `--bypass-trim` to skip trimming step
 
+```bash
+# Remember to activate conda environment
+conda activate CBW_2021_KMER
+```
+
+
 ### 2.1.2- Taxonomic profiling of short reads
 
 In **Part I (1.2)** you have classified 16s rRNA ASVs using 16S based taxonomy database available. Now lets try to assign using **Whole Genome Sequencing** (WGS) based taxonomy database. Additionally, you will need to correct classification by estimating the species level abundance as discussed in Module 4 tutorial.
@@ -267,9 +276,19 @@ In **Part I (1.2)** you have classified 16s rRNA ASVs using 16S based taxonomy d
 
 ```bash
 perl helper_scripts/concat_paired_end.pl -p 4 --no_R_match -o cat_reads kneaddata_out/*_paired_*.fastq
+
+# Remember to activate conda environment
+
+# As per the Module4 Tutorial
+# For kracken2
+conda activate CBW_2021_KMER
+
+# For bracken
+conda activate CBW_2021_MARKER
+
 ```
 
-### 2.1.3- Functional profilining from short reads
+### 2.1.3- Functional profiling from short reads
 
 Now that we have the taxonomy profiles, we want to have the potential functional profiles for these samples for better resolution.
 
@@ -279,31 +298,64 @@ Now that we have the taxonomy profiles, we want to have the potential functional
 
 **Reminder:** As discussed in the workshop don’t forget to remove intermediate files to save significant storage space. This will help you perform following questions.
 
+
+```bash
+# Remember to activate conda environment
+
+# As per the Module4 Tutorial
+# For MMseqs2
+conda activate CBW_2021_KMER
+
+```
+
+
 ## 2.2- Metagenomic assembly and binning pipeline
 
 This type of analyses is rather computationally intensive as compared to read based analysis. Some steps of this pipeline require significantly more CPU threads and RAM as compared to the instances available for current workshop. For this reason, we have pre-computed a few steps for you to be able to continue with next steps using the files. We have assembled metagenomes and binned Metagenome Assembled Genomes (MAGs). From these MAGs we have made 50 prominent MAGs available for further analysis. You can copy these files to your working directory and attempt to answer following questions.
 
 ### 2.2.1- Quality assesment and taxonomy classification of MAGs
 
-Quality assesment of MAGs includes estimation of genome completeness and contamination by using collocated sets of genes that are ubiquitous and single-copy within a phylogenetic lineage. Assessment of genome quality can also be examined using plots depicting key genomic characteristics (e.g., GC, coding density) which highlight sequences outside the expected distributions of a typical genome.
+Quality assessment of MAGs includes estimation of genome completeness and contamination by using collocated sets of genes that are ubiquitous and single-copy within a phylogenetic lineage. Assessment of genome quality can also be examined using plots depicting key genomic characteristics (e.g., GC, coding density) which highlight sequences outside the expected distributions of a typical genome.
 
-Taxonomic classification of MAGs can be acheived by binning genomes into bins based on marker set compatibility, similarity in genomic characteristics, and proximity within a reference genome tree.
+Taxonomic classification of MAGs can be achieved by binning genomes into bins based on marker set compatibility, similarity in genomic characteristics, and proximity within a reference genome tree.
 
-Quality assesment and taxonomic qualification are key for downstream analysis.
+Quality assessment and taxonomic qualification are key for downstream analysis.
 
 > **Q. Prepare a table or summary to answer following questions: Which MAGs have the highest quality in the dataset?  How many MAGs pass a >70% complete & <10% contaminated threshold?**
 
 **Hint:** `CheckM` from **Tutorial 5**
 
-**Reminder:** Donot forget to add `--reduced_tree` flag in CheckM, otherwise it may take significantly more time or even not possible to run `CheckM`
+**Reminder:** Don't forget to add `--reduced_tree` flag in CheckM, otherwise it may take significantly more time or even not possible to run `CheckM`
+
+```bash
+
+# Remember to activate conda environment
+
+# As per the Module5 Tutorial
+. "/usr/local/conda/etc/profile.d/conda.sh"
+conda activate /usr/local/conda/envs/DRAM
+
+
+```
 
 ### 2.2.2- Prevalence, abundance, and site-specificity of MAGs
 
-Since the MAGs were pre-computed and provided without metadata, you will need to use some information about them for further analysis. You can use your knowledge of read mapping / read recruitment from Module 5 to find out the prevalance and abundance of these MAGs in different oral sites and couples.
+Since the MAGs were pre-computed and provided without metadata, you will need to use some information about them for further analysis. You can use your knowledge of read mapping / read recruitment from Module 5 to find out the prevalence and abundance of these MAGs in different oral sites and couples.
 
-> **Q2. Are there any site-specific (i-e tongue-associated, plaque-associates) genomes? If so, are these genomes' species found in 16S data? Prepare a table or figure to show the prevalance and abundance of MAGs across the couples and highlight site-specific (if any).**
+> **Q2. Are there any site-specific (i-e tongue-associated, plaque-associates) genomes? If so, are these genomes' species found in 16S data? Prepare a table or figure to show the prevalence and abundance of MAGs across the couples and highlight site-specific (if any).**
 
 Hint: `Bowtie2` & `samtools` from **Tutorial 5**
+
+```bash
+
+# This part was pre-computed in the tutorial5 but an example was added
+
+# Remember to activate conda environment
+# Bowtie2` & `samtools` are required for this which are available through this conda env
+conda activate CBW_2021_MARKER
+
+
+```
 
 ### 2.2.3- Phylogenomic analysis
 
@@ -323,26 +375,35 @@ IntegratedAssignment=~/CourseData/MIC_data/IntegratedAssignment
 
 # Pre-computed GTDB taxonomy assigned MAGs
 ${IntegratedAssignment}/ShotgunMetagenomics/GTDB_named_MAGs
+
+# Remember to activate conda environment
+conda activate /usr/local/conda/envs/DRAM
+
 ```
 
 ### 2.2.5- Functional annotation of MAGs
 
-Finally, we would like you to functionally annote QC filtered MAGs to identify different roles MAGs play within community. For functional annotation, you can use two different tool (`DRAM`, `FeGenie`). `DRAM` is computationally expensive and thus we have pre-computed the annotation process for you to visualize and summarize. Details of this are given below.
+Finally, we would like you to functionally annotate QC filtered MAGs to identify different roles MAGs play within community. For functional annotation, you can use two different tool (`DRAM`, `FeGenie`). `DRAM` is computationally expensive and thus we have pre-computed the annotation process for you to visualize and summarize. Details of this are given below.
 
-> **Q. Annotate MAGs using functional databses to identify what roles MAGs play in different oral sites? Do you see any unique functions/functional pathways in Couple B as compared to C?**
+> **Q. Annotate MAGs using functional databases to identify what roles MAGs play in different oral sites? Do you see any unique functions/functional pathways in Couple B as compared to C?**
 
 Hint: `FeGenie` & `DRAM` from **Tutorial 5**
 
 ```bash
 IntegratedAssignment=~/CourseData/MIC_data/IntegratedAssignment
 
-# Pre-computed DRAM Annoted MAGs
+# Pre-computed DRAM Annotated MAGs
 ${IntegratedAssignment}/ShotgunMetagenomics/DRAM_output_for_QC_MAGs/
+
+# Remember to activate conda environment
+conda activate /usr/local/conda/envs/DRAM
+
 ```
+
 
 ---
 
-### If you are reading this part, `Congratulations` you have completed the assignment !! Lets discuss your results in our upcoming session. If you are/were stuck on any part, write us on slack `MIC` channel. If its not possible to resolve, please summarize your error for discssuion in upcoming session to discuss.
+### If you are reading this part, `Congratulations` you have completed the assignment !! Lets discuss your results in our upcoming session. If you are/were stuck on any part, write us on slack `MIC` channel. If its not possible to resolve, please summarize your error for discussion in upcoming session to discuss.
 
 
 
