@@ -178,22 +178,22 @@ DNA_DB_Split: %(database_path)s/ChocoPhlAn/ChocoPhlAn_split/ #(The split databas
 This tutorial relies on a few external databases and libraries to perform the filtering tasks associated with MetaPro.  
 We have assembled the smaller databases in our precomputed files package  
 
-[The UniVec Core database]`(https://ftp.ncbi.nih.gov/pub/UniVec/)`  
-[A mouse host sequence database]`(http://ftp.ensembl.org/pub/current_fasta/mus_musculus/cds/)`  In this tutorial, we will use one from Ensembl  
+[The UniVec Core database](https://ftp.ncbi.nih.gov/pub/UniVec/)  
+[A mouse host sequence database](http://ftp.ensembl.org/pub/current_fasta/mus_musculus/cds/)  In this tutorial, we will use one from Ensembl  
 
 There are optional databases that are mentioned in this tutorial.  Due to the size of these references, they are not required to be present for this tutorial, but if one were to use MetaPro, it is highly suggested that they are obtained:
 
--   [The ChocoPhlan Pangenome Database]`(http://huttenhower.sph.harvard.edu/humann2_data/chocophlan/)`
--   [The NCBI Non-redundant (NR) Protein Database]`(ftp://ftp.ncbi.nih.gov/blast/db/FASTA/nr.gz)`
--   [The GB version of the nucleotide accession2taxid table]`(https://ftp.ncbi.nih.gov/pub/taxonomy/accession2taxid/)`
--   [The Centrifuge NT database]`(https://ccb.jhu.edu/software/centrifuge/manual.shtml#nt-database)`
+-   [The ChocoPhlan Pangenome Database](http://huttenhower.sph.harvard.edu/humann2_data/chocophlan/)
+-   [The NCBI Non-redundant (NR) Protein Database](ftp://ftp.ncbi.nih.gov/blast/db/FASTA/nr.gz)
+-   [The GB version of the nucleotide accession2taxid table](https://ftp.ncbi.nih.gov/pub/taxonomy/accession2taxid/)
+-   [The Centrifuge NT database](https://ccb.jhu.edu/software/centrifuge/manual.shtml#nt-database)
     -   To complete the centrifuge database install, the required utilities are placed in /pipeline_tools/centrifuge
--   [The Kaiju Database]`(https://github.com/bioinformatics-centre/kaiju)`
+-   [The Kaiju Database](https://github.com/bioinformatics-centre/kaiju)
     -   To complete the kaiju database install, the required utilities are placed in /pipeline_tools/kaiju
     -   MetaPro relies on the full database. `(makeDB.sh -r)`
--   [The NCBI Taxdump database]`(https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/)`
--   [The Swiss-Prot database (fasta)]`(https://www.uniprot.org/downloads)`
--   [The PRIAM Database]`(http://priam.prabi.fr/REL_JAN18/Distribution.zip)`
+-   [The NCBI Taxdump database](https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/)
+-   [The Swiss-Prot database (fasta)](https://www.uniprot.org/downloads)
+-   [The PRIAM Database](http://priam.prabi.fr/REL_JAN18/Distribution.zip)
     
 These optional databases require indexing prior to use.  
 -   MetaPro requires 2 versions of ChocoPhlan:
@@ -502,7 +502,7 @@ The following are the commands run by the script:
 
 ### Step 5. Remove abundant rRNA sequences *** **[DO NOT RUN]**  
 
-rRNA genes tend to be highly expressed in all samples and must therefore be screened out to avoid lengthy downstream processing times for the assembly and annotation steps. MetaPro uses `Barrnap` (https://github.com/tseemann/barrnap) and `Infernal` (http://infernal.janelia.org/).
+rRNA genes tend to be highly expressed in all samples and must therefore be screened out to avoid lengthy downstream processing times for the assembly and annotation steps. MetaPro uses [Barrnap](https://github.com/tseemann/barrnap) and [Infernal](http://infernal.janelia.org/).
 You could use sequence similarity tools such as BWA or BLAST for this step, but we find Infernal, albeit slower, is more sensitive as it relies on a database of covariance models (CMs) describing rRNA sequence profiles based on the Rfam database. Due to the reliance on CMs, Infernal, can take as much as 4 hours for ~100,000 reads on a single core.  In an effort to shrink the computing time, we leverage a computing cluster's multiple cores.  
 
 Here, MetaPro demonstrates the case for automation. MetaPro subdivides the input data, coordinates the concurrent processes, and collects the results into one single file after all of the scanning has been complete.  
@@ -614,7 +614,7 @@ In this step, MetaPro does the following:
 Hint: try using the command `tail mouse1_contigs.fasta`***  
   
 <br/><br/>
-> ***Question 7.2: How many reads were not used in contig assembly? How many reads were used in contig assembly? How many contigs did we generate?***  
+> ***Question 7.2: How many reads were not used in contig assembly? How many reads were used in contig assembly?***  
   
 
 <br/><br/>
