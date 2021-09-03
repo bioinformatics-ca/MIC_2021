@@ -123,6 +123,13 @@ chmod -R 777 mouse1_run
 ```
 
 
+Access your workspace in a web browser to view the output directory: _(keep the tab open!)_    
+```
+http://[ insert your IPv4 ]
+```
+
+
+
 ### Edit the configuration file  
 
 MetaPro controls many of its features with a configuration file. A copy has been provided for you in the downloaded data, but it needs to be altered to include the path to the databases.
@@ -261,11 +268,7 @@ Check the read quality with FastQC:
 
 The FastQC report is generated as an HTML file `mouse1_fastqc.html`. A zip file is also generated which includes data files used to generate the report.  
 
-
-Access your workspace in a web browser to view the FastQC report:  
-```
-http://[ insert your IPv4 ]
-```
+Open the FastQC report in a browser!  
 
 
 You can find the following information in the report:
