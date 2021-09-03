@@ -308,7 +308,7 @@ In this Quality-filtering stage, MetaPro will perform several actions:
 
 
 <br/><br/>
-> ***Question 1: How many low quality sequences have been removed?***  
+> ***Question 1.1: How many low quality sequences have been removed?***  
 
 <br/><br/>
 Use FastQC to check the quality of the reads filtered for low quality bases and short length:  
@@ -328,7 +328,7 @@ Compare with the previous report to see changes in the following sections:
 
 
 <br/><br/>
-> ***Question 2: How has the per read sequence quality curve changed in the final filtered output?***
+> ***Question 1.2: How has the per read sequence quality curve changed in the final filtered output?***
 
 <br/><br/>
 Use FastQC to check the quality of the final filtered output:  
@@ -379,7 +379,7 @@ A second output file `mouse1_unique.fastq.clstr` is created which shows exactly 
 
 
 <br/><br/>
-> ***Question 3: Can you find how many unique reads there are?***  
+> ***Question 2.1: Can you find how many unique reads there are?***  
 
 <br/><br/>Navigate to `mouse1_run/quality_filter/final_results/` to view the FastQC report, or look at the generated `singletons.fastq` file itself in the output directory.  
 
@@ -448,7 +448,7 @@ In handling paired-ended data, cases will arise where one read maps to a vector,
 - High filter stringency will remove reads where either pair aligned to a vector.  
 
 <br/><br/>
-> ***Question 4: Can you find how many reads BWA mapped to the vector database?***  
+> ***Question 3.1: Can you find how many reads BWA mapped to the vector database?***  
 
 
 <br/><br/>
@@ -493,7 +493,7 @@ The following are the commands run by the script:
 
 
 <br/><br/>
-> ***Question 5: How many reads did BWA and BLAT align to the mouse host sequence database?***  
+> ***Question 4.1: How many reads did BWA and BLAT align to the mouse host sequence database?***  
 
 
 
@@ -545,7 +545,7 @@ ls mouse1_run/rRNA_filter/final_results
 Here, we only remove a few thousand reads that map to rRNA, but in some datasets rRNA may represent up to 80% of the sequenced reads.  
 
 <br/><br/>
-> ***Question 6: How many rRNA sequences were identified? How many reads are now remaining?***  
+> ***Question 5.1: How many rRNA sequences were identified? How many reads are now remaining?***  
 
 <br/><br/>
 ### Step 6. Rereplication / duplicate repopulation
@@ -572,7 +572,7 @@ Now that we have filtered vectors, adapters, linkers, primers, host sequences, a
 ```  
 
 <br/><br/>
-> ***Question 7: How many total contaminant, host, and rRNA reads were filtered out?***  
+> ***Question 6.1: How many total contaminant, host, and rRNA reads were filtered out?***  
 
 <br/><br/>
 ### Step 7. Contig assembly   *** **[DO NOT RUN]**
@@ -610,11 +610,11 @@ In this step, MetaPro does the following:
 
 
 <br/><br/>
-> ***Question 8: How many contigs did SPAdes produce?  
+> ***Question 7.1: How many contigs did SPAdes produce?  
 Hint: try using the command `tail mouse1_contigs.fasta`***  
   
 <br/><br/>
-> ***Question 9: How many reads were not used in contig assembly? How many reads were used in contig assembly? How many contigs did we generate?***  
+> ***Question 7.2: How many reads were not used in contig assembly? How many reads were used in contig assembly? How many contigs did we generate?***  
   
 
 <br/><br/>
@@ -743,7 +743,7 @@ python3 /pipeline/Scripts/alter_taxa_for_krona.py mouse1_run/taxonomic_annotatio
 View the pie chart representation of the taxonomies detected through a web browser.  
 
 <br/><br/>
-> ***Question 10: What is the most abundant family in our dataset? What is the most abundant phylum?  
+> ***Question 9.1: What is the most abundant family in our dataset? What is the most abundant phylum?  
 Hint: Try decreasing the `Max depth` value on the top left of the screen and/or double clicking on spcific taxa.***
 
 
@@ -797,7 +797,7 @@ MetaPro reconciles the 3 annotations in the following manner:
   
 
 <br/><br/>
-> ***Question 11: How many high-confidence unique enzyme functions were identified in our dataset?***  
+> ***Question 10.1: How many high-confidence unique enzyme functions were identified in our dataset?***  
 
 
 <br/><br/>
