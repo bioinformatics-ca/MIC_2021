@@ -283,7 +283,7 @@ You can find the following information in the report:
 ## Process the Reads  
 
 
-### Step 1: Remove adapter sequences, trim low quality sequences, and remove duplicate reads.  
+### Step 1: Remove adapter sequences and trim low quality sequences.  
 
 In the first step, MetaPro removes adaptor sequences, trims low-quality reads, and removes duplicate reads in one pass.  
 
