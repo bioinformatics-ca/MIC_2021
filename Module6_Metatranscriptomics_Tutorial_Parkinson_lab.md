@@ -179,27 +179,27 @@ DNA_DB_Split: %(database_path)s/ChocoPhlAn/ChocoPhlAn_split/ #(The split databas
 This tutorial relies on a few external databases and libraries to perform the filtering tasks associated with MetaPro.  
 We have assembled the smaller databases in our precomputed files package  
 
-[The UniVec Core database](https://ftp.ncbi.nih.gov/pub/UniVec/)  
-[A mouse host sequence database](http://ftp.ensembl.org/pub/current_fasta/mus_musculus/cds/)  In this tutorial, we will use one from Ensembl  
+[The UniVec Core database]`(https://ftp.ncbi.nih.gov/pub/UniVec/)`  
+[A mouse host sequence database]`(http://ftp.ensembl.org/pub/current_fasta/mus_musculus/cds/)`  In this tutorial, we will use one from Ensembl  
 
 There are optional databases that are mentioned in this tutorial.  Due to the size of these references, they are not required to be present for this tutorial, but if one were to use MetaPro, it is highly suggested that they are obtained:
 
--   [The ChocoPhlan Pangenome Database](http://huttenhower.sph.harvard.edu/humann2_data/chocophlan/)
--   [The NCBI Non-redundant (NR) Protein Database](ftp://ftp.ncbi.nih.gov/blast/db/FASTA/nr.gz)
--   [The GB version of the nucleotide accession2taxid table](https://ftp.ncbi.nih.gov/pub/taxonomy/accession2taxid/)
--   [The Centrifuge NT database](https://ccb.jhu.edu/software/centrifuge/manual.shtml#nt-database)
+-   [The ChocoPhlan Pangenome Database]`(http://huttenhower.sph.harvard.edu/humann2_data/chocophlan/)`
+-   [The NCBI Non-redundant (NR) Protein Database]`(ftp://ftp.ncbi.nih.gov/blast/db/FASTA/nr.gz)`
+-   [The GB version of the nucleotide accession2taxid table]`(https://ftp.ncbi.nih.gov/pub/taxonomy/accession2taxid/)`
+-   [The Centrifuge NT database]`(https://ccb.jhu.edu/software/centrifuge/manual.shtml#nt-database)`
     -   To complete the centrifuge database install, the required utilities are placed in /pipeline_tools/centrifuge
--   [The Kaiju Database](https://github.com/bioinformatics-centre/kaiju)
+-   [The Kaiju Database]`(https://github.com/bioinformatics-centre/kaiju)`
     -   To complete the kaiju database install, the required utilities are placed in /pipeline_tools/kaiju
-    -   MetaPro relies on the full database. (makeDB.sh -r)
--   [The NCBI Taxdump database](https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/)
--   [The Swiss-Prot database (fasta)](https://www.uniprot.org/downloads)
--   [The PRIAM Database](http://priam.prabi.fr/REL_JAN18/Distribution.zip)
+    -   MetaPro relies on the full database. `(makeDB.sh -r)`
+-   [The NCBI Taxdump database]`(https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/)`
+-   [The Swiss-Prot database (fasta)]`(https://www.uniprot.org/downloads)`
+-   [The PRIAM Database]`(http://priam.prabi.fr/REL_JAN18/Distribution.zip)`
     
 These optional databases require indexing prior to use.  
 -   MetaPro requires 2 versions of ChocoPhlan:
-    -   One with all of sequences in a single file (for BWA)
-    -   One with all of the sequences separated. (for BLAT)
+    -   One with all of the sequences in a single file, for BWA
+    -   One with all of the sequences separated, for BLAT
 
 
 -   The commands used to build the indexed databases are as follows **[DO NOT RUN]**  
