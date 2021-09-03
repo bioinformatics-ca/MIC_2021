@@ -623,9 +623,9 @@ Hint: try using the command `tail mouse1_contigs.fasta`***
 
 Here we will attempt to infer the specific genes our putative mRNA reads originated from. In our pipeline we rely on a tiered set of sequence similarity searches of decreasing accuracy - BWA, BLAT, and DIAMOND. While BWA provides high stringency, sequence diversity that occurs at the nucleotide level results in few matches observed for these processes. Nonetheless it is quick. To avoid the problems of diversity that occur at the level of nucleotide, particularly in the absence of reference microbial genomes, we use a cascaded method involving two other tools: BLAT, and DIAMOND. BLAT provides a more sensitive alignment, along with quality scores to rank the matches.  DIAMOND is used to provide more sensitive peptide-based searches, which are less prone to sequence changes between strains.
 
-Since BWA and BLAT utilize nucleotide searches, we rely on the [ChocoPhlan pangenome database] (http://huttenhower.sph.harvard.edu/humann2_data/chocophlan/) that we obtained from The Huttenhower lab, which contains over 10000 organisms in separate .ffn files.  We create a merged copy of these sequences, and index it for BWA to use.  We leave it in its separated state for BLAT to use.  
+Since BWA and BLAT utilize nucleotide searches, we rely on the [ChocoPhlan pangenome database](http://huttenhower.sph.harvard.edu/humann2_data/chocophlan/) that we obtained from The Huttenhower lab, which contains over 10000 organisms in separate .ffn files.  We create a merged copy of these sequences, and index it for BWA to use.  We leave it in its separated state for BLAT to use.  
 
-For DIAMOND searches we use the [Non-Redundant (NR) protein database] (ftp://ftp.ncbi.nih.gov/blast/db/FASTA/nr.gz) from the NCBI.
+For DIAMOND searches we use the [Non-Redundant (NR) protein database](ftp://ftp.ncbi.nih.gov/blast/db/FASTA/nr.gz) from the NCBI.
 
 This is a computationally intensive step.  We employ our subdivision strategy here, similar to our design for rRNA removal, as seen below  
 
