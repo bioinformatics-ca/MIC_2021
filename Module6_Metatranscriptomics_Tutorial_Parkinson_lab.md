@@ -842,10 +842,14 @@ ls mouse1_run/outputs/final_results/
 ```
 
 <br/><br/>
-> ***Question 11.1: How many unique enzyme activities were predicted? View the `read_count.txt` file.***  
+> ***Question 11.1: How many unique enzyme activities were predicted, at low and high confidence? View the `read_count.txt` file.***  
 
 <br/><br/>
-> ***Question 11.2: Have a look at the `RPKM_table.tsv` file. What are the most highly expressed genes? Which phylum appears most active?***  
+> ***Question 11.2: Have a look at the `RPKM_table.tsv` file. What are the most highly expressed genes?***  
+
+<br/><br/>
+> ***Question 11.3: Which taxa appear to contribute the most metabolic activity? View the `enzyme_superpathway_heatmap.jpg`.***  
+
 
 <br/><br/>
 ### Step 12. Visualize the results using a KEGG Pathway as a scaffold in Cytoscape.  
