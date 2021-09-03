@@ -202,7 +202,7 @@ These optional databases require indexing prior to use.
     -   One with all of the sequences separated, for BLAT
 
 
--   The commands used to build the indexed databases are as follows **[DO NOT RUN]**  
+The commands used to build the indexed databases are as follows **[DO NOT RUN]**  
 
     To unpack chocophlan and combine all of the sequences:
     -   tar -xvf chocophlan.tar.gz && cd chocophlan
