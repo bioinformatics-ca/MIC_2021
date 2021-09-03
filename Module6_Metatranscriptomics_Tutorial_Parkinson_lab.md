@@ -750,15 +750,14 @@ Hint: Try decreasing the `Max depth` value on the top left of the screen and/or 
 <br/><br/>
 ### Step 10. Enzyme Function Annotation *** **[DO NOT RUN]**
 
-To help interpret our metatranscriptomic datasets from a functional perspective, we rely on mapping our data to functional networks such as metabolic pathways and maps of protein complexes. Here we will use the KEGG carbohydrate metabolism pathway.
+To help interpret our metatranscriptomic datasets from a functional perspective, we rely on mapping our data to functional networks such as metabolic pathways and maps of protein complexes. Here we predict enzyme functions (EC numbers) in our dataset, such that we may later map them to KEGG metabolic pathways.
 
-MetaPro uses 3 tools to produce its enzyme annotations: [PRIAM](http://priam.prabi.fr/), DIAMOND with the SwissProt Database, and [Detect](https://academic.oup.com/bioinformatics/article-lookup/doi/10.1093/bioinformatics/btq266)
+MetaPro uses three tools to produce its enzyme annotations: [DETECT](https://academic.oup.com/bioinformatics/article-lookup/doi/10.1093/bioinformatics/btq266), [PRIAM](http://priam.prabi.fr/), and DIAMOND.
 
 
-We need to match our annotated genes the enzymes in the KEGG pathway. To do this, we will use DIAMOND to identify homologs of our genes/proteins from the SWISS-PROT database that have assigned enzyme functions. Diamond is a relatively coarse and straight forward way to annotate enzyme function by homology. 
-We also use more robust methods for enzymatic function annotation, such as our own probability density based enzyme function annotation tool, DETECT, as well as PRIAM 
-MetaPro combines the predictions of all 3 tools to give 2 answers, a lower-confidence set of enzyme predictions, and a higher-confidence set of predictions.
-PRIAM is incredibly resource-intensive, and slow to run.  For the sake of brevity, the results have been provided for this tutorial.
+We use DIAMOND to identify homologs of our genes/proteins in the SWISS-PROT database that have assigned enzyme functions. This is a relatively coarse and straightforward way to annotate enzyme function by homology. We also use more robust methods for enzymatic function annotation, such as our own probability density-based enzyme function annotation tool, DETECT, and the tool PRIAM. MetaPro combines the predictions of all three tools to give two answers, a lower-confidence set of enzyme predictions, and a higher-confidence set of predictions.  
+
+PRIAM is incredibly resource-intensive and slow to run.  For the sake of time, pre-computed results have been provided.
 
 
 The format of the MetaPro command is:  
