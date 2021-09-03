@@ -592,9 +592,9 @@ read1=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/duplicate_repopulatio
 python3 /pipeline/MetaPro.py -c $config -s $read1 -o $output --tutorial contigs
 ```
 
-The pre-computed output is located in:  
+The pre-computed output is located in the following directory:  
 ```
-mouse1_run/assemble_contigs/final_results
+ls mouse1_run/assemble_contigs/final_results
 ```
 
 
@@ -669,7 +669,7 @@ python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --
 We have provided pre-computed outputs in the following directory:  
   
 ```
-mouse1_run/GA_FINAL_MERGE/final_results
+ls mouse1_run/GA_FINAL_MERGE/final_results
 ```
 
 
@@ -776,7 +776,11 @@ contig=/media/cbwdata/workspace/metapro_tutorial/mouse1_run/assemble_contigs/fin
 python3 /pipeline/MetaPro.py -c $config -s $read1 --contig $contig -o $output --tutorial EC
 ```
 
-The pre-computed results are provided in: `mouse1_run/enzyme_annotation/final_results`  
+The pre-computed results are provided in the following directory:  
+```
+ls mouse1_run/enzyme_annotation/final_results
+```
+
 
 
 **Notes:**  
@@ -839,14 +843,17 @@ ls mouse1_run/outputs/final_results/
 ```
 
 <br/><br/>
-> ***Question 12: have a look at the `RPKM_table.tsv` file. What are the most highly expressed genes? Which phylum appears most active?***  
+> ***Question 11.1: How many unique enzyme activities were predicted? View the `read_count.txt` file.***  
+
+<br/><br/>
+> ***Question 11.2: Have a look at the `RPKM_table.tsv` file. What are the most highly expressed genes? Which phylum appears most active?***  
 
 <br/><br/>
 ### Step 12. Visualize the results using a KEGG Pathway as a scaffold in Cytoscape.  
 
 This step will be performed on **your workstation**, using a Cytoscape file output from MetaPro.  
 
-To visualize our processed microbiome dataset in the context of the carbohydrate metabolism pathways, we use the network visualization tool **Cytoscape** together with the `enhancedGraphics` and `KEGGscape` plugins. Some useful commands for loading in networks, node attributes and changing visual properties are provided below (there are many Cytoscape tutorials available online).  Use cytoscape 3.7.2 (https://github.com/cytoscape/cytoscape/releases/3.7.2/) instead of the latest version.  
+To visualize our processed microbiome dataset in the context of the carbohydrate metabolism pathways, we use the network visualization tool **Cytoscape** together with the `enhancedGraphics` and `KEGGscape` plugins. Some useful commands for loading in networks, node attributes and changing visual properties are provided below (there are many Cytoscape tutorials available online).  Use [Cytoscape 3.7.2](https://github.com/cytoscape/cytoscape/releases/3.7.2/) instead of the latest version.  
 
 
 **Download the metabolic pathway**
@@ -864,7 +871,7 @@ wget https://github.com/ParkinsonLab/Metatranscriptome-Workshop/releases/downloa
 wget https://github.com/ParkinsonLab/Metatranscriptome-Workshop/releases/download/EC/ec00500.xml
 ```
 
-You can find other [pathways on KEGG] (http://www.genome.jp/kegg-bin/get_htext?htext=br08901.keg) which can also be imported into Cytoscape by selecting the `Download KGML` option on the top of the page for each pathway.
+You can find other [pathways on KEGG](http://www.genome.jp/kegg-bin/get_htext?htext=br08901.keg) which can also be imported into Cytoscape by selecting the `Download KGML` option on the top of the page for each pathway.
 
 
 Next, download the `Cytoscape_network.tsv` file through the browser. It is located within the `mouse1_run/outputs/final_results` folder.  This file contains expression values of enzymes (as RPKMs) of all taxa detected at >1% abundance within the dataset.
