@@ -733,7 +733,7 @@ We have provided pre-computed results here:
 mouse1_run/taxonomic_annotation/final_results
 ```
 
-We can use [Krona] (https://github.com/marbl/Krona/wiki) to generate a hierarchical multi-layered pie chart summary of the taxonomic composition of our dataset.  To use Krona, the export of MetaPro's taxonomic annotations need to be slightly modified:  
+We can use [Krona] https://github.com/marbl/Krona/wiki to generate a hierarchical multi-layered pie chart summary of the taxonomic composition of our dataset.  To use Krona, the export of MetaPro's taxonomic annotations need to be slightly modified:  
 
 ```
 python3 /pipeline/Scripts/alter_taxa_for_krona.py mouse1_run/taxonomic_annotation/final_results/taxonomic_classifications.tsv mouse1_classification.tsv
