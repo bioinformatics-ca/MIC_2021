@@ -367,7 +367,7 @@ The command line parameters are:
 
 To significantly reduce the amount of computating time required for identification and filtering of rRNA reads, we perform a dereplication step to remove duplicated reads using the software tool CD-HIT which can be obtained from this [website](https://github.com/weizhongli/cdhit).
 
-_Example command only_ **[DO NOT RUN]**. MetaPro already calls this command as part of the Quality-filtering step
+_Example command only_ **[DO NOT RUN]**. MetaPro already calls this command as part of the Quality-filtering step  
 /usr/local/prg/cd-hit-v4.6.7-2017-0501/cd-hit-auxtools/cd-hit-dup -i mouse1_qual.fastq -o mouse1_unique.fastq
 
 
