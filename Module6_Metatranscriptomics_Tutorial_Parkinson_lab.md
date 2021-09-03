@@ -21,19 +21,18 @@ This tutorial was developed by Billy Taj (billy.taj@sickkids.ca), Mobolaji Adeol
 
 This tutorial will take you through the MetaPro pipeline for processing metatranscriptomic data (https://doi.org/10.1101/2021.02.23.432558). The pipeline, developed by the Parkinson lab, consists of the following steps:
 
-1.  Remove low-quality reads that MetaPro has low confidence in processing.
-2.  Remove adapter sequences, which are added during library preparation and sequencing steps, and trim low quality bases and sequencing reads.
-3.  Remove duplicate reads to reduce processing time for following steps.
-4.  Remove vector contamination (reads derived from cloning vectors, spike-ins, and primers).
-5.  Remove host reads (if exploring a microbiome in which the host is an issue).
-6.  Remove abundant rRNA sequences which typically dominate metatranscriptomic datasets despite the use of rRNA removal kits.
-7.  Add duplicated reads, removed in step 2, back to the data set to improve quality of assemblies.
-8.  Classify reads to known taxonomic groups and visualize the taxonomic composition of your dataset.
-9.  Assemble the reads into contigs to improve annotation quality.
-10.  Annotate reads to known genes.
-11.  Map identified genes to the swiss-prot database to identify enzyme function
-12.  Generate normalized expression values associated with each gene.
-13. Visualize the results using KEGG metabolic pathways as scaffolds in Cytoscape.
+1.  Remove adapter sequences, which are added during library preparation and sequencing steps, and low-quality reads.
+2.  Remove duplicate reads to reduce processing time for following steps.
+3.  Remove vector contamination (reads derived from cloning vectors, spike-ins, and primers).
+4.  Remove host reads (if exploring a microbiome in which the host is an issue).
+5.  Remove abundant rRNA sequences which typically dominate metatranscriptomic datasets.
+6.  Repopulate duplicated reads, removed in step 2.
+7.  Assemble reads into contigs and predict ORFs.
+8.  Annotate reads to known genes and proteins.
+9.  Classify reads to known taxonomic groups and visualize the taxonomic composition of your dataset.
+10.  Predict enzyme function.
+11.  Generate output files, including gene annotations with normalized gene expression values, and enzyme predictions.
+12.  Visualize metabolic pathway activity, as mapped onto KEGG-defined pathways, within Cytoscape.
 
 The MetaPro metatranscriptomic pipeline includes existing bioinformatic tools and a series of Python scripts that handle the orchestrated invocation of the bioinformatics tools, read-conflict resolution, file format conversion, and output parsing. We will go through these steps to illustrate the complexity of the process and the underlying tools and scripts.  The operation of the pipeline is designed to run all steps automatically in succession.  However, for the purposes of the tutorial, a single-step tutorial-mode has been included in MetaPro's design.  One can now call the MetaPro pipeline to perform each step in isolation, for learning purposes.
 
