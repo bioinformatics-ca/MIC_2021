@@ -503,7 +503,7 @@ The following are the commands run by the script:
 
 ### Step 5. Remove abundant rRNA sequences *** **[DO NOT RUN]**  
 
-rRNA genes tend to be highly expressed in all samples and must therefore be screened out to avoid lengthy downstream processing times for the assembly and annotation steps. MetaPro uses [Barrnap] (https://github.com/tseemann/barrnap) and [Infernal] (http://infernal.janelia.org/).
+rRNA genes tend to be highly expressed in all samples and must therefore be screened out to avoid lengthy downstream processing times for the assembly and annotation steps. MetaPro uses `Barrnap` (https://github.com/tseemann/barrnap) and `Infernal` (http://infernal.janelia.org/).
 You could use sequence similarity tools such as BWA or BLAST for this step, but we find Infernal, albeit slower, is more sensitive as it relies on a database of covariance models (CMs) describing rRNA sequence profiles based on the Rfam database. Due to the reliance on CMs, Infernal, can take as much as 4 hours for ~100,000 reads on a single core.  In an effort to shrink the computing time, we leverage a computing cluster's multiple cores.  
 
 Here, MetaPro demonstrates the case for automation. MetaPro subdivides the input data, coordinates the concurrent processes, and collects the results into one single file after all of the scanning has been complete.  
