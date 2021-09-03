@@ -116,13 +116,6 @@ The downloaded contents include:
 MetaPro's tools may take a long time to run if the user does not have the necessary computing resources.  Therefore, we provide _pre-computed output files_ (within the `mouse1_run/` folder) so that the user is not forced to run computationally intensive steps during the tutorial. 
 
 
-Inspect the sequences:  
-```
-less mouse1.fastq
-```
-
-**Notes:**
--   Type `q` to exit `less`.
 
 Change the permissions of the `mouse1_run/` folder in order to view its contents through a browser ( via your IP address, http://[ public ipv4 ] ):
 ```
@@ -250,13 +243,24 @@ All MetaPro steps share the same file directory scheme:
 
 
 
-### Check read quality with FastQC  
+### Inspect the sequences and check read quality with FastQC  
 
+Inspect the sequences:  
+```
+less mouse1.fastq
+```
+
+**Notes:**
+-   Type `q` to exit `less`.
+
+
+Check the read quality with FastQC:  
 ```
 /pipeline_tools/FastQC/fastqc mouse1.fastq
 ```
 
 The FastQC report is generated as an HTML file `mouse1_fastqc.html`. A zip file is also generated which includes data files used to generate the report.  
+
 
 Access your workspace in a web browser to view the FastQC report:  
 ```
